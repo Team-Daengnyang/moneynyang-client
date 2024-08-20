@@ -10,6 +10,7 @@
 ### 📋 Model Diagram
 
 ### 📖 Directory
+```
 src/
 │
 ├── assets/           # 이미지, 폰트, 글로벌 스타일 등
@@ -53,6 +54,7 @@ src/
 │
 └── utils/            # 유틸리티 함수 모음
     └── validators.ts
+```
 
 ### ✉️ Commit Messge Rules
 
@@ -114,14 +116,14 @@ const, let을 사용합니다. (var 사용 금지)
 ```
 const BASE_URL = "~~~";
 ```
-​
 #### 변수, 함수명
 - 카멜케이스 사용
+```
 //boolean 타입 저장 변수는 앞에 is 붙이기
 const isLoading = false;
 
 const getEnginList = () => {...}
-​
+​```
 #### 블록 구문
 - 한 줄짜리 블록일 경우라도 {}를 생략하지 않고, 명확히 줄 바꿈 하여 사용한다
 ```
@@ -133,7 +135,6 @@ if(true){
   return 'hello'
 }
 ```
-​
 #### 컴포넌트
 - 파스칼 케이스로 작성
 ```
@@ -142,13 +143,11 @@ Footer.jsx
 Home.jsx
 ...
 ```
-​
 #### Non-components
 - 카멜케이스 
 ```
 myUtilityFile.js cookieHelper.js fetchApi.js
 ```
-​
 #### 함수 선언
 - 함수 표현식과 화살표 함수를 사용합니다.
 ```

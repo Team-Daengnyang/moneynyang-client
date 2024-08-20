@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { Login } from "./pages/Login/login";
+import InvestPetPages from "./routes/InvestPages";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <div className="w-[360px] h-[780px]">
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/invest/*" element={<InvestPetPages />} />
         </Routes>
       </div>
     </>

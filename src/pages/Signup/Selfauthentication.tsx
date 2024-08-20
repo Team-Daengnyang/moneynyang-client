@@ -8,7 +8,7 @@ export const Selfauthentication = () => {
         <TopBar title={""} skip={""} />
         <p className="text-xl font-semibold">본인 인증을 해주세요</p>
       </div>
-      <Button text={"다음"} link={"/signup_2"}></Button>
+      <Button text={"다음"} link={"/account"}></Button>
     </div>
   );
 };

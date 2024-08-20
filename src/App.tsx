@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { Login } from "./pages/Login/login";
 import { Selfauthentication } from "./pages/Signup/Selfauthentication";
 import { AccountRegistration } from "./pages/Signup/AccountRegistration";
+import { AccountCover } from "./pages/Signup/AccountCover";
 
 function App() {
   return (
@@ -11,8 +12,9 @@ function App() {
       <div className="w-[360px] h-[780px]">
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/signup_1" element={<Selfauthentication />} />
-          <Route path="/signup_2" element={<AccountRegistration />} />
+          <Route path="/signup" element={<Selfauthentication />} />
+          <Route path="/account" element={<AccountRegistration />} />
+          <Route path="/custom" element={<AccountCover />} />
         </Routes>
       </div>
     </>

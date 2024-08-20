@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 interface TopBarProps {
   title: String;
-  skip: Boolean;
+  skip: String;
 }
 
 export const TopBar = ({ title, skip }: TopBarProps) => {
@@ -10,7 +10,7 @@ export const TopBar = ({ title, skip }: TopBarProps) => {
   const place = skip ? "justify-between" : "space-x-16";
 
   return (
-    <div className={`flex py-5 mb-3 px-3 ${place}`}>
+    <div className={`flex py-3 mb-3 ${place}`}>
       <img
         src="src/assets/leftAngle.png"
         className="w-6"
@@ -18,7 +18,7 @@ export const TopBar = ({ title, skip }: TopBarProps) => {
       />
       <p className="text-lg font-semibold">{title}</p>
       {skip ? (
-        <Link to={""} className="text-main-color mt-1">
+        <Link to={`${skip}`} className="text-main-color mt-1">
           건너뛰기
         </Link>
       ) : null}

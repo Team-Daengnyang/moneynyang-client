@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { Login } from "./pages/Login/login";
 import { Selfauthentication } from "./pages/Signup/Selfauthentication";
+import { AccountRegistration } from "./pages/Signup/AccountRegistration";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup_1" element={<Selfauthentication />} />
+          <Route path="/signup_2" element={<AccountRegistration />} />
         </Routes>
       </div>
     </>

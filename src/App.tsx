@@ -4,6 +4,8 @@ import { Selfauthentication } from "./pages/Signup/Selfauthentication";
 import { AccountRegistration } from "./pages/Signup/AccountRegistration";
 import { AccountCover } from "./pages/Signup/AccountCover";
 import { AnimalInfo } from "./pages/Signup/AnimalInfo";
+import { AnimalCheck } from "./pages/Signup/AnimalCheck";
+import { SignupSuccess } from "./pages/Signup/SignupSuccess";
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
           <Route path="/account" element={<AccountRegistration />} />
           <Route path="/custom" element={<AccountCover />} />
           <Route path="/animal" element={<AnimalInfo />} />
+          <Route path="/animal_check" element={<AnimalCheck />} />
+          <Route path="/success" element={<SignupSuccess />} />
         </Routes>
       </div>
     </>

@@ -1,11 +1,13 @@
 import { TopBar } from "../../components/Topbar";
 import moneyBag from "../../assets/images/money bag.png";
 import chevronRight from "../../assets/icons/chevronRight.png";
-import sampleDog from "../../assets/images/sampleDog.png";
+import sampleDog from "../../assets/images/sampleDog.jpg";
 import paw from "../../assets/icons/gray paw.png";
 import GoalCard from "../../components/Card/GoalCard";
+import { useNavigate } from "react-router-dom";
 
 const InvestPet = () => {
+  const navigate = useNavigate();
   return (
     <div className="h-full pt-6 px-4 bg-gray-0 ">
       <TopBar title={"우리 아이 덕질하기"} skip={""} />
@@ -46,7 +48,12 @@ const InvestPet = () => {
         />
       </div>
       {/*  */}
-      <div className="w-full h-[40px] bg-blue-000 flex justify-center items-center font-semibold text-blue-100 text-[14px] rounded-md cursor-pointer my-[14px]">
+      <div
+        onClick={() => {
+          navigate("/invest/savingsGoal");
+        }}
+        className="w-full h-[40px] bg-blue-000 flex justify-center items-center font-semibold text-blue-100 text-[14px] rounded-md cursor-pointer my-[14px]"
+      >
         저축 목표 추가하기
       </div>
       {/*  */}

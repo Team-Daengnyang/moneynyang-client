@@ -1,5 +1,11 @@
 import { Route, Routes } from "react-router-dom";
 import { Login } from "./pages/Login/login";
+import { Selfauthentication } from "./pages/Signup/Selfauthentication";
+import { AccountRegistration } from "./pages/Signup/AccountRegistration";
+import { AccountCover } from "./pages/Signup/AccountCover";
+import { AnimalInfo } from "./pages/Signup/AnimalInfo";
+import { AnimalCheck } from "./pages/Signup/AnimalCheck";
+import { SignupSuccess } from "./pages/Signup/SignupSuccess";
 
 function App() {
   return (
@@ -9,6 +15,12 @@ function App() {
       <div className="w-[360px] h-[780px]">
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Selfauthentication />} />
+          <Route path="/account" element={<AccountRegistration />} />
+          <Route path="/custom" element={<AccountCover />} />
+          <Route path="/animal" element={<AnimalInfo />} />
+          <Route path="/animal_check" element={<AnimalCheck />} />
+          <Route path="/success" element={<SignupSuccess />} />
         </Routes>
       </div>
     </>

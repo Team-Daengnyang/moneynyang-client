@@ -12,7 +12,12 @@ const InvestPet = () => {
     <div className="h-full pt-6 px-4 bg-gray-0 ">
       <TopBar title={"우리 아이 덕질하기"} skip={""} />
       {/*  */}
-      <div className="w-full h-[80px] bg-main flex justify-between items-center rounded-lg border-2 border-gray-200 py-4 px-3 box-border	cursor-pointer">
+      <div
+        onClick={() => {
+          navigate("/invest/totalSpent");
+        }}
+        className="w-full h-[80px] bg-main flex justify-between items-center rounded-lg border-2 border-gray-200 py-4 px-3 box-border	cursor-pointer"
+      >
         <div className="flex gap-2 justify-center items-center ">
           <img className="w-[40px] h-[40px]" src={moneyBag} />
           <div>

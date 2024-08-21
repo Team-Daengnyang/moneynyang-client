@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { TopBar } from "../../components/Topbar";
-import star from "../../assets/icons/star.png";
+import { useNavigate } from "react-router-dom";
 
 const SavingsGoal = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+
+  const navigate = useNavigate();
 
   const handleDateInput = (
     value: string,
@@ -38,7 +40,12 @@ const SavingsGoal = () => {
         적어주세요
       </h1>
       <div>
-        <form>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            navigate("/invest");
+          }}
+        >
           <div>
             <div className="flex mb-2">
               <h1 className="text-[14px] font-semibold">목표</h1>

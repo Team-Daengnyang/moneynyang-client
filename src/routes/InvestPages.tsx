@@ -6,7 +6,7 @@ import TotalSpent from "../pages/investPet/TotalSpent";
 
 const InvestPetPages = () => {
   return (
-    <div>
+    <div className="w-[360px] h-[780px] relative">
       <Routes>
         <Route path="/" element={<InvestPet />} />
         <Route path="deposit" element={<Deposit />} />

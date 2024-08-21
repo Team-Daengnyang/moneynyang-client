@@ -1,9 +1,12 @@
 import { useState } from "react";
 import chevronDown from "../../assets/icons/chevronDown.png";
 import chevronUp from "../../assets/icons/chevronUp.png";
+import { useNavigate } from "react-router-dom";
 
 const GoalCard = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
   return (
     <div className="w-full p-4 bg-gray-50 rounded-lg border-2 border-solid border-gray-200 my-2">
       {/* 목표치 */}
@@ -20,7 +23,12 @@ const GoalCard = () => {
             / 200,000원
           </span>
         </div>
-        <button className="bg-blue-100 flex items-center justify-center py-2 px-4 rounded-[99px] text-gray-0 text-[14px] h-auto">
+        <button
+          onClick={() => {
+            navigate("/invest/deposit");
+          }}
+          className="bg-blue-100 flex items-center justify-center py-2 px-4 rounded-[99px] text-gray-0 text-[14px] h-auto"
+        >
           입금하기
         </button>
       </div>

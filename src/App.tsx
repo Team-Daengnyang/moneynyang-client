@@ -3,6 +3,7 @@ import { Login } from "./pages/Login/login";
 import { Selfauthentication } from "./pages/Signup/Selfauthentication";
 import { AccountRegistration } from "./pages/Signup/AccountRegistration";
 import { AccountCover } from "./pages/Signup/AccountCover";
+import { AnimalInfo } from "./pages/Signup/AnimalInfo";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/signup" element={<Selfauthentication />} />
           <Route path="/account" element={<AccountRegistration />} />
           <Route path="/custom" element={<AccountCover />} />
+          <Route path="/animal" element={<AnimalInfo />} />
         </Routes>
       </div>
     </>

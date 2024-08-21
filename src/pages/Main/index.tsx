@@ -1,5 +1,3 @@
-import { Navbar } from "../../components/Navbar";
-
 export const Main = () => {
   return (
     <div className="h-full pt-6 px-4 bg-[#F8F8F8]">
@@ -103,7 +101,7 @@ export const Main = () => {
               </p>
             </div>
             <img
-              src="src/assets/Main/rightAngle.png"
+              src="src/assets/rightAngle.png"
               alt=""
               className="w-5"
               style={{ cursor: "pointer" }}

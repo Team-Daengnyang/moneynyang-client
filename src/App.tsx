@@ -8,6 +8,7 @@ import { AnimalCheck } from "./pages/Signup/AnimalCheck";
 import { SignupSuccess } from "./pages/Signup/SignupSuccess";
 import { Main } from "./pages/Main";
 import { Navbar } from "./components/Navbar";
+import { Mypage } from "./pages/Mypage/Mypage";
 
 function App() {
   const location = useLocation();
@@ -18,6 +19,7 @@ function App() {
       <div className="w-[360px] h-[780px] relative">
         <Routes>
           <Route path="/" element={<Main />} />
+          <Route path="/mypage" element={<Mypage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Selfauthentication />} />
           <Route path="/account" element={<AccountRegistration />} />

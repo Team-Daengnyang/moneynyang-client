@@ -11,7 +11,7 @@ export const Navbar = () => {
     location.pathname === "/" ? "text-[#9FA4A9]" : "text-main-color";
 
   return (
-    <div className="w-full flex py-3 absolute bottom-0 bg-white justify-evenly place-items-end">
+    <div className="w-full flex py-2 absolute bottom-0 bg-white justify-evenly place-items-end">
       <div className="text-center" style={{ cursor: "pointer" }}>
         <img
           src={`src/assets/Navbar/${homeImg}.png`}
@@ -22,7 +22,7 @@ export const Navbar = () => {
       </div>
       <div className="text-center" style={{ cursor: "pointer" }}>
         <div className="grid place-items-center">
-          <div className="absolute bottom-10 rounded-full p-4 bg-gradient-to-b from-[#FFC436] to-[#FFAF36] z-10">
+          <div className="absolute bottom-8 rounded-full p-4 bg-gradient-to-b from-[#FFC436] to-[#FFAF36] z-10">
             <img
               src="src/assets/Navbar/card.png"
               className="w-6 h-6"

@@ -9,21 +9,20 @@
   line-height: 1.5;
   font-weight: 400;
 
-  /* color-scheme이 배경 색상 관련 코드 */
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  /* background-color: whitesmoke; */
+  color: #26282b;
+  background-color: #242424;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  /* max-width: 360px; */
-  /* margin-left: auto; */
-  /* margin-right: auto; */
+  max-width: 360px;
+  max-height: 780px;
+  margin-left: auto;
+  margin-right: auto;
 }
-
+/* 
 a {
   font-weight: 500;
   color: #646cff;
@@ -31,4 +30,4 @@ a {
 }
 a:hover {
   color: #535bf2;
-}
+} */

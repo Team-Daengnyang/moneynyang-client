@@ -4,10 +4,10 @@ import InsuranceDetail from "../pages/insurance/InsuranceDetail";
 
 const InsurancePages = () => {
   return (
-    <div>
+    <div className="w-[360px] h-[780px] relative">
       <Routes>
         <Route path="/" element={<Insurance />} />
-        <Route path="detail/:id" element={<InsuranceDetail />} />
+        <Route path="detail/:insuranceId" element={<InsuranceDetail />} />
       </Routes>
     </div>
   );

@@ -12,14 +12,16 @@ export const AccountRegistration = () => {
         <div className="bg-[#F4F4F4] p-5 flex justify-between rounded-lg place-items-center">
           <p className="font-semibold">충전 계좌 등록하기</p>
           <img
-            src="src/assets/Signup/plus.png"
+            src={`${
+              import.meta.env.VITE_PUBLIC_URL
+            }/src/assets/Signup/plus.png`}
             alt=""
             className="w-8"
-            onClick={() => navigate("/custom")}
+            onClick={() => navigate("/signup/custom")}
           />
         </div>
       </div>
-      <Button text={"다음"} link={"/"}></Button>
+      <Button text={"다음"} link={"/signup/animal"}></Button>
     </div>
   );
 };

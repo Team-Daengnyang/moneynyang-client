@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 export const Main = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="h-full pt-6 px-4 bg-[#F8F8F8]">
       <div className="space-y-5">
@@ -45,6 +49,9 @@ export const Main = () => {
             <div
               className="bg-main-color rounded-lg"
               style={{ cursor: "pointer" }}
+              onClick={() => {
+                navigate("/invest");
+              }}
             >
               <p className="text-white font-semibold p-5">
                 나의 펫 <br /> 덕질하기
@@ -105,6 +112,9 @@ export const Main = () => {
               alt=""
               className="w-5"
               style={{ cursor: "pointer" }}
+              onClick={() => {
+                navigate("/invest/totalSpent");
+              }}
             />
           </div>
         </div>

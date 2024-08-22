@@ -5,7 +5,7 @@ export const AnimalCheck = () => {
   //   const navigate = useNavigate();
   const openAndClosePage = (): void => {
     // 새 페이지 열기
-    const newWindow: Window | null = window.open("/success"); // 여기에 열고 싶은 페이지의 URL을 입력하세요.
+    const newWindow: Window | null = window.open("/signup/success"); // 여기에 열고 싶은 페이지의 URL을 입력하세요.
 
     if (newWindow) {
       // 3초 후에 새 페이지 닫기 및 메인 화면으로 이동

@@ -8,7 +8,13 @@ export const SignupSuccess = () => {
         </p>
       </div>
       <div className="flex place-content-center">
-        <img src="src/assets/Signup/success.png" alt="" className="w-4/5" />
+        <img
+          src={`${
+            import.meta.env.VITE_PUBLIC_URL
+          }/src/assets/Signup/success.png`}
+          alt=""
+          className="w-4/5"
+        />
       </div>
     </div>
   );

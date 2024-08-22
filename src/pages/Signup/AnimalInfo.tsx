@@ -101,7 +101,7 @@ export const AnimalInfo = () => {
           </div>
         </div>
       </div>
-      <Button text={"다음"} link={"/animal_check"}></Button>
+      <Button text={"다음"} link={"/signup/check"}></Button>
     </div>
   );
 };

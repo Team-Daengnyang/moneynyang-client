@@ -7,6 +7,7 @@ import { Mypage } from "./pages/Mypage/Mypage";
 import SignupPages from "./routes/SignupPages";
 import PaymentPages from "./routes/PaymentPages";
 import InsurancePages from "./routes/InsurancePages";
+import CashWalkPages from "./routes/CashWalkPages";
 
 function App() {
   const location = useLocation();
@@ -23,6 +24,7 @@ function App() {
           <Route path="/signup/*" element={<SignupPages />} />
           <Route path="/pay/*" element={<PaymentPages />} />
           <Route path="/insurance/*" element={<InsurancePages />} />
+          <Route path="/cashwalk/*" element={<CashWalkPages />} />
         </Routes>
         {location.pathname == "/" || location.pathname == "/mypage" ? (
           <Navbar />

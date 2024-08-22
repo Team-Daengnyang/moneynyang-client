@@ -64,6 +64,9 @@ export const Main = () => {
             </div>
             <div className="flex flex-col justify-between">
               <div
+                onClick={() => {
+                  navigate("/cashwalk");
+                }}
                 className="bg-[#FFC946] rounded-lg"
                 style={{ cursor: "pointer" }}
               >
@@ -78,6 +81,9 @@ export const Main = () => {
                 />
               </div>
               <div
+                onClick={() => {
+                  navigate("/cashwalk");
+                }}
                 className="bg-[#E3E5E7] rounded-lg"
                 style={{ cursor: "pointer" }}
               >

@@ -27,7 +27,7 @@ export const Navbar = () => {
       <div
         className="text-center"
         style={{ cursor: "pointer" }}
-        onClick={() => navigate("/")}
+        onClick={() => navigate("/pay")}
       >
         <div className="grid place-items-center">
           <div className="absolute bottom-8 rounded-full p-4 bg-gradient-to-b from-[#FFC436] to-[#FFAF36] z-10">

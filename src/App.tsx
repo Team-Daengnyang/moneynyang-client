@@ -5,6 +5,7 @@ import { Main } from "./pages/Main";
 import { Navbar } from "./components/Navbar";
 import { Mypage } from "./pages/Mypage/Mypage";
 import SignupPages from "./routes/SignupPages";
+import PaymentPages from "./routes/PaymentPages";
 
 function App() {
   const location = useLocation();
@@ -19,6 +20,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/invest/*" element={<InvestPetPages />} />
           <Route path="/signup/*" element={<SignupPages />} />
+          <Route path="/pay/*" element={<PaymentPages />} />
         </Routes>
         {location.pathname == "/" || location.pathname == "/mypage" ? (
           <Navbar />

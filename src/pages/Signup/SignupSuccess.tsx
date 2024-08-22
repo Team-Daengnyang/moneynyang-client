@@ -1,4 +1,14 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 export const SignupSuccess = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    setTimeout(() => {
+      navigate("/");
+    }, 3000);
+  }, []);
+
   return (
     <div className="h-full flex flex-col justify-center pt-6 px-4 bg-main-color text-center">
       <div className="space-y-3 mb-16">

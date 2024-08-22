@@ -94,7 +94,13 @@ export const Main = () => {
             </div>
           </div>
           {/* 분석 페이지 */}
-          <div className="border rounded-lg px-3 py-5 flex justify-between place-items-center">
+          <div
+            className="border rounded-lg px-3 py-5 flex justify-between place-items-center"
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              navigate("/invest/totalSpent");
+            }}
+          >
             <div className="flex space-x-3 place-items-center">
               <img
                 src="src/assets/Main/moneyBag.png"
@@ -107,15 +113,7 @@ export const Main = () => {
                 썼을까?
               </p>
             </div>
-            <img
-              src="src/assets/rightAngle.png"
-              alt=""
-              className="w-5"
-              style={{ cursor: "pointer" }}
-              onClick={() => {
-                navigate("/invest/totalSpent");
-              }}
-            />
+            <img src="src/assets/rightAngle.png" alt="" className="w-5" />
           </div>
         </div>
       </div>

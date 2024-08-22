@@ -26,18 +26,18 @@ export const AnimalInfo = () => {
         <div className="space-y-5">
           {/* 이름 */}
           <div className="space-y-2">
-            <label htmlFor="" className="block font-medium">
+            <label htmlFor="" className="block font-medium text-sm">
               이름 <span className="text-main-color">*</span>
             </label>
             <input
               type="text"
               placeholder="예) 춘삼이"
-              className="border rounded-lg px-4 py-3 w-full"
+              className="border rounded-lg px-4 py-3 w-full text-sm"
             />
           </div>
           {/* 성별 */}
           <div className="space-y-2">
-            <label htmlFor="" className="block font-medium">
+            <label htmlFor="" className="block font-medium text-sm">
               성별 <span className="text-main-color">*</span>
             </label>
             <div className="flex justify-between">
@@ -65,38 +65,37 @@ export const AnimalInfo = () => {
           </div>
           {/* 몸무게 */}
           <div className="space-y-2">
-            <label htmlFor="" className="block font-medium">
-              몸무게 <span className="text-[#9FA4A9] text-sm">(선택)</span>
+            <label htmlFor="" className="block font-medium text-sm">
+              몸무게 <span className="text-[#9FA4A9]">(선택)</span>
             </label>
             <div className="flex justify-between place-items-center space-x-3">
               <input
                 type="text"
-                className="border rounded-lg px-4 py-3 w-full"
+                className="border rounded-lg px-4 py-3 w-full text-sm"
               />
               <p className="text-[#73787E]">kg</p>
             </div>
           </div>
           {/* 생년월일 */}
           <div className="space-y-2">
-            <label htmlFor="" className="block font-medium">
-              생년월일 <span className="text-[#9FA4A9] text-sm">(선택)</span>
+            <label htmlFor="" className="block font-medium text-sm">
+              생년월일 <span className="text-[#9FA4A9]">(선택)</span>
             </label>
             <input
               type="text"
               placeholder="예) 240101"
-              className="border rounded-lg px-4 py-3 w-full"
+              className="border rounded-lg px-4 py-3 w-full text-sm"
             />
           </div>
           {/* 반려 동물 타입 */}
           <div className="space-y-2">
-            <label htmlFor="" className="block font-medium">
-              반려동물 타입{" "}
-              <span className="text-[#9FA4A9] text-sm">(선택)</span>
+            <label htmlFor="" className="block font-medium text-sm">
+              반려동물 타입 <span className="text-[#9FA4A9]">(선택)</span>
             </label>
             <input
               type="text"
               placeholder="예) 말티즈"
-              className="border rounded-lg px-4 py-3 w-full"
+              className="border rounded-lg px-4 py-3 w-full text-sm"
             />
           </div>
         </div>

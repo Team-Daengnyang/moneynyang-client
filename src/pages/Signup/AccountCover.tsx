@@ -34,7 +34,9 @@ export const AccountCover = () => {
             <p className="font-medium text-gray-500">12-3456-7899</p>
           </div>
           <img
-            src="src/assets/Signup/picture.png"
+            src={`${
+              import.meta.env.VITE_PUBLIC_URL
+            }/src/assets/Signup/picture.png`}
             alt=""
             className="w-[78px]"
             onClick={() => navigate("/")}
@@ -54,7 +56,9 @@ export const AccountCover = () => {
                     onClick={() => setMyColor(color)}
                   ></div>
                   <img
-                    src="src/assets/Signup/check.png"
+                    src={`${
+                      import.meta.env.VITE_PUBLIC_URL
+                    }/src/assets/Signup/check.png`}
                     alt=""
                     className="absolute top-0 right-0 w-6"
                   />
@@ -71,7 +75,7 @@ export const AccountCover = () => {
           </div>
         </div>
       </div>
-      <Button text={"다음"} link={"/animal"}></Button>
+      <Button text={"다음"} link={"/signup/animal"}></Button>
     </div>
   );
 };

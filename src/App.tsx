@@ -1,5 +1,6 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import { Login } from "./pages/Login/login";
+import InvestPetPages from "./routes/InvestPages";
 import { Selfauthentication } from "./pages/Signup/Selfauthentication";
 import { AccountRegistration } from "./pages/Signup/AccountRegistration";
 import { AccountCover } from "./pages/Signup/AccountCover";
@@ -21,6 +22,7 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/invest/*" element={<InvestPetPages />} />
           <Route path="/signup" element={<Selfauthentication />} />
           <Route path="/account" element={<AccountRegistration />} />
           <Route path="/custom" element={<AccountCover />} />

@@ -1,22 +1,9 @@
 // import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { TopBar } from "../../components/Topbar";
 
 export const AnimalCheck = () => {
-  //   const navigate = useNavigate();
-  const openAndClosePage = (): void => {
-    // 새 페이지 열기
-    const newWindow: Window | null = window.open("/signup/success"); // 여기에 열고 싶은 페이지의 URL을 입력하세요.
-
-    if (newWindow) {
-      // 3초 후에 새 페이지 닫기 및 메인 화면으로 이동
-      setTimeout((): void => {
-        newWindow.close(); // 새 페이지 닫기
-        window.location.href = "/"; // 메인 화면으로 이동 (여기에 메인 페이지의 URL을 입력하세요)
-      }, 2500); // 3000ms = 3초
-    } else {
-      console.error("새 창을 열 수 없습니다. 팝업 차단기를 확인하세요.");
-    }
-  };
+  const navigate = useNavigate();
 
   return (
     <div className="h-full pt-6 px-4 bg-white flex flex-col justify-between">
@@ -56,7 +43,9 @@ export const AnimalCheck = () => {
       </div>
       <button
         className="py-4 my-5 bg-main-color text-center text-white font-medium block rounded-lg"
-        onClick={openAndClosePage}
+        onClick={() => {
+          navigate("/signup/success");
+        }}
       >
         확인 완료
       </button>

@@ -1,10 +1,7 @@
-import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { TopBar } from "../../components/Topbar";
 
 export const LoginForm = () => {
-  const navigate = useNavigate();
-
   return (
     <div className="h-full pt-6 px-4 bg-white flex flex-col justify-between">
       <div>

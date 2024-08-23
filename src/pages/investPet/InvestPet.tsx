@@ -5,9 +5,50 @@ import sampleDog from "../../assets/images/sampleDog.jpg";
 import paw from "../../assets/icons/gray paw.png";
 import GoalCard from "../../components/Card/GoalCard";
 import { useNavigate } from "react-router-dom";
+import { IGoalCard } from "../../components/Card/GoalCard";
 
 const InvestPet = () => {
   const navigate = useNavigate();
+
+  const dummyDatas: IGoalCard[] = [
+    {
+      title: "여름에 강아지 펜션 놀러가기",
+      from: "2024.01.12",
+      to: "2024.07.01",
+      currentMoney: 50000,
+      goalMoney: 200000,
+      depositDatas: [
+        { date: "2024.02.01", amount: 30000 },
+        { date: "2024.04.01", amount: 20000 },
+        { date: "2024.06.15", amount: 10000 },
+      ],
+    },
+    {
+      title: "연말 여행 자금 모으기",
+      from: "2024.03.01",
+      to: "2024.12.01",
+      currentMoney: 100000,
+      goalMoney: 500000,
+      depositDatas: [
+        { date: "2024.05.10", amount: 50000 },
+        { date: "2024.07.20", amount: 100000 },
+        { date: "2024.09.15", amount: 150000 },
+      ],
+    },
+    {
+      title: "새 컴퓨터 장만하기",
+      from: "2024.02.15",
+      to: "2024.08.15",
+      currentMoney: 200000,
+      goalMoney: 1000000,
+      depositDatas: [
+        { date: "2024.03.01", amount: 100000 },
+        { date: "2024.05.15", amount: 150000 },
+        { date: "2024.07.01", amount: 200000 },
+      ],
+    },
+  ];
+
   return (
     <div className="h-full pt-6 px-4 bg-gray-0 ">
       <TopBar title={"우리 아이 덕질하기"} skip={""} />
@@ -21,7 +62,7 @@ const InvestPet = () => {
         <div className="flex gap-2 justify-center items-center ">
           <img className="w-[40px] h-[40px]" src={moneyBag} />
           <div>
-            <span className="font-semibold text-sm		">지금까지 나는</span>
+            <span className="font-semibold text-sm">지금까지 나는</span>
             <br />
             <span className="font-semibold text-blue-100 text-sm	">아롱이</span>
             <span className="font-semibold text-sm	">에게 얼마나 썼을까?</span>
@@ -62,8 +103,27 @@ const InvestPet = () => {
         저축 목표 추가하기
       </div>
       {/*  */}
-      <GoalCard />
-      <GoalCard />
+      {/* <GoalCard
+        title="여름에 강아지 펜션 놀러가기"
+        from="2024.01.12"
+        to="2024.07.01"
+        currentMoney={50000}
+        goalMoney={200000}
+        depositDatas={[{ date: "2024.07.26", amount: 25000 }]}
+      /> */}
+      {dummyDatas.map((data, i) => {
+        return (
+          <GoalCard
+            key={i}
+            title={data.title}
+            from={data.from}
+            to={data.to}
+            currentMoney={data.currentMoney}
+            goalMoney={data.goalMoney}
+            depositDatas={data.depositDatas}
+          />
+        );
+      })}
     </div>
   );
 };

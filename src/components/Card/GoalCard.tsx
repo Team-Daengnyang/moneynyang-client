@@ -3,7 +3,28 @@ import chevronDown from "../../assets/icons/chevronDown.png";
 import chevronUp from "../../assets/icons/chevronUp.png";
 import { useNavigate } from "react-router-dom";
 
-const GoalCard = () => {
+export interface IGoalCard {
+  title: string;
+  from: string;
+  to: string;
+  currentMoney: number;
+  goalMoney: number;
+  depositDatas: depositData[];
+}
+
+type depositData = {
+  date: string;
+  amount: number;
+};
+
+const GoalCard = ({
+  title,
+  from,
+  to,
+  currentMoney,
+  goalMoney,
+  depositDatas,
+}: IGoalCard) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -12,15 +33,13 @@ const GoalCard = () => {
       {/* 목표치 */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-[14px] font-semibold">
-            여름에 강아지 펜션 놀러가기
-          </h1>
+          <h1 className="text-[14px] font-semibold">{title}</h1>
           <h1 className="text-[12px] text-gray-500 font-semibold">
-            2024.04.12 ~ 2024.05.12
+            {from} ~ {to}
           </h1>
-          <span className="text-[14px] font-semibold">50000원 </span>
+          <span className="text-[14px] font-semibold">{currentMoney}원 </span>
           <span className="text-[14px] font-semibold text-gray-400">
-            / 200,000원
+            / {goalMoney}원
           </span>
         </div>
         <button
@@ -42,7 +61,20 @@ const GoalCard = () => {
         {isOpen ? (
           <div className="flex items-center justify-center flex-col transition-all duration-300">
             {/* 각 입금 내역 */}
-            <div className="mb-4 w-full flex gap-7">
+            {depositDatas.map((data, i) => {
+              return (
+                <div className="mb-4 w-full flex gap-7" key={i}>
+                  <span className="font-semibold text-[14px] text-gray-500">
+                    {data.date}
+                  </span>
+                  <span className="font-semibold text-[14px]">
+                    {data.amount}원
+                  </span>
+                </div>
+              );
+            })}
+
+            {/* <div className="mb-4 w-full flex gap-7">
               <span className="font-semibold text-[14px] text-gray-500">
                 2024.07.06
               </span>
@@ -53,7 +85,7 @@ const GoalCard = () => {
                 2024.07.06
               </span>
               <span className="font-semibold text-[14px] ">25,000원</span>
-            </div>
+            </div> */}
 
             <div
               className="flex  cursor-pointer"

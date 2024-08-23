@@ -23,7 +23,7 @@ export const PayMoney = () => {
           </div>
         </div>
         {/* 계좌 번호 */}
-        <div className="mt-14">
+        <div className="mt-12">
           <input
             type="text"
             placeholder="얼마를 보낼까요?"

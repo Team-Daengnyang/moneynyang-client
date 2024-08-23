@@ -12,7 +12,7 @@ export const AnimalCheck = () => {
         <div className="space-y-8">
           <div className="space-y-3">
             <p className="text-xl font-semibold">
-              반려 동물 정보가 알맞는지 <br /> 확인해 주세요
+              아이의 정보가 알맞는지 <br /> 확인해 주세요
             </p>
             <p className="text-main-color font-medium text-sm">
               수정하고 싶다면 뒤로가기를 눌러주세요
@@ -26,8 +26,8 @@ export const AnimalCheck = () => {
                 <td className="px-5">여아</td>
               </tr>
               <tr>
-                <th className="text-[#9FA4A9] font-medium">몸무게</th>
-                <td className="px-5">3.6kg</td>
+                <th className="text-[#9FA4A9] font-medium">강아지/고양이</th>
+                <td className="px-5">강아지</td>
               </tr>
               <tr>
                 <th className="text-[#9FA4A9] font-medium">생년월일</th>

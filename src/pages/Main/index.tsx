@@ -57,7 +57,7 @@ export const Main = () => {
                 나의 펫 <br /> 덕질하기
               </p>
               <img
-                src="src/assets/main/animals.png"
+                src="src/assets/Main/animals.png"
                 alt=""
                 className="w-[160px] rounded-b-lg"
               />
@@ -67,7 +67,7 @@ export const Main = () => {
                 onClick={() => {
                   navigate("/cashwalk");
                 }}
-                className="bg-[#FFC946] rounded-lg"
+                className="bg-[#FFC946] rounded-lg relative h-full"
                 style={{ cursor: "pointer" }}
               >
                 <p className="font-semibold pt-5 pl-5">
@@ -75,16 +75,16 @@ export const Main = () => {
                   <br /> 돈 벌기
                 </p>
                 <img
-                  src="src/assets/main/money.png"
+                  src="src/assets/Main/walk.png"
                   alt=""
-                  className="w-[160px] rounded-b-lg"
+                  className="w-[160px] rounded-b-lg absolute bottom-0"
                 />
               </div>
               <div
                 onClick={() => {
                   navigate("/cashwalk");
                 }}
-                className="bg-[#E3E5E7] rounded-lg"
+                className="bg-[#E3E5E7] rounded-lg mt-2"
                 style={{ cursor: "pointer" }}
               >
                 <p className="font-semibold pt-5 pl-5">
@@ -92,7 +92,7 @@ export const Main = () => {
                   <br /> 알아보기
                 </p>
                 <img
-                  src="src/assets/main/bankbook.png"
+                  src="src/assets/Main/bankbook.png"
                   alt=""
                   className="w-[160px] rounded-b-lg"
                 />

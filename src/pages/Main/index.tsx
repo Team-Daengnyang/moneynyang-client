@@ -88,7 +88,7 @@ export const Main = () => {
               </div>
               <div
                 onClick={() => {
-                  navigate("/cashwalk");
+                  navigate("/insurance");
                 }}
                 className="bg-[#E3E5E7] rounded-lg mt-2"
                 style={{ cursor: "pointer" }}

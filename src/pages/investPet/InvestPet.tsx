@@ -15,7 +15,7 @@ const InvestPet = () => {
       title: "여름에 강아지 펜션 놀러가기",
       from: "2024.01.12",
       to: "2024.07.01",
-      currentMoney: 50000,
+      currentMoney: 110000,
       goalMoney: 200000,
       depositDatas: [
         { date: "2024.02.01", amount: 30000 },
@@ -27,7 +27,7 @@ const InvestPet = () => {
       title: "연말 여행 자금 모으기",
       from: "2024.03.01",
       to: "2024.12.01",
-      currentMoney: 100000,
+      currentMoney: 150000,
       goalMoney: 500000,
       depositDatas: [
         { date: "2024.05.10", amount: 50000 },
@@ -39,7 +39,7 @@ const InvestPet = () => {
       title: "새 컴퓨터 장만하기",
       from: "2024.02.15",
       to: "2024.08.15",
-      currentMoney: 200000,
+      currentMoney: 800000,
       goalMoney: 1000000,
       depositDatas: [
         { date: "2024.03.01", amount: 100000 },

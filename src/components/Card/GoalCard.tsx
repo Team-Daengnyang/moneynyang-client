@@ -28,6 +28,8 @@ const GoalCard = ({
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
+  const progressPercent = Math.min((currentMoney / goalMoney) * 100, 100);
+
   return (
     <div className="w-full p-4 bg-gray-50 rounded-lg border-2 border-solid border-gray-200 my-2">
       {/* 목표치 */}
@@ -53,7 +55,10 @@ const GoalCard = ({
       </div>
       {/* progress bar */}
       <div className="w-full h-2 bg-gray-200 my-3 rounded-full relative">
-        <div className="h-full bg-blue-100 rounded-full absolute left-0 w-[100px]"></div>
+        <div
+          className="h-full bg-blue-100 rounded-full absolute left-0"
+          style={{ width: `${progressPercent}%` }}
+        ></div>
       </div>
       <hr className="my-4" />
       {/* 저축 내역 보기 */}

@@ -32,7 +32,13 @@ export const Main = () => {
             </p>
           </div>
           {/* 내 계좌 */}
-          <div className="border rounded-lg bg-white p-5">
+          <div
+            className="border rounded-lg bg-white p-5"
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              navigate("/account");
+            }}
+          >
             <p className="font-semibold text-lg mb-1">내 계좌</p>
             <div className="flex space-x-1 place-items-center mb-3">
               <img

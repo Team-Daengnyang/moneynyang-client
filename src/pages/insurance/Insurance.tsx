@@ -3,9 +3,37 @@ import { TopBar } from "../../components/Topbar";
 import sampleDog from "../../assets/images/sampleDog.jpg";
 import idea from "../../assets/icons/Idea.png";
 import InsuranceCard from "../../components/Card/InsuranceCard";
+import hanhwa from "../../assets/images/hanhwa.png";
 
 const Insurance = () => {
   const [isLeft, setIsLeft] = useState(true);
+  const dummyDatas = [
+    {
+      imgSrc: hanhwa,
+      insuranceName: "한화손해보험",
+      price: 55000,
+      insuranceId: 1,
+    },
+    {
+      imgSrc: hanhwa,
+      insuranceName: "싸피보험",
+      price: 40000,
+      insuranceId: 2,
+    },
+    {
+      imgSrc: hanhwa,
+      insuranceName: "신한라이프",
+      price: 76000,
+      insuranceId: 3,
+    },
+    {
+      imgSrc: hanhwa,
+      insuranceName: "신한생명",
+      price: 55000,
+      insuranceId: 4,
+    },
+  ];
+
   return (
     <div className="h-full pt-6 px-4 bg-gray-0">
       <TopBar title={"펫 금융상품 알아보기"} skip={""} />
@@ -97,10 +125,41 @@ const Insurance = () => {
 
       {/* 리스트 */}
       <ul>
-        <InsuranceCard />
-        <InsuranceCard />
-        <InsuranceCard />
-        <InsuranceCard />
+        {/* <InsuranceCard
+          imgSrc={hanhwa}
+          insuranceName="한화손해보험"
+          price={52000}
+          insuranceId={1}
+        />
+        <InsuranceCard
+          imgSrc={hanhwa}
+          insuranceName="싸피보험"
+          price={40000}
+          insuranceId={2}
+        />
+        <InsuranceCard
+          imgSrc={hanhwa}
+          insuranceName="신한라이프"
+          price={76000}
+          insuranceId={3}
+        />
+        <InsuranceCard
+          imgSrc={hanhwa}
+          insuranceName="신한생명"
+          price={55000}
+          insuranceId={4}
+        /> */}
+        {dummyDatas.map((data, i) => {
+          return (
+            <InsuranceCard
+              key={data.insuranceId}
+              imgSrc={data.imgSrc}
+              insuranceName={data.insuranceName}
+              price={data.price}
+              insuranceId={data.insuranceId}
+            />
+          );
+        })}
       </ul>
     </div>
   );

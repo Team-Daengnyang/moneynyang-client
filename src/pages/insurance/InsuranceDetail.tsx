@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 const InsuranceDetail = () => {
   const { insuranceId } = useParams();
-  return <div>InsuranceDetail</div>;
+  return <div className="text-gray-0">{insuranceId}</div>;
 };
 
 export default InsuranceDetail;

@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 export const Login = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="h-full flex flex-col justify-center pt-6 px-4 bg-main-color text-center">
       <div className="space-y-5 mb-20">
@@ -11,14 +15,27 @@ export const Login = () => {
         <img src="src/assets/Login/loginImg.png" alt="" className="w-full" />
       </div>
       <div className="flex-col place-content-center space-y-3">
-        <div className="w-full rounded-md bg-[#FEE500] text-center py-5 flex place-content-center space-x-3">
-          <img src="src/assets/Login/kakao.png" alt="" className="w-4" />
-          <p className=" font-medium">카카오로 로그인</p>
+        <div
+          className="w-full rounded-md bg-[#26282B] text-center py-4 flex place-content-center space-x-3"
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            navigate("/login/form");
+          }}
+        >
+          <p className=" font-semibold text-white">로그인하기</p>
         </div>
-        <div className="w-full rounded-md bg-[#03C75A] text-center py-5 flex place-content-center space-x-3">
-          <img src="src/assets/Login/naver.png" alt="" className="w-4" />
-          <p className="font-medium text-white">네이버로 로그인</p>
-        </div>
+        <p className=" font-medium text-white">
+          아직 가입을 안하셨다면?{" "}
+          <span
+            className="border-b"
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              navigate("/signup");
+            }}
+          >
+            회원 가입하기
+          </span>
+        </p>
       </div>
     </div>
   );

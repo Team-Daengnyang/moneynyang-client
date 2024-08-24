@@ -15,13 +15,14 @@ interface petInfo {
 export const AnimalInfo = () => {
   const navigate = useNavigate();
   const [gender, setGender] = useState(2);
+  const [animal, setAnimal] = useState(2);
 
   return (
     <div className="h-full pt-6 px-4 bg-white flex flex-col justify-between">
       <div>
         <TopBar title={""} skip={""} />
         <p className="text-xl font-semibold mb-5">
-          반려 동물의 <br /> 정보를 알려주세요
+          우리 아이의 <br /> 정보를 알려주세요
         </p>
         <div className="space-y-5">
           {/* 이름 */}
@@ -63,19 +64,6 @@ export const AnimalInfo = () => {
               </div>
             </div>
           </div>
-          {/* 몸무게 */}
-          <div className="space-y-2">
-            <label htmlFor="" className="block font-medium text-sm">
-              몸무게 <span className="text-[#9FA4A9]">(선택)</span>
-            </label>
-            <div className="flex justify-between place-items-center space-x-3">
-              <input
-                type="text"
-                className="border rounded-lg px-4 py-3 w-full text-sm"
-              />
-              <p className="text-[#73787E]">kg</p>
-            </div>
-          </div>
           {/* 생년월일 */}
           <div className="space-y-2">
             <label htmlFor="" className="block font-medium text-sm">
@@ -87,10 +75,38 @@ export const AnimalInfo = () => {
               className="border rounded-lg px-4 py-3 w-full text-sm"
             />
           </div>
+          {/* 성별 */}
+          <div className="space-y-2">
+            <label htmlFor="" className="block font-medium text-sm">
+              강아지/고양이 <span className="text-main-color">*</span>
+            </label>
+            <div className="flex justify-between">
+              <div
+                className={`px-[58px] py-3 text-center rounded-lg font-medium text-sm ${
+                  animal === 0
+                    ? "bg-[#DBEAFF] border border-main-color text-main-color"
+                    : "bg-[#F4F4F4] text-[#73787E]"
+                }`}
+                onClick={() => setAnimal(0)}
+              >
+                <p>강아지</p>
+              </div>
+              <div
+                className={`px-[58px] py-3 text-center rounded-lg font-medium text-sm ${
+                  animal === 1
+                    ? "bg-[#DBEAFF] border border-main-color text-main-color"
+                    : "bg-[#F4F4F4] text-[#73787E]"
+                }`}
+                onClick={() => setAnimal(1)}
+              >
+                <p>고양이</p>
+              </div>
+            </div>
+          </div>
           {/* 반려 동물 타입 */}
           <div className="space-y-2">
             <label htmlFor="" className="block font-medium text-sm">
-              반려동물 타입 <span className="text-[#9FA4A9]">(선택)</span>
+              종류 <span className="text-[#9FA4A9]">(선택)</span>
             </label>
             <input
               type="text"

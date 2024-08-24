@@ -32,7 +32,13 @@ export const Main = () => {
             </p>
           </div>
           {/* 내 계좌 */}
-          <div className="border rounded-lg bg-white p-5">
+          <div
+            className="border rounded-lg bg-white p-5"
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              navigate("/account");
+            }}
+          >
             <p className="font-semibold text-lg mb-1">내 계좌</p>
             <div className="flex space-x-1 place-items-center mb-3">
               <img
@@ -57,14 +63,17 @@ export const Main = () => {
                 나의 펫 <br /> 덕질하기
               </p>
               <img
-                src="src/assets/main/animals.png"
+                src="src/assets/Main/animals.png"
                 alt=""
                 className="w-[160px] rounded-b-lg"
               />
             </div>
             <div className="flex flex-col justify-between">
               <div
-                className="bg-[#FFC946] rounded-lg"
+                onClick={() => {
+                  navigate("/cashwalk");
+                }}
+                className="bg-[#FFC946] rounded-lg relative h-full"
                 style={{ cursor: "pointer" }}
               >
                 <p className="font-semibold pt-5 pl-5">
@@ -72,13 +81,16 @@ export const Main = () => {
                   <br /> 돈 벌기
                 </p>
                 <img
-                  src="src/assets/main/money.png"
+                  src="src/assets/Main/walk.png"
                   alt=""
-                  className="w-[160px] rounded-b-lg"
+                  className="w-[160px] rounded-b-lg absolute bottom-0"
                 />
               </div>
               <div
-                className="bg-[#E3E5E7] rounded-lg"
+                onClick={() => {
+                  navigate("/cashwalk");
+                }}
+                className="bg-[#E3E5E7] rounded-lg mt-2"
                 style={{ cursor: "pointer" }}
               >
                 <p className="font-semibold pt-5 pl-5">
@@ -86,7 +98,7 @@ export const Main = () => {
                   <br /> 알아보기
                 </p>
                 <img
-                  src="src/assets/main/bankbook.png"
+                  src="src/assets/Main/bankbook.png"
                   alt=""
                   className="w-[160px] rounded-b-lg"
                 />

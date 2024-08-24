@@ -1,11 +1,14 @@
 import { Route, Routes, useLocation } from "react-router-dom";
-import { Login } from "./pages/Login/login";
 import InvestPetPages from "./routes/InvestPages";
 import { Main } from "./pages/Main";
 import { Navbar } from "./components/Navbar";
 import { Mypage } from "./pages/Mypage/Mypage";
 import SignupPages from "./routes/SignupPages";
 import PaymentPages from "./routes/PaymentPages";
+import InsurancePages from "./routes/InsurancePages";
+import CashWalkPages from "./routes/CashWalkPages";
+import LoginPages from "./routes/LoginPages";
+import AccountPages from "./routes/AccountPages";
 
 function App() {
   const location = useLocation();
@@ -17,10 +20,13 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/mypage" element={<Mypage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/invest/*" element={<InvestPetPages />} />
+          <Route path="/login/*" element={<LoginPages />} />
           <Route path="/signup/*" element={<SignupPages />} />
+          <Route path="/invest/*" element={<InvestPetPages />} />
           <Route path="/pay/*" element={<PaymentPages />} />
+          <Route path="/insurance/*" element={<InsurancePages />} />
+          <Route path="/cashwalk/*" element={<CashWalkPages />} />
+          <Route path="/account/*" element={<AccountPages />} />
         </Routes>
         {location.pathname == "/" || location.pathname == "/mypage" ? (
           <Navbar />

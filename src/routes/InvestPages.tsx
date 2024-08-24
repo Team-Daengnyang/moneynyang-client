@@ -7,7 +7,7 @@ import Complete from "../pages/investPet/Complete";
 
 const InvestPetPages = () => {
   return (
-    <div className="w-[360px] h-[780px] relative">
+    <div className="w-[360px] h-[780px] relative overflow-auto">
       <Routes>
         <Route path="/" element={<InvestPet />} />
         <Route path="deposit" element={<Deposit />} />

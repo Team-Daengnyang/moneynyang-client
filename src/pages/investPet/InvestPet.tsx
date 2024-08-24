@@ -50,7 +50,7 @@ const InvestPet = () => {
   ];
 
   return (
-    <div className="h-full pt-6 px-4 bg-gray-0 ">
+    <div className="h-full pt-6 px-4 bg-gray-0 overflow-auto">
       <TopBar title={"우리 아이 덕질하기"} skip={""} />
       {/*  */}
       <div

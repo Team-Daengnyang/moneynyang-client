@@ -29,7 +29,7 @@ const TotalSpent = () => {
   ];
 
   return (
-    <div className="h-full pt-6 px-4 bg-gray-0 overflow-auto">
+    <div className="h-full pt-6 px-4 bg-gray-0 overflow-y-auto overflow-x-hidden">
       <TopBar title={""} skip={""} />
 
       <div className="mb-5">

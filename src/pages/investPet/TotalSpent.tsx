@@ -5,8 +5,31 @@ import blueCheck from "../../assets/icons/blueCheck.png";
 import FinishedGoalCard from "../../components/Card/FinishedGoalCard";
 
 const TotalSpent = () => {
+  const dummyDatas = [
+    {
+      title: "여행 자금 모으기",
+      goalAmount: 1000000,
+      date: "2024-07-15",
+    },
+    {
+      title: "새 노트북 구매",
+      goalAmount: 1500000,
+      date: "2024-05-30",
+    },
+    {
+      title: "비상금 마련",
+      goalAmount: 500000,
+      date: "2024-06-20",
+    },
+    {
+      title: "운동 장비 구입",
+      goalAmount: 300000,
+      date: "2024-08-10",
+    },
+  ];
+
   return (
-    <div className="h-full pt-6 px-4 bg-gray-0">
+    <div className="h-full pt-6 px-4 bg-gray-0 overflow-y-auto overflow-x-hidden">
       <TopBar title={""} skip={""} />
 
       <div className="mb-5">
@@ -60,7 +83,16 @@ const TotalSpent = () => {
             <h1 className="text-[14px] font-bold">1개</h1>
             <h1 className="text-[14px] font-medium">를 달성했어요!</h1>
           </div>
-          <FinishedGoalCard />
+          {dummyDatas.map((data, i) => {
+            return (
+              <FinishedGoalCard
+                key={i}
+                title={data.title}
+                date={data.date}
+                goalAmount={data.goalAmount}
+              />
+            );
+          })}
         </div>
       </div>
     </div>

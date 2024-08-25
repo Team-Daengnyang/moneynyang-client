@@ -9,6 +9,7 @@ import InsurancePages from "./routes/InsurancePages";
 import CashWalkPages from "./routes/CashWalkPages";
 import LoginPages from "./routes/LoginPages";
 import AccountPages from "./routes/AccountPages";
+import ChatBot from "./pages/ChatBot/ChatBot";
 
 function App() {
   const location = useLocation();
@@ -27,6 +28,7 @@ function App() {
           <Route path="/insurance/*" element={<InsurancePages />} />
           <Route path="/cashwalk/*" element={<CashWalkPages />} />
           <Route path="/account/*" element={<AccountPages />} />
+          <Route path="/chatbot" element={<ChatBot />} />
         </Routes>
         {location.pathname == "/" || location.pathname == "/mypage" ? (
           <Navbar />

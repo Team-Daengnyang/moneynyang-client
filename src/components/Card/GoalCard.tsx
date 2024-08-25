@@ -2,84 +2,138 @@ import { useState } from "react";
 import chevronDown from "../../assets/icons/chevronDown.png";
 import chevronUp from "../../assets/icons/chevronUp.png";
 import { useNavigate } from "react-router-dom";
+import trash from "../../assets/icons/trash.png";
 
-const GoalCard = () => {
+export interface IGoalCard {
+  title: string;
+  from: string;
+  to: string;
+  currentMoney: number;
+  goalMoney: number;
+  depositDatas: depositData[];
+}
+
+type depositData = {
+  date: string;
+  amount: number;
+};
+
+const GoalCard = ({
+  title,
+  from,
+  to,
+  currentMoney,
+  goalMoney,
+  depositDatas,
+}: IGoalCard) => {
+  const [isClicked, setIsClicked] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [moveX, setMoveX] = useState(0);
+  const [endX, setEndX] = useState(0);
+
   const navigate = useNavigate();
 
-  return (
-    <div className="w-full p-4 bg-gray-50 rounded-lg border-2 border-solid border-gray-200 my-2">
-      {/* 목표치 */}
-      <div className="flex justify-between items-center">
-        <div>
-          <h1 className="text-[14px] font-semibold">
-            여름에 강아지 펜션 놀러가기
-          </h1>
-          <h1 className="text-[12px] text-gray-500 font-semibold">
-            2024.04.12 ~ 2024.05.12
-          </h1>
-          <span className="text-[14px] font-semibold">50000원 </span>
-          <span className="text-[14px] font-semibold text-gray-400">
-            / 200,000원
-          </span>
-        </div>
-        <button
-          onClick={() => {
-            navigate("/invest/deposit");
-          }}
-          className="bg-blue-100 flex items-center justify-center py-2 px-4 rounded-[99px] text-gray-0 text-[14px] h-auto"
-        >
-          입금하기
-        </button>
-      </div>
-      {/* progress bar */}
-      <div className="w-full h-2 bg-gray-200 my-3 rounded-full relative">
-        <div className="h-full bg-blue-100 rounded-full absolute left-0 w-[100px]"></div>
-      </div>
-      <hr className="my-4" />
-      {/* 저축 내역 보기 */}
-      <div>
-        {isOpen ? (
-          <div className="flex items-center justify-center flex-col transition-all duration-300">
-            {/* 각 입금 내역 */}
-            <div className="mb-4 w-full flex gap-7">
-              <span className="font-semibold text-[14px] text-gray-500">
-                2024.07.06
-              </span>
-              <span className="font-semibold text-[14px]">25,000원</span>
-            </div>
-            <div className="mb-4 w-full flex gap-7">
-              <span className="font-semibold text-[14px] text-gray-500">
-                2024.07.06
-              </span>
-              <span className="font-semibold text-[14px] ">25,000원</span>
-            </div>
+  const progressPercent = Math.min((currentMoney / goalMoney) * 100, 100);
 
-            <div
-              className="flex  cursor-pointer"
-              onClick={() => {
-                setIsOpen(!isOpen);
-              }}
-            >
-              <span className="text-gray-500 font-semibold text-[12px] mr-1">
-                저축 내역 닫기
-              </span>
-              <img src={chevronUp} className="w-4" />
-            </div>
+  return (
+    <div className="relative">
+      {/* 목표 */}
+      <div
+        onMouseDown={(e) => {
+          setIsClicked(true);
+          // console.log("클릭 시작 위치 : ", e.clientX);
+          setStartX(e.clientX);
+        }}
+        onMouseMove={(e) => {
+          if (isClicked) {
+            // console.log("이동한 거리 : ", e.clientX - startX);
+            if (e.clientX - startX < -30) {
+              setMoveX(-80);
+            } else {
+              setMoveX(0);
+            }
+          }
+        }}
+        onMouseUp={() => {
+          setIsClicked(false);
+          // console.log("마지막 위치 : ");
+        }}
+        style={{
+          transform: `translateX(${moveX}px)`,
+          transition: "transform 0.3s ease",
+        }}
+        className="relative z-10 w-full p-4 bg-gray-50 rounded-lg border-2 border-solid border-gray-200 my-2"
+      >
+        {/* 목표치 */}
+        <div className="flex justify-between items-center">
+          <div>
+            <h1 className="text-[14px] font-semibold">{title}</h1>
+            <h1 className="text-[12px] text-gray-500 font-semibold">
+              {from} ~ {to}
+            </h1>
+            <span className="text-[14px] font-semibold">{currentMoney}원 </span>
+            <span className="text-[14px] font-semibold text-gray-400">
+              / {goalMoney}원
+            </span>
           </div>
-        ) : (
+          <button
+            onClick={() => {
+              navigate("/invest/deposit");
+            }}
+            className="bg-blue-100 flex items-center justify-center py-2 px-4 rounded-[99px] text-gray-0 text-[14px] h-auto"
+          >
+            입금하기
+          </button>
+        </div>
+        {/* progress bar */}
+        <div className="w-full h-2 bg-gray-200 my-3 rounded-full relative">
           <div
-            className="flex items-center justify-center cursor-pointer transition-all duration-300"
+            className="h-full bg-blue-100 rounded-full absolute left-0"
+            style={{ width: `${progressPercent}%` }}
+          ></div>
+        </div>
+        <hr className="my-4" />
+        {/* 저축 내역 보기 */}
+        <div>
+          <div
+            className={`flex flex-col items-center justify-center transition-all duration-300 overflow-hidden ${
+              isOpen ? "max-h-[500px]" : "max-h-0"
+            }`}
+          >
+            {/* 각 입금 내역 */}
+            {depositDatas.map((data, i) => (
+              <div className="mb-4 w-full flex gap-7" key={i}>
+                <span className="font-semibold text-[14px] text-gray-500">
+                  {data.date}
+                </span>
+                <span className="font-semibold text-[14px]">
+                  {data.amount}원
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <div
+            className="flex items-center justify-center cursor-pointer"
             onClick={() => {
               setIsOpen(!isOpen);
             }}
           >
             <span className="text-gray-500 font-semibold text-[12px] mr-1">
-              저축 내역 보기
+              {isOpen ? "저축 내역 닫기" : "저축 내역 보기"}
             </span>
-            <img src={chevronDown} className="w-4" />
+            <img src={isOpen ? chevronUp : chevronDown} className="w-4" />
           </div>
-        )}
+        </div>
+      </div>
+      {/* 삭제 */}
+      <div
+        className="absolute right-0 top-0 w-[72px] h-[168px] rounded-md flex items-center justify-center gap-1 flex-col  cursor-pointer z-[1]"
+        style={{ backgroundColor: "#FF6E6E" }}
+      >
+        <img src={trash} className="w-[24px]" />
+        <h1 className="text-gray-0 text-[14px]">삭제</h1>
       </div>
     </div>
   );

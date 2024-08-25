@@ -8,10 +8,10 @@ export const Main = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="h-full pt-6 px-4 bg-[#F8F8F8] overflow-auto">
+    <div className="h-full pt-6 px-4 bg-[#F8F8F8] overflow-auto pb-[70px]">
       <div className="space-y-5 ">
         <img src="src/assets/Main/mainLogo.png" alt="" className="h-5 my-2 " />
-        <div className="space-y-3 flex flex-col justify-between overflow-hidden">
+        <div className="space-y-3 flex flex-col justify-between ">
           {/* 프로필 */}
           <div className="flex space-x-5 place-items-center">
             <img
@@ -55,7 +55,7 @@ export const Main = () => {
             <p className="font-semibold text-[26px]">398,227원</p>
           </div>
           {/* 메인 버튼 */}
-          <div className="flex justify-between">
+          <div className="flex justify-between gap-2">
             <div
               className="bg-main-color rounded-lg"
               style={{ cursor: "pointer" }}
@@ -92,7 +92,7 @@ export const Main = () => {
               </div>
               <div
                 onClick={() => {
-                  navigate("/insurance");
+                  navigate("/cashwalk");
                 }}
                 className="bg-[#E3E5E7] rounded-lg mt-2"
                 style={{ cursor: "pointer" }}
@@ -132,26 +132,14 @@ export const Main = () => {
             <img src="src/assets/rightAngle.png" alt="" className="w-5" />
           </div>
           {/* 챗봇 */}
-          <div>
-            <div className="border border-gray-300 bg-gray-0 h-14 w-full flex justify-center items-center rounded-[26px] mb-[68px]">
-              <div
-                className="w-full px-4 py-3 flex items-center justify-between"
-                onClick={() => {
-                  // enterChat(userId, locationName);
-                  navigate("/chatbot");
-                }}
-              >
-                <div className="flex items-center">
-                  <img src={chatIcon} className="w-7 mr-2 ml-[2px] m-1" />
-                  <h4 className="text-sm font-semibold text-[#1c1e1f]">
-                    챗봇에 물어보기
-                  </h4>
-                </div>
-                <FontAwesomeIcon
-                  icon={faChevronRight}
-                  className="text-gray-600"
-                />
-              </div>
+          <div
+            onClick={() => {
+              navigate("/chatbot");
+            }}
+            className="flex justify-end cursor-pointer"
+          >
+            <div className="flex items-center justify-center w-[56px] h-[56px] border border-gray-200 rounded-full">
+              <img src={chatIcon} />
             </div>
           </div>
         </div>

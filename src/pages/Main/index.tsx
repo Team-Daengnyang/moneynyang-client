@@ -8,10 +8,10 @@ export const Main = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="h-full pt-6 px-4 bg-[#F8F8F8] ">
+    <div className="h-full pt-6 px-4 bg-[#F8F8F8] overflow-auto">
       <div className="space-y-5 ">
-        <img src="src/assets/Main/mainLogo.png" alt="" className="h-5 my-2" />
-        <div className="space-y-3 flex flex-col justify-between">
+        <img src="src/assets/Main/mainLogo.png" alt="" className="h-5 my-2 " />
+        <div className="space-y-3 flex flex-col justify-between overflow-hidden">
           {/* 프로필 */}
           <div className="flex space-x-5 place-items-center">
             <img
@@ -132,22 +132,26 @@ export const Main = () => {
             <img src="src/assets/rightAngle.png" alt="" className="w-5" />
           </div>
           {/* 챗봇 */}
-          <div className="border border-gray-300 bg-gray-0 h-14 w-full flex justify-center items-center rounded-[26px] mt-5 mb-[500px]">
-            <div
-              className="z-2 bg-[#f6f8fa] text-sm h-13 w-full rounded-[26px] flex items-center justify-between box-border pr-5 cursor-pointer mx-px"
-              onClick={() => {
-                // enterChat(userId, locationName);
-                navigate("/chatbot");
-              }}
-            >
-              <div className="flex justify-center items-center text-center">
-                <img src={chatIcon} className="w-11 mr-2 ml-[2px] m-1 " />
-                <h4 className="text-sm text-[#1c1e1f]">AI 영웅에게 물어보기</h4>
+          <div>
+            <div className="border border-gray-300 bg-gray-0 h-14 w-full flex justify-center items-center rounded-[26px] mb-[68px]">
+              <div
+                className="w-full px-4 py-3 flex items-center justify-between"
+                onClick={() => {
+                  // enterChat(userId, locationName);
+                  navigate("/chatbot");
+                }}
+              >
+                <div className="flex items-center">
+                  <img src={chatIcon} className="w-7 mr-2 ml-[2px] m-1" />
+                  <h4 className="text-sm font-semibold text-[#1c1e1f]">
+                    챗봇에 물어보기
+                  </h4>
+                </div>
+                <FontAwesomeIcon
+                  icon={faChevronRight}
+                  className="text-gray-600"
+                />
               </div>
-              <FontAwesomeIcon
-                icon={faChevronRight}
-                className="text-[#1c1e1f]"
-              />
             </div>
           </div>
         </div>

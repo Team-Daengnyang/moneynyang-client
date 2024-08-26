@@ -44,7 +44,7 @@ export const AnimalCheck = () => {
       <button
         className="py-4 my-5 bg-main-color text-center text-white font-medium block rounded-lg"
         onClick={() => {
-          navigate("/signup/success");
+          navigate("/signup/account");
         }}
       >
         확인 완료

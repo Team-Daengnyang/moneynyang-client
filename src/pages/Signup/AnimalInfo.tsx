@@ -26,15 +26,25 @@ export const AnimalInfo = () => {
         </p>
         <div className="space-y-5">
           {/* 이름 */}
-          <div className="space-y-2">
-            <label htmlFor="" className="block font-medium text-sm">
-              이름 <span className="text-main-color">*</span>
-            </label>
-            <input
-              type="text"
-              placeholder="예) 춘삼이"
-              className="border rounded-lg px-4 py-3 w-full text-sm"
+          <div className="flex space-x-5">
+            <img
+              src={`${
+                import.meta.env.VITE_PUBLIC_URL
+              }/src/assets/Signup/picture.png`}
+              alt=""
+              className="w-[78px]"
+              onClick={() => navigate("/")}
             />
+            <div className="space-y-2 w-full">
+              <label htmlFor="" className="block font-medium text-sm">
+                이름 <span className="text-main-color">*</span>
+              </label>
+              <input
+                type="text"
+                placeholder="예) 춘삼이"
+                className="border rounded-lg px-4 py-3 w-full text-sm"
+              />
+            </div>
           </div>
           {/* 성별 */}
           <div className="space-y-2">

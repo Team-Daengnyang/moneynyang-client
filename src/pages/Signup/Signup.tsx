@@ -71,7 +71,7 @@ export const Signup = () => {
           </div>
         </form>
       </div>
-      <Button text={"다음"} link={"/signup/account"}></Button>
+      <Button text={"다음"} link={"/signup/animal"}></Button>
     </div>
   );
 };

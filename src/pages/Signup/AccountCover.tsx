@@ -75,7 +75,7 @@ export const AccountCover = () => {
           </div>
         </div>
       </div>
-      <Button text={"다음"} link={"/signup/animal"}></Button>
+      <Button text={"다음"} link={"/signup/success"}></Button>
     </div>
   );
 };

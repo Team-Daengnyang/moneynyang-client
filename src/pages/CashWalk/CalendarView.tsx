@@ -4,6 +4,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import moment from "moment";
 import diary from "../../assets/images/diary.png";
+import { useNavigate } from "react-router-dom";
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -21,6 +22,8 @@ const CalendarView = () => {
   const [selectedDiaryContent, setSelectedDiaryContent] = useState<
     string | null
   >(null);
+
+  const navigate = useNavigate();
 
   const attendDay = [
     { date: "2024-08-03", diaryContent: "2024년 8월 3일의 일기 내용입니다." },
@@ -148,6 +151,11 @@ const CalendarView = () => {
           <div className="flex bg-gray-100 rounded-lg justify-between h-[68px] items-center p-4">
             <h1>아직 작성한 일지가 없어요</h1>
             <button
+              onClick={() => {
+                navigate("/cashwalk/write", {
+                  state: { year, month, day, date },
+                });
+              }}
               className={`w-[81px] h-[36px] rounded-full text-gray-0 ${
                 isButtonDisabled
                   ? "bg-gray-400 cursor-not-allowed"

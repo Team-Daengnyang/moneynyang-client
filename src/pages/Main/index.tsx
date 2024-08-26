@@ -1,13 +1,17 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import chatIcon from "../../assets/icons/chaticon.png";
+
 import { useNavigate } from "react-router-dom";
 
 export const Main = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="h-full pt-6 px-4 bg-[#F8F8F8]">
-      <div className="space-y-5">
-        <img src="src/assets/Main/mainLogo.png" alt="" className="h-5 my-2" />
-        <div className="space-y-3 flex flex-col justify-between">
+    <div className="h-full pt-6 px-4 bg-[#F8F8F8] overflow-auto pb-[70px]">
+      <div className="space-y-5 ">
+        <img src="src/assets/Main/mainLogo.png" alt="" className="h-5 my-2 " />
+        <div className="space-y-3 flex flex-col justify-between ">
           {/* 프로필 */}
           <div className="flex space-x-5 place-items-center">
             <img
@@ -51,7 +55,7 @@ export const Main = () => {
             <p className="font-semibold text-[26px]">398,227원</p>
           </div>
           {/* 메인 버튼 */}
-          <div className="flex justify-between">
+          <div className="flex justify-between gap-2">
             <div
               className="bg-main-color rounded-lg"
               style={{ cursor: "pointer" }}
@@ -88,7 +92,7 @@ export const Main = () => {
               </div>
               <div
                 onClick={() => {
-                  navigate("/insurance");
+                  navigate("/cashwalk");
                 }}
                 className="bg-[#E3E5E7] rounded-lg mt-2"
                 style={{ cursor: "pointer" }}
@@ -126,6 +130,17 @@ export const Main = () => {
               </p>
             </div>
             <img src="src/assets/rightAngle.png" alt="" className="w-5" />
+          </div>
+          {/* 챗봇 */}
+          <div
+            onClick={() => {
+              navigate("/chatbot");
+            }}
+            className="flex justify-end cursor-pointer"
+          >
+            <div className="flex items-center justify-center w-[56px] h-[56px] border border-gray-200 rounded-full">
+              <img src={chatIcon} />
+            </div>
           </div>
         </div>
       </div>

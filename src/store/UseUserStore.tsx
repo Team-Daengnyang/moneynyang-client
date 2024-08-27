@@ -1,31 +1,61 @@
 import create from "zustand";
 
-// 사용자 정보의 타입 정의
 interface UserInfo {
-  username: string;
-  email: string;
-  password: string;
-  // 추가 필드가 필요하면 여기에 정의
+  memberId: BigInt;
+  memberImage: string;
+  memberLevel: BigInt;
+  memberPoint: number;
+  memberTarget: number;
 }
 
-// 스토어의 상태 타입 정의
+interface PetInfo {
+  petId: BigInt;
+  petName: string;
+  petBirth: string;
+  petType: string;
+  petGender: string;
+  specie: string;
+  petImage: string;
+}
+
 interface StoreState {
   userInfo: UserInfo;
   setUserInfo: (newInfo: Partial<UserInfo>) => void; // 부분적 업데이트를 허용
+  petInfo: PetInfo;
+  setPetInfo: (newInfo: Partial<PetInfo>) => void; // 부분적 업데이트를 허용
+  token: string;
+  setToken: (newInfo: string) => void;
 }
 
-// Zustand 스토어 생성
-const useStore = create<StoreState>((set) => ({
+const useUserStore = create<StoreState>((set) => ({
   userInfo: {
-    username: "",
-    email: "",
-    password: "",
-    // 추가 필드 초기값
+    memberId: 0n,
+    memberImage: "",
+    memberLevel: 0n,
+    memberPoint: 0,
+    memberTarget: 0,
   },
   setUserInfo: (newInfo) =>
     set((state) => ({
       userInfo: { ...state.userInfo, ...newInfo },
     })),
+
+  petInfo: {
+    petId: 0n,
+    petName: "",
+    petGender: "",
+    petType: "",
+    petBirth: "",
+    specie: "",
+    petImage: "",
+  },
+  setPetInfo: (newInfo) =>
+    set((state) => ({
+      petInfo: { ...state.petInfo, ...newInfo },
+    })),
+
+  token: "",
+  setToken: (newInfo) => set((state) => ({ token: state.token, newInfo })),
 }));
 
-export default useStore;
+export default useUserStore;

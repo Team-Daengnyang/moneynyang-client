@@ -1,21 +1,36 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { TopBar } from "../../components/Topbar";
-import { useState } from "react";
-
-interface petInfo {
-  petName: String;
-  petBirth: String;
-  petType: number;
-  spiece: String;
-  inNeutering: Boolean;
-  petSex: number;
-}
+import useUserStore from "../../store/UseUserStore";
 
 export const AnimalInfo = () => {
   const navigate = useNavigate();
-  const [gender, setGender] = useState(2);
-  const [animal, setAnimal] = useState(2);
+  const { petInfo, setPetInfo } = useUserStore((state) => ({
+    petInfo: state.petInfo,
+    setPetInfo: state.setPetInfo,
+  }));
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setPetInfo({ [name]: value });
+    // setPet((prev) => ({ ...prev, [name]: value })); // 상태 업데이트
+  };
+  const handleImageClick = () => {
+    document.getElementById("file-input")?.click();
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      setPetInfo({ petImage: file }); // 선택된 파일을 상태에 저장합니다.
+      console.log("Selected file:", file);
+    }
+  };
+
+  const signup = async () => {
+    navigate("/signup/check");
+  };
 
   return (
     <div className="h-full pt-6 px-4 bg-white flex flex-col justify-between">
@@ -26,15 +41,35 @@ export const AnimalInfo = () => {
         </p>
         <div className="space-y-5">
           {/* 이름 */}
-          <div className="space-y-2">
-            <label htmlFor="" className="block font-medium text-sm">
-              이름 <span className="text-main-color">*</span>
-            </label>
-            <input
-              type="text"
-              placeholder="예) 춘삼이"
-              className="border rounded-lg px-4 py-3 w-full text-sm"
+          <div className="flex space-x-5">
+            <img
+              src={`${
+                import.meta.env.VITE_PUBLIC_URL
+              }/src/assets/Signup/picture.png`}
+              alt=""
+              className="w-[78px] cursor-pointer"
+              onClick={handleImageClick}
             />
+            <input
+              type="file"
+              id="file-input"
+              onChange={handleFileChange}
+              style={{ display: "none" }} // input을 숨깁니다.
+              accept="image/*" // 이미지 파일만 선택 가능하도록 설정
+            />
+            <div className="space-y-2 w-full">
+              <label htmlFor="" className="block font-medium text-sm">
+                이름 <span className="text-main-color">*</span>
+              </label>
+              <input
+                type="text"
+                name="petName"
+                value={petInfo.petName}
+                onChange={handleChange} // 상태 업데이트
+                placeholder="예) 춘삼이"
+                className="border rounded-lg px-4 py-3 w-full text-sm"
+              />
+            </div>
           </div>
           {/* 성별 */}
           <div className="space-y-2">
@@ -44,21 +79,21 @@ export const AnimalInfo = () => {
             <div className="flex justify-between">
               <div
                 className={`px-16 py-3 text-center rounded-lg font-medium text-sm ${
-                  gender === 1
+                  petInfo.petGender === "여아"
                     ? "bg-[#DBEAFF] border border-main-color text-main-color"
                     : "bg-[#F4F4F4] text-[#73787E]"
                 }`}
-                onClick={() => setGender(1)}
+                onClick={() => setPetInfo({ petGender: "여아" })}
               >
                 <p>여아</p>
               </div>
               <div
                 className={`px-16 py-3 text-center rounded-lg font-medium text-sm ${
-                  gender === 0
+                  petInfo.petGender === "남아"
                     ? "bg-[#DBEAFF] border border-main-color text-main-color"
                     : "bg-[#F4F4F4] text-[#73787E]"
                 }`}
-                onClick={() => setGender(0)}
+                onClick={() => setPetInfo({ petGender: "남아" })}
               >
                 <p>남아</p>
               </div>
@@ -71,6 +106,9 @@ export const AnimalInfo = () => {
             </label>
             <input
               type="text"
+              name="petBirth"
+              value={petInfo.petBirth}
+              onChange={handleChange} // 상태 업데이트
               placeholder="예) 240101"
               className="border rounded-lg px-4 py-3 w-full text-sm"
             />
@@ -83,21 +121,21 @@ export const AnimalInfo = () => {
             <div className="flex justify-between">
               <div
                 className={`px-[58px] py-3 text-center rounded-lg font-medium text-sm ${
-                  animal === 0
+                  petInfo.petType === "강아지"
                     ? "bg-[#DBEAFF] border border-main-color text-main-color"
                     : "bg-[#F4F4F4] text-[#73787E]"
                 }`}
-                onClick={() => setAnimal(0)}
+                onClick={() => setPetInfo({ petType: "강아지" })}
               >
                 <p>강아지</p>
               </div>
               <div
                 className={`px-[58px] py-3 text-center rounded-lg font-medium text-sm ${
-                  animal === 1
+                  petInfo.petType === "고양이"
                     ? "bg-[#DBEAFF] border border-main-color text-main-color"
                     : "bg-[#F4F4F4] text-[#73787E]"
                 }`}
-                onClick={() => setAnimal(1)}
+                onClick={() => setPetInfo({ petType: "고양이" })}
               >
                 <p>고양이</p>
               </div>
@@ -110,13 +148,21 @@ export const AnimalInfo = () => {
             </label>
             <input
               type="text"
+              name="specie"
+              value={petInfo.specie}
+              onChange={handleChange} // 상태 업데이트
               placeholder="예) 말티즈"
               className="border rounded-lg px-4 py-3 w-full text-sm"
             />
           </div>
         </div>
       </div>
-      <Button text={"다음"} link={"/signup/check"}></Button>
+      <Button
+        text={"다음"}
+        onClick={() => {
+          signup();
+        }}
+      ></Button>
     </div>
   );
 };

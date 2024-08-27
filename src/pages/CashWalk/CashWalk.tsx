@@ -2,8 +2,12 @@ import { TopBar } from "../../components/Topbar";
 import goldCoin from "../../assets/icons/gold coin.png";
 import chevronRightWhite from "../../assets/icons/chevronRightWhite.png";
 import sampleDog from "../../assets/images/sampleDog.jpg";
+import pawCalendar from "../../assets/images/pawCalendar.png";
+import chevronRight from "../../assets/icons/chevronRight.png";
+import { useNavigate } from "react-router-dom";
 
 const CashWalk = () => {
+  const navigate = useNavigate();
   return (
     <div className="h-full pt-6 px-4 bg-gray-0 ">
       <TopBar skip={""} title={"산책 캐시워크"} />
@@ -35,12 +39,24 @@ const CashWalk = () => {
       <h1 className="my-2 text-[12px] font-medium text-gray-400">
         만 걸음을 채워서 100%를 완성해 보세요
       </h1>
-      <div className="py-4 px-3 rounded-lg bg-blue-100 flex items-center cursor-pointer justify-between">
+      <div
+        onClick={() => {
+          navigate("/cashwalk/calendar");
+        }}
+        className="bg-gray-0  py-4 px-3 rounded-lg border border-gray-200 flex items-center cursor-pointer justify-between mt-5"
+      >
         <div className="flex items-center">
-          <img src={goldCoin} className="w-7 mr-2" />
-          <span className="text-gray-0 text-[14px]">산책 일지 확인하기</span>
+          <img src={pawCalendar} className="w-[42px] mr-2" />
+          <div className="flex flex-col">
+            <span className="font-semibold text-[16px] text-blue-100">
+              산책 일지 확인하기
+            </span>
+            <span className="font-medium text-[14px] text-gray-500">
+              산책을 기록할 수 있어요
+            </span>
+          </div>
         </div>
-        <img src={chevronRightWhite} className="w-[18px]" />
+        <img src={chevronRight} className="w-[18px]" />
       </div>
     </div>
   );

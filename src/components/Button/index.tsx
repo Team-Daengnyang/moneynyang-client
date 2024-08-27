@@ -1,19 +1,17 @@
-import { Link } from "react-router-dom";
-
 interface ButtonProps {
-  text: String;
-  link: String;
+  text: string;
+  onClick?: () => void;
 }
 
-export const Button = ({ text, link }: ButtonProps) => {
+export const Button = ({ text, onClick }: ButtonProps) => {
   const bgColor = "bg-main-color";
 
   return (
-    <Link
-      to={`${link}`}
+    <button
+      onClick={onClick}
       className={`py-4 my-5 ${bgColor} text-center text-white font-medium block rounded-lg`}
     >
       {text}
-    </Link>
+    </button>
   );
 };

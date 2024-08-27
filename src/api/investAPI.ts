@@ -110,14 +110,19 @@ export const addSavingsGoal = async ({
 };
 
 //저축 목표에 대한 저축내역 가져오기
-export const getGoalHistory = async (): Promise<GetGoalHistoryResponse> => {
+export const getGoalHistory = async (
+  targetId: number
+): Promise<GetGoalHistoryResponse> => {
   try {
-    const response = await axios.get(`${BASE_URL}/api/v1/targets/detail`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await axios.get(
+      `${BASE_URL}/api/v1/targets/detail?targetId=${targetId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     console.log("목표 저축내역 가져오기 에러 : ", error);

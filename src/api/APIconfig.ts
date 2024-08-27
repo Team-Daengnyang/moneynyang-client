@@ -1,3 +1,3 @@
-const BASE_URL = "https://moneynyang.site/api/v1";
+const BASE_URL = "https://moneynyang.site";
 
 export default BASE_URL;

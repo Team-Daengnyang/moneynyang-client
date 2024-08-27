@@ -6,9 +6,23 @@ import paw from "../../assets/icons/gray paw.png";
 import GoalCard from "../../components/Card/GoalCard";
 import { useNavigate } from "react-router-dom";
 import { IGoalCard } from "../../components/Card/GoalCard";
+import { useEffect } from "react";
+
+import { useQuery } from "react-query";
+import { getSavingsGoalList } from "../../api/investAPI";
 
 const InvestPet = () => {
   const navigate = useNavigate();
+
+  const { data } = useQuery("goalsList", () => getSavingsGoalList());
+  console.log(data);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "accessToken",
+      "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyS2V5IjoiOGI5NDIxN2EtODc3MS00MzBmLWIwZDAtM2Q1NmI0MDRiN2M3IiwibWVtYmVySWQiOjI4LCJpYXQiOjE3MjQ3Njg2OTEsImV4cCI6MTcyNDg1NTA5MX0.HQTQ9DPKxUdFCJkavPidchgFPvpoSXlozpKr6bjeumQ"
+    );
+  }, []);
 
   const dummyDatas: IGoalCard[] = [
     {
@@ -22,6 +36,7 @@ const InvestPet = () => {
         { date: "2024.04.01", amount: 20000 },
         { date: "2024.06.15", amount: 10000 },
       ],
+      targetId: 4,
     },
     {
       title: "연말 여행 자금 모으기",
@@ -34,6 +49,7 @@ const InvestPet = () => {
         { date: "2024.07.20", amount: 100000 },
         { date: "2024.09.15", amount: 150000 },
       ],
+      targetId: 4,
     },
     {
       title: "새 컴퓨터 장만하기",
@@ -46,6 +62,7 @@ const InvestPet = () => {
         { date: "2024.05.15", amount: 150000 },
         { date: "2024.07.01", amount: 200000 },
       ],
+      targetId: 4,
     },
   ];
 
@@ -102,15 +119,7 @@ const InvestPet = () => {
       >
         저축 목표 추가하기
       </div>
-      {/*  */}
-      {/* <GoalCard
-        title="여름에 강아지 펜션 놀러가기"
-        from="2024.01.12"
-        to="2024.07.01"
-        currentMoney={50000}
-        goalMoney={200000}
-        depositDatas={[{ date: "2024.07.26", amount: 25000 }]}
-      /> */}
+
       {dummyDatas.map((data, i) => {
         return (
           <GoalCard
@@ -121,6 +130,7 @@ const InvestPet = () => {
             currentMoney={data.currentMoney}
             goalMoney={data.goalMoney}
             depositDatas={data.depositDatas}
+            targetId={data.targetId}
           />
         );
       })}

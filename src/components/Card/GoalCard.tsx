@@ -3,6 +3,8 @@ import chevronDown from "../../assets/icons/chevronDown.png";
 import chevronUp from "../../assets/icons/chevronUp.png";
 import { useNavigate } from "react-router-dom";
 import trash from "../../assets/icons/trash.png";
+import { getGoalHistory } from "../../api/investAPI";
+import { useQuery } from "react-query";
 
 export interface IGoalCard {
   title: string;
@@ -11,6 +13,7 @@ export interface IGoalCard {
   currentMoney: number;
   goalMoney: number;
   depositDatas: depositData[];
+  targetId: number;
 }
 
 type depositData = {
@@ -24,13 +27,18 @@ const GoalCard = ({
   to,
   currentMoney,
   goalMoney,
-  depositDatas,
+  // depositDatas,
+  targetId,
 }: IGoalCard) => {
   const [isClicked, setIsClicked] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [startX, setStartX] = useState(0);
   const [moveX, setMoveX] = useState(0);
   const [endX, setEndX] = useState(0);
+
+  const { data: depositDatas } = useQuery(["depositDatas", targetId], () =>
+    getGoalHistory(targetId)
+  );
 
   const navigate = useNavigate();
 
@@ -102,10 +110,10 @@ const GoalCard = ({
             }`}
           >
             {/* 각 입금 내역 */}
-            {depositDatas.map((data, i) => (
+            {depositDatas?.data.map((data, i: number) => (
               <div className="mb-4 w-full flex gap-7" key={i}>
                 <span className="font-semibold text-[14px] text-gray-500">
-                  {data.date}
+                  {data.createdDate}
                 </span>
                 <span className="font-semibold text-[14px]">
                   {data.amount}원

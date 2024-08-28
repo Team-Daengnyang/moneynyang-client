@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import chatIcon from "../../assets/icons/chaticon.png";
 import { useNavigate } from "react-router-dom";
 import useUserStore from "../../store/UseUserStore";
-import axios from "axios";
+import { getAccountInfo, getPetInfo, getUserInfo } from "../../api/userAPI";
+import { formatName } from "../../utils/calcDate";
 
 interface Account {
   accountNumber: string;
   accountBalance: string;
-  bankname: string;
+  bankName: string;
 }
 
 export const Main = () => {
@@ -25,71 +26,33 @@ export const Main = () => {
   const [account, setAccount] = useState<Account | null>({
     accountNumber: "",
     accountBalance: "",
-    bankname: "",
+    bankName: "",
   });
 
-  const getUserInfo = async () => {
+  const getInfo = async () => {
     try {
-      const userResponse = await axios.get(
-        `https://moneynyang.site/api/v1/members/info`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setUserInfo(userResponse.data.data);
+      const userResponse = await getUserInfo(token);
+      setUserInfo(userResponse);
 
-      const petResponse = await axios.get(
-        `https://moneynyang.site/api/v1/pets`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setPetInfo(petResponse.data.data);
+      const petResponse = await getPetInfo(token);
+      setPetInfo(petResponse);
 
-      const accountResponse = await axios.get(
-        `https://moneynyang.site/api/v1/accounts/info`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log(accountResponse.data.data);
-      setAccount(accountResponse.data.data);
+      const accountResponse = await getAccountInfo(token);
+      setAccount(accountResponse);
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (
-          error.response?.data?.message ===
-          "해당 회원의 계좌를 찾을 수 없습니다."
-        ) {
-          setAccount(null); // 계좌가 없을 경우 null로 설정
-        } else {
-          console.error("다른 오류 발생:", error);
-        }
-      } else {
-        console.error("오류 발생:", error);
-      }
+      console.error("오류 발생:", error);
     } finally {
       setLoading(false); // 데이터 로딩 완료
     }
   };
 
-  const handleClick = () => {
-    if (account === null) {
-      // account가 null일 경우 다른 경로로 이동
-      navigate("/signup/account"); // 원하는 경로로 변경
-    } else {
-      // account가 null이 아닐 경우 /invest로 이동
-      navigate("/invest");
-    }
-  };
+  const { formattedBankName, formattedAccountNumber } = formatName(
+    account!.bankName,
+    account!.accountNumber
+  );
 
   useEffect(() => {
-    getUserInfo();
+    getInfo();
   }, []);
 
   if (loading) {
@@ -123,7 +86,8 @@ export const Main = () => {
               className="w-3 h-3"
             />
             <p className="font-medium text-sm text-[#73787E]">
-              멍이냥에서 덕질한지 <span className="text-[#26282B]">26</span>일째
+              멍이냥에서 덕질한지{" "}
+              <span className="text-[#26282B]">{userInfo.memberDate}</span>일째
             </p>
           </div>
           {/* 내 계좌 */}
@@ -141,9 +105,13 @@ export const Main = () => {
                 alt=""
                 className="w-5 h-5"
               />
-              <p className="text-sm text-[#73787E]">신한 12-3456-7899</p>
+              <p className="text-sm text-[#73787E]">
+                {formattedBankName} {formattedAccountNumber}
+              </p>
             </div>
-            <p className="font-semibold text-[26px]">398,227원</p>
+            <p className="font-semibold text-[26px]">
+              {`${Number(account!.accountBalance).toLocaleString()}`}원
+            </p>
           </div>
 
           {/* 메인 버튼 */}
@@ -151,7 +119,7 @@ export const Main = () => {
             <div
               className="bg-main-color rounded-lg"
               style={{ cursor: "pointer" }}
-              onClick={handleClick}
+              onClick={() => navigate("/invest")}
             >
               <p className="text-white font-semibold p-5">
                 나의 펫 <br /> 덕질하기

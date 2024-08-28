@@ -1,27 +1,68 @@
 import { TopBar } from "../../components/Topbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getAccountInfo } from "../../api/userAPI";
+import useUserStore from "../../store/UseUserStore";
+import axios from "axios";
+import {
+  decrement,
+  formatName,
+  getDate,
+  getRangeDate,
+  increment,
+} from "../../utils/calcDate";
+
+interface Account {
+  accountNumber: string;
+  accountBalance: string;
+  bankName: string;
+}
 
 export const AccountInfo = () => {
   const navigate = useNavigate();
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
+  const { token } = useUserStore((state) => ({
+    token: state.token,
+  }));
 
-  const incrementMonth = () => {
-    const newDate = new Date(currentDate);
-    newDate.setMonth(newDate.getMonth() + 1);
-    setCurrentDate(newDate);
+  const [account, setAccount] = useState<Account | null>({
+    accountNumber: "",
+    accountBalance: "",
+    bankName: "",
+  });
+  const { year, month } = getDate(currentDate);
+
+  const getInfo = async () => {
+    const accountResponse = await getAccountInfo(token);
+    setAccount(accountResponse);
+
+    const { startDate, endDate } = getRangeDate(currentDate);
+
+    const historyResponse = await axios.get(
+      `https://moneynyang.site/api/v1/accounts/history`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          startDate,
+          endDate,
+          accountName: account!.accountNumber,
+        },
+      }
+    );
   };
 
-  const decrementMonth = () => {
-    const newDate = new Date(currentDate);
-    newDate.setMonth(newDate.getMonth() - 1);
-    setCurrentDate(newDate);
-  };
+  const { formattedBankName, formattedAccountNumber } = formatName(
+    account!.bankName,
+    account!.accountNumber
+  );
 
-  const year = currentDate.getFullYear();
-  const month = currentDate.toLocaleString("default", { month: "long" }); // 월 이름을 가져옵니다.
+  useEffect(() => {
+    getInfo();
+  }, [currentDate]); // currentDate가 변경될 때마다 getInfo 호출
 
   return (
     <div className="h-full pt-6 px-4 bg-gray-0 ">
@@ -31,9 +72,13 @@ export const AccountInfo = () => {
         <div className="mb-5">
           <div className="flex space-x-1 place-items-center mb-1">
             <img src="src/assets/Main/shinhan.png" alt="" className="w-5 h-5" />
-            <p className="text-sm text-[#73787E]">신한 12-3456-7899</p>
+            <p className="text-sm text-[#73787E]">
+              {formattedBankName} {formattedAccountNumber}
+            </p>
           </div>
-          <p className="font-semibold text-[26px]">398,227원</p>
+          <p className="font-semibold text-[26px]">
+            {`${Number(account!.accountBalance).toLocaleString()}`}원
+          </p>
         </div>
         {/* 버튼 */}
         <div className="flex justify-between w-full space-x-2">
@@ -65,13 +110,13 @@ export const AccountInfo = () => {
           <FontAwesomeIcon
             icon={faAngleLeft}
             className="text-gray-400 text-lg"
-            onClick={decrementMonth}
+            onClick={() => setCurrentDate(decrement(currentDate))}
           />
           <p className="font-medium">{`${year}년 ${month}`}</p>
           <FontAwesomeIcon
             icon={faAngleRight}
             className="text-gray-400 text-lg"
-            onClick={incrementMonth}
+            onClick={() => setCurrentDate(increment(currentDate))}
           />
         </div>
         {/* 거래 내역 리스트 */}

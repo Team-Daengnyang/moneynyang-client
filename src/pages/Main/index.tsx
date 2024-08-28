@@ -1,11 +1,100 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from "react";
 import chatIcon from "../../assets/icons/chaticon.png";
-
 import { useNavigate } from "react-router-dom";
+import useUserStore from "../../store/UseUserStore";
+import axios from "axios";
+
+interface Account {
+  accountNumber: string;
+  accountBalance: string;
+  bankname: string;
+}
 
 export const Main = () => {
   const navigate = useNavigate();
+  const { userInfo, setUserInfo, petInfo, setPetInfo, token } = useUserStore(
+    (state) => ({
+      userInfo: state.userInfo,
+      setUserInfo: state.setUserInfo,
+      petInfo: state.petInfo,
+      setPetInfo: state.setPetInfo,
+      token: state.token,
+    })
+  );
+  const [loading, setLoading] = useState(true);
+  const [account, setAccount] = useState<Account | null>({
+    accountNumber: "",
+    accountBalance: "",
+    bankname: "",
+  });
+
+  const getUserInfo = async () => {
+    try {
+      const userResponse = await axios.get(
+        `https://moneynyang.site/api/v1/members/info`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setUserInfo(userResponse.data.data);
+
+      const petResponse = await axios.get(
+        `https://moneynyang.site/api/v1/pets`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setPetInfo(petResponse.data.data);
+
+      const accountResponse = await axios.get(
+        `https://moneynyang.site/api/v1/accounts/info`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(accountResponse.data.data);
+      setAccount(accountResponse.data.data);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (
+          error.response?.data?.message ===
+          "해당 회원의 계좌를 찾을 수 없습니다."
+        ) {
+          setAccount(null); // 계좌가 없을 경우 null로 설정
+        } else {
+          console.error("다른 오류 발생:", error);
+        }
+      } else {
+        console.error("오류 발생:", error);
+      }
+    } finally {
+      setLoading(false); // 데이터 로딩 완료
+    }
+  };
+
+  const handleClick = () => {
+    if (account === null) {
+      // account가 null일 경우 다른 경로로 이동
+      navigate("/signup/account"); // 원하는 경로로 변경
+    } else {
+      // account가 null이 아닐 경우 /invest로 이동
+      navigate("/invest");
+    }
+  };
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>; // 로딩 중일 때 표시할 내용
+  }
 
   return (
     <div className="h-full pt-6 px-4 bg-[#F8F8F8] overflow-auto pb-[70px]">
@@ -20,8 +109,10 @@ export const Main = () => {
               className="w-[52px] h-[52px]"
             />
             <div>
-              <p className="font-semibold">최승빈님</p>
-              <p className="text-[#9FA4A9] text-sm font-medium">집사 Lv.4</p>
+              <p className="font-semibold">{userInfo.memberName}님</p>
+              <p className="text-[#9FA4A9] text-sm font-medium">
+                집사 Lv.{userInfo.memberLevel}
+              </p>
             </div>
           </div>
           {/* 덕질 일 수 */}
@@ -54,14 +145,13 @@ export const Main = () => {
             </div>
             <p className="font-semibold text-[26px]">398,227원</p>
           </div>
+
           {/* 메인 버튼 */}
           <div className="flex justify-between gap-2">
             <div
               className="bg-main-color rounded-lg"
               style={{ cursor: "pointer" }}
-              onClick={() => {
-                navigate("/invest");
-              }}
+              onClick={handleClick}
             >
               <p className="text-white font-semibold p-5">
                 나의 펫 <br /> 덕질하기
@@ -125,8 +215,8 @@ export const Main = () => {
               />
               <p className="font-medium text-sm">
                 지금까지 나는 <br />{" "}
-                <span className="text-main-color">아롱이</span>에게 얼마나
-                썼을까?
+                <span className="text-main-color">{petInfo.petName}</span>에게
+                얼마나 썼을까?
               </p>
             </div>
             <img src="src/assets/rightAngle.png" alt="" className="w-5" />

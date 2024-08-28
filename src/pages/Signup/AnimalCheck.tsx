@@ -1,9 +1,55 @@
 // import { useNavigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { TopBar } from "../../components/Topbar";
+import { Button } from "../../components/Button";
+import axios from "axios";
+import useUserStore from "../../store/UseUserStore";
+import useSignupStore from "../../store/UseSignupStore";
 
 export const AnimalCheck = () => {
   const navigate = useNavigate();
+  const setToken = useUserStore((state) => state.setToken);
+  const { inputUserInfo, inputPetInfo } = useSignupStore((state) => ({
+    inputUserInfo: state.inputUserInfo,
+    inputPetInfo: state.inputPetInfo,
+  }));
+
+  const signup = async () => {
+    try {
+      // 유저 회원 가입 요청
+      const userResponse = await axios.post(
+        `https://moneynyang.site/api/v1/members`,
+        {
+          email: inputUserInfo.email,
+          password: inputUserInfo.password,
+          name: inputUserInfo.name,
+        }
+      );
+      console.log(userResponse.data.data.accessToken);
+      setToken(userResponse.data.data.accessToken);
+
+      // 반려동물 정보 저장 요청
+      await axios.post(
+        `https://moneynyang.site/api/v1/pets`,
+        {
+          petName: inputPetInfo.petName,
+          petBirth: inputPetInfo.petBirth,
+          petType: inputPetInfo.petType,
+          petGender: inputPetInfo.petGender,
+          specie: inputPetInfo.specie,
+          // petImage: inputPetInfo.petImage,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${userResponse.data.data.accessToken}`,
+          },
+        }
+      );
+      navigate("/signup/success", { replace: true });
+    } catch (error) {
+      console.error("회원 가입 실패:", error);
+    }
+  };
 
   return (
     <div className="h-full pt-6 px-4 bg-white flex flex-col justify-between">
@@ -19,36 +65,36 @@ export const AnimalCheck = () => {
             </p>
           </div>
           <div className="bg-[#F4F4F4] p-5 rounded-lg place-items-center space-y-3">
-            <p className="font-semibold">아롱이</p>
+            <p className="font-semibold">{inputPetInfo.petName}</p>
             <table className="text-sm text-left border-separate border-spacing-y-2">
-              <tr>
-                <th className="text-[#9FA4A9] font-medium">성별</th>
-                <td className="px-5">여아</td>
-              </tr>
-              <tr>
-                <th className="text-[#9FA4A9] font-medium">강아지/고양이</th>
-                <td className="px-5">강아지</td>
-              </tr>
-              <tr>
-                <th className="text-[#9FA4A9] font-medium">생년월일</th>
-                <td className="px-5">201126</td>
-              </tr>
-              <tr>
-                <th className="text-[#9FA4A9] font-medium">반려동물 타입</th>
-                <td className="px-5">말티즈</td>
-              </tr>
+              <tbody>
+                <tr>
+                  <th className="text-[#9FA4A9] font-medium">성별</th>
+                  <td className="px-5">{inputPetInfo.petGender}</td>
+                </tr>
+                <tr>
+                  <th className="text-[#9FA4A9] font-medium">강아지/고양이</th>
+                  <td className="px-5">{inputPetInfo.petType}</td>
+                </tr>
+                <tr>
+                  <th className="text-[#9FA4A9] font-medium">생년월일</th>
+                  <td className="px-5">{inputPetInfo.petBirth}</td>
+                </tr>
+                <tr>
+                  <th className="text-[#9FA4A9] font-medium">반려동물 타입</th>
+                  <td className="px-5">{inputPetInfo.specie}</td>
+                </tr>
+              </tbody>
             </table>
           </div>
         </div>
       </div>
-      <button
-        className="py-4 my-5 bg-main-color text-center text-white font-medium block rounded-lg"
+      <Button
+        text={"가입하기"}
         onClick={() => {
-          navigate("/signup/success");
+          signup();
         }}
-      >
-        확인 완료
-      </button>
+      />
     </div>
   );
 };

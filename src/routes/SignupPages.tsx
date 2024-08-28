@@ -11,10 +11,10 @@ const SignupPages = () => {
     <div className="w-[360px] h-[780px] relative">
       <Routes>
         <Route path="/" element={<Signup />} />
-        <Route path="/account" element={<AccountRegistration />} />
-        <Route path="/custom" element={<AccountCover />} />
         <Route path="/animal" element={<AnimalInfo />} />
         <Route path="/check" element={<AnimalCheck />} />
+        <Route path="/account" element={<AccountRegistration />} />
+        <Route path="/custom" element={<AccountCover />} />
         <Route path="/success" element={<SignupSuccess />} />
       </Routes>
     </div>

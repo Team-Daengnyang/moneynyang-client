@@ -10,9 +10,14 @@ import CashWalkPages from "./routes/CashWalkPages";
 import LoginPages from "./routes/LoginPages";
 import AccountPages from "./routes/AccountPages";
 import ChatBot from "./pages/ChatBot/ChatBot";
+// import useUserStore from "./store/UseUserStore";
+// import { useEffect } from "react";
 
 function App() {
   const location = useLocation();
+  // const navigate = useNavigate();
+  // const token = useUserStore((state) => state.token);
+
   return (
     <>
       {/* 너비 360px, 높이 780px로 고정 */}

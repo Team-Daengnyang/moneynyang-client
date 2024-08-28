@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { TopBar } from "../../components/Topbar";
 
 export const Payment = () => {
+  const navigate = useNavigate();
   const banks = [
     "국민은행",
     "신한은행",
@@ -18,6 +20,7 @@ export const Payment = () => {
     "전북은행",
     "제주은행",
   ];
+
   return (
     <div className="h-full pt-6 px-4 bg-white flex flex-col justify-between">
       <div>
@@ -50,7 +53,7 @@ export const Payment = () => {
           </div>
         </div>
       </div>
-      <Button text={"다음"} link={"/pay/money"}></Button>
+      <Button text={"다음"} onClick={() => navigate("/pay/money")}></Button>
     </div>
   );
 };

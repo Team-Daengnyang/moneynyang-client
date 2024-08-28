@@ -12,7 +12,7 @@ export interface IGoalCard {
   to: string;
   currentMoney: number;
   goalMoney: number;
-  depositDatas: depositData[];
+  // depositDatas: depositData[];
   targetId: number;
 }
 
@@ -34,7 +34,6 @@ const GoalCard = ({
   const [isOpen, setIsOpen] = useState(false);
   const [startX, setStartX] = useState(0);
   const [moveX, setMoveX] = useState(0);
-  const [endX, setEndX] = useState(0);
 
   const { data: depositDatas } = useQuery(["depositDatas", targetId], () =>
     getGoalHistory(targetId)
@@ -87,7 +86,11 @@ const GoalCard = ({
           </div>
           <button
             onClick={() => {
-              navigate("/invest/deposit");
+              navigate("/invest/deposit", {
+                state: {
+                  title: title,
+                },
+              });
             }}
             className="bg-blue-100 flex items-center justify-center py-2 px-4 rounded-[99px] text-gray-0 text-[14px] h-auto"
           >

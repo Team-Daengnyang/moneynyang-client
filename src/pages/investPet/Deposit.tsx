@@ -1,15 +1,19 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { TopBar } from "../../components/Topbar";
+
+interface IState {
+  title: string;
+}
 
 const Deposit = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { title } = (location.state as IState) || {};
   return (
     <div className="h-full pt-6 pb-6 px-4 bg-gray-0 relative box-border	">
       <TopBar title={""} skip={""} />
       <div className="mb-5">
-        <h1 className="font-semibold text-[20px] text-blue-100">
-          여름에 강아지 펜션 놀러가기
-        </h1>
+        <h1 className="font-semibold text-[20px] text-blue-100">{title}</h1>
         <h1 className="font-semibold text-[20px]">에 얼마를 입금할까요?</h1>
       </div>
       {/* 입력할 금액 */}

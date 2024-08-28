@@ -1,5 +1,5 @@
 import axios from "axios";
-import BASE_URL from "./apiconfig";
+import BASE_URL from "./APIconfig";
 
 const accessToken = localStorage.getItem("accessToken");
 
@@ -10,8 +10,8 @@ interface SavingsGoal {
   targetTitle: string;
   currentAmount: number;
   isDone: boolean;
-  targetStartDate: string;
-  targetEndDate: string;
+  startDate: string;
+  endDate: string;
   accountId: number;
 }
 
@@ -60,24 +60,24 @@ interface GetAllSummaryResponse {
 }
 
 //저축 목표 가져오기
-export const getSavingsGoalList =
-  async (): Promise<GetSavingsGoalListResponse> => {
-    try {
-      const response = await axios.get<GetSavingsGoalListResponse>(
-        `${BASE_URL}/api/v1/targets`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      return response.data;
-    } catch (error) {
-      console.log("저축 목표 가져오기 에러 : ", error);
-      throw error;
-    }
-  };
+export const getSavingsGoalList = async (): Promise<SavingsGoal[]> => {
+  try {
+    const response = await axios.get<GetSavingsGoalListResponse>(
+      `${BASE_URL}/api/v1/targets`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log("저축 목표 리스트 : ", response.data);
+    return response.data.data;
+  } catch (error) {
+    console.log("저축 목표 가져오기 에러 : ", error);
+    throw error;
+  }
+};
 
 //저축 목표 추가하기
 export const addSavingsGoal = async ({

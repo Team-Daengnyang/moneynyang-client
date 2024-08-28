@@ -86,22 +86,20 @@ export const addSavingsGoal = async ({
   targetStartDate,
   targetEndDate,
 }: SavingsGoalRequest) => {
+  const data = {
+    targetTitle,
+    targetAmount,
+    targetStartDate,
+    targetEndDate,
+  };
   try {
-    const response = await axios.post(
-      `${BASE_URL}/api/v1/targets`,
-      {
-        targetTitle,
-        targetAmount,
-        targetStartDate,
-        targetEndDate,
+    const response = await axios.post(`${BASE_URL}/api/v1/targets`, data, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
       },
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    });
+    console.log(response);
     return response.data;
   } catch (error) {
     console.log("저축 목표 추가하기 에러 : ", error);
@@ -131,7 +129,7 @@ export const getGoalHistory = async (
 };
 
 //저축 목표 삭제하기(금융)
-export const deleteGoal = async ({ targetId }: { targetId: string }) => {
+export const deleteGoal = async (targetId: number) => {
   try {
     const response = await axios.delete(
       `${BASE_URL}/api/v1/targets/${targetId}`,
@@ -142,7 +140,7 @@ export const deleteGoal = async ({ targetId }: { targetId: string }) => {
         },
       }
     );
-    return response.data;
+    console.log(response.status);
   } catch (error) {
     console.log(error);
     throw error;
@@ -150,7 +148,7 @@ export const deleteGoal = async ({ targetId }: { targetId: string }) => {
 };
 
 //전체 목표 요약 정보 가져오기
-export const getAllSummary = async (): Promise<GetAllSummaryResponse> => {
+export const getAllSummary = async (): Promise<AllSummaryData> => {
   try {
     const response = await axios.get(`${BASE_URL}/api/v1/targets/summary`, {
       headers: {
@@ -158,7 +156,8 @@ export const getAllSummary = async (): Promise<GetAllSummaryResponse> => {
         "Content-Type": "application/json",
       },
     });
-    return response.data;
+    console.log(response.data.data);
+    return response.data.data;
   } catch (error) {
     console.log("전체 목표 요약 정보 가져오기 에러 : ", error);
     throw error;
@@ -170,7 +169,7 @@ export const depositGoal = async ({
   targetId,
   amount,
 }: {
-  targetId: string;
+  targetId: number;
   amount: number;
 }) => {
   try {
@@ -184,6 +183,7 @@ export const depositGoal = async ({
         },
       }
     );
+    console.log(response);
     return response.data;
   } catch (error) {
     console.log("저축 목표에 입금하기 에러 : ", error);

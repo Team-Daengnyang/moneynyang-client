@@ -3,8 +3,14 @@ import target from "../../assets/icons/Target.png";
 import moneyBag from "../../assets/icons/money bag.png";
 import blueCheck from "../../assets/icons/blueCheck.png";
 import FinishedGoalCard from "../../components/Card/FinishedGoalCard";
+import { getAllSummary } from "../../api/investAPI";
+import { useQuery } from "react-query";
 
 const TotalSpent = () => {
+  const { data: summaryDatas } = useQuery("summaryDatas", () =>
+    getAllSummary()
+  );
+
   const dummyDatas = [
     {
       title: "여행 자금 모으기",
@@ -52,7 +58,9 @@ const TotalSpent = () => {
           </div>
           <div className="mb-2 w-full h-[48px] flex items-center justify-center bg-gray-100 rounded-md border-[1px] border-gray-200">
             <h1 className="text-[14px] font-medium">평균 &nbsp;</h1>
-            <h1 className="text-[14px] font-bold">5번</h1>
+            <h1 className="text-[14px] font-bold">
+              {summaryDatas?.averageDepositsPerTarget}번
+            </h1>
             <h1 className="text-[14px] font-medium">
               의 입금으로 목표를 달성했어요!
             </h1>
@@ -67,7 +75,9 @@ const TotalSpent = () => {
           </div>
           <div className="mb-2 w-full h-[48px] flex items-center justify-center bg-gray-100 rounded-md border-[1px] border-gray-200">
             <h1 className="text-[14px] font-medium">평균 &nbsp;</h1>
-            <h1 className="text-[14px] font-bold">50,000원</h1>
+            <h1 className="text-[14px] font-bold">
+              {summaryDatas?.averageAmountPerDeposit}원
+            </h1>
             <h1 className="text-[14px] font-medium">을 입금했어요!</h1>
           </div>
         </div>
@@ -80,16 +90,18 @@ const TotalSpent = () => {
           </div>
           <div className="mb-2 w-full h-[48px] flex items-center justify-center bg-gray-100 rounded-md border-[1px] border-gray-200">
             <h1 className="text-[14px] font-medium">총 &nbsp;</h1>
-            <h1 className="text-[14px] font-bold">1개</h1>
+            <h1 className="text-[14px] font-bold">
+              {summaryDatas?.achievedTargetsCount}개
+            </h1>
             <h1 className="text-[14px] font-medium">를 달성했어요!</h1>
           </div>
-          {dummyDatas.map((data, i) => {
+          {summaryDatas?.achievedTargets?.map((data, i) => {
             return (
               <FinishedGoalCard
                 key={i}
-                title={data.title}
-                date={data.date}
-                goalAmount={data.goalAmount}
+                title={data.targetTitle}
+                date={data.completedDate}
+                goalAmount={data.targetAmount}
               />
             );
           })}

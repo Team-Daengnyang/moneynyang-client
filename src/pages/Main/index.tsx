@@ -3,12 +3,11 @@ import chatIcon from "../../assets/icons/chaticon.png";
 import { useNavigate } from "react-router-dom";
 import useUserStore from "../../store/UseUserStore";
 import axios from "axios";
-import { AccountBtn } from "../../components/accountBtn";
 
 interface Account {
-  accountId: number;
   accountNumber: string;
-  accountCash: number;
+  accountBalance: string;
+  bankname: string;
 }
 
 export const Main = () => {
@@ -24,9 +23,9 @@ export const Main = () => {
   );
   const [loading, setLoading] = useState(true);
   const [account, setAccount] = useState<Account | null>({
-    accountId: 0,
     accountNumber: "",
-    accountCash: 0,
+    accountBalance: "",
+    bankname: "",
   });
 
   const getUserInfo = async () => {
@@ -60,26 +59,32 @@ export const Main = () => {
         }
       );
       console.log(accountResponse.data.data);
+      setAccount(accountResponse.data.data);
     } catch (error) {
-      // 네트워크 오류 또는 다른 오류 처리
       if (axios.isAxiosError(error)) {
-        // Axios 에러인 경우
         if (
           error.response?.data?.message ===
           "해당 회원의 계좌를 찾을 수 없습니다."
         ) {
           setAccount(null); // 계좌가 없을 경우 null로 설정
-          console.log("계좌 정보가 없습니다."); // 추가적인 로그
         } else {
-          // 다른 에러 메시지 처리
-          console.error("다른 오류 발생:", error.response?.data);
+          console.error("다른 오류 발생:", error);
         }
       } else {
-        // Axios가 아닌 다른 오류 처리
         console.error("오류 발생:", error);
       }
     } finally {
       setLoading(false); // 데이터 로딩 완료
+    }
+  };
+
+  const handleClick = () => {
+    if (account === null) {
+      // account가 null일 경우 다른 경로로 이동
+      navigate("/signup/account"); // 원하는 경로로 변경
+    } else {
+      // account가 null이 아닐 경우 /invest로 이동
+      navigate("/invest");
     }
   };
 
@@ -104,7 +109,7 @@ export const Main = () => {
               className="w-[52px] h-[52px]"
             />
             <div>
-              <p className="font-semibold">최승빈님</p>
+              <p className="font-semibold">{userInfo.memberName}님</p>
               <p className="text-[#9FA4A9] text-sm font-medium">
                 집사 Lv.{userInfo.memberLevel}
               </p>
@@ -122,36 +127,31 @@ export const Main = () => {
             </p>
           </div>
           {/* 내 계좌 */}
-          {account ? (
-            <div
-              className="border rounded-lg bg-white p-5"
-              style={{ cursor: "pointer" }}
-              onClick={() => {
-                navigate("/account");
-              }}
-            >
-              <p className="font-semibold text-lg mb-1">내 계좌</p>
-              <div className="flex space-x-1 place-items-center mb-3">
-                <img
-                  src="src/assets/Main/shinhan.png"
-                  alt=""
-                  className="w-5 h-5"
-                />
-                <p className="text-sm text-[#73787E]">신한 12-3456-7899</p>
-              </div>
-              <p className="font-semibold text-[26px]">398,227원</p>
+          <div
+            className="border rounded-lg bg-white p-5"
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              navigate("/account");
+            }}
+          >
+            <p className="font-semibold text-lg mb-1">내 계좌</p>
+            <div className="flex space-x-1 place-items-center mb-3">
+              <img
+                src="src/assets/Main/shinhan.png"
+                alt=""
+                className="w-5 h-5"
+              />
+              <p className="text-sm text-[#73787E]">신한 12-3456-7899</p>
             </div>
-          ) : (
-            <AccountBtn />
-          )}
+            <p className="font-semibold text-[26px]">398,227원</p>
+          </div>
+
           {/* 메인 버튼 */}
           <div className="flex justify-between gap-2">
             <div
               className="bg-main-color rounded-lg"
               style={{ cursor: "pointer" }}
-              onClick={() => {
-                navigate("/invest");
-              }}
+              onClick={handleClick}
             >
               <p className="text-white font-semibold p-5">
                 나의 펫 <br /> 덕질하기

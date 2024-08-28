@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { TopBar } from "../../components/Topbar";
 
 export const PayMoney = () => {
+  const navigate = useNavigate();
   return (
     <div className="h-full pt-6 px-4 bg-white flex flex-col justify-between">
       <div>
@@ -31,7 +33,7 @@ export const PayMoney = () => {
           />
         </div>
       </div>
-      <Button text={"다음"} link={"/pay/success"}></Button>
+      <Button text={"다음"} onClick={() => navigate("/pay/success")}></Button>
     </div>
   );
 };

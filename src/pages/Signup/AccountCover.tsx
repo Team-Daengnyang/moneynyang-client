@@ -75,10 +75,7 @@ export const AccountCover = () => {
           </div>
         </div>
       </div>
-      <Button
-        text={"다음"}
-        onClick={() => navigate("/signup/success")}
-      ></Button>
+      <Button text={"완료"} onClick={() => navigate("/")}></Button>
     </div>
   );
 };

@@ -9,6 +9,7 @@ interface UserInfo {
   memberLevel: number;
   memberPoint: number;
   memberTarget: number;
+  memberDate: number;
 }
 
 interface PetInfo {
@@ -40,6 +41,7 @@ const useUserStore = create(
         memberLevel: 0,
         memberPoint: 0,
         memberTarget: 0,
+        memberDate: 0,
       },
       setUserInfo: (newInfo) =>
         set((state) => ({

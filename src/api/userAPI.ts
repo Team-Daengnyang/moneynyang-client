@@ -1,5 +1,5 @@
 import axios from "axios";
-import BASE_URL from "./APIconfig";
+import { BASE_URL } from "./APIconfig";
 
 export const getUserInfo = async (token: string) => {
   try {

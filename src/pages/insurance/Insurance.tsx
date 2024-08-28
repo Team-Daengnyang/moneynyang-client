@@ -4,9 +4,14 @@ import sampleDog from "../../assets/images/sampleDog.jpg";
 import idea from "../../assets/icons/Idea.png";
 import InsuranceCard from "../../components/Card/InsuranceCard";
 import hanhwa from "../../assets/images/hanhwa.png";
+import useUserStore from "../../store/UseUserStore";
 
 const Insurance = () => {
   const [isLeft, setIsLeft] = useState(true);
+  const { token } = useUserStore((state) => ({
+    token: state.token,
+  }));
+
   const dummyDatas = [
     {
       imgSrc: hanhwa,

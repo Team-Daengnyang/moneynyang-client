@@ -2,17 +2,15 @@ import axios from "axios";
 import { BASE_URL } from "./APIconfig";
 // import { BASE_URL, accessToken } from "./APIconfig";
 
-const accessToken = localStorage.getItem("accessToken");
-
 //챗봇 메시지 전송 및 답장하기
-export const getReply = async (chat: string) => {
+export const getReply = async (chat: string, token: string) => {
   try {
     const response = await axios.post(
       `${BASE_URL}/api/v1/chatbots`,
       { chat },
       {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       }
@@ -25,14 +23,14 @@ export const getReply = async (chat: string) => {
 };
 
 //챗봇 세션 입장하기
-export const enterChat = async () => {
+export const enterChat = async (token: string) => {
   try {
     const response = await axios.post(
       `${BASE_URL}/api/v1/chatbots/session`,
       {},
       {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       }

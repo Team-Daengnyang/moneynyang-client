@@ -5,6 +5,7 @@ import { Button } from "../../components/Button";
 import axios from "axios";
 import useUserStore from "../../store/UseUserStore";
 import useSignupStore from "../../store/UseSignupStore";
+import { registerUser } from "../../api/userAPI";
 
 export const AnimalCheck = () => {
   const navigate = useNavigate();
@@ -17,16 +18,8 @@ export const AnimalCheck = () => {
   const signup = async () => {
     try {
       // 유저 회원 가입 요청
-      const userResponse = await axios.post(
-        `https://moneynyang.site/api/v1/members`,
-        {
-          email: inputUserInfo.email,
-          password: inputUserInfo.password,
-          name: inputUserInfo.name,
-        }
-      );
-      console.log(userResponse.data.data.accessToken);
-      setToken(userResponse.data.data.accessToken);
+      const userResponse = await registerUser(inputUserInfo);
+      setToken(userResponse);
 
       // 반려동물 정보 저장 요청
       await axios.post(
@@ -41,6 +34,7 @@ export const AnimalCheck = () => {
         },
         {
           headers: {
+            "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${userResponse.data.data.accessToken}`,
           },
         }

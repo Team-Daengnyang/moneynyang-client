@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { TopBar } from "../../components/Topbar";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useUserStore from "../../store/UseUserStore";
 import { Button } from "../../components/Button";
+import { Login } from "../../api/userAPI";
 
 interface Member {
   email: string;
@@ -25,15 +25,8 @@ export const LoginForm = () => {
 
   const login = async () => {
     try {
-      const response = await axios.post(
-        `https://moneynyang.site/api/v1/members/login`,
-        {
-          email: member.email,
-          password: member.password,
-        }
-      );
-      // console.log("token: ", response.data.data.accessToken);
-      setToken(response.data.data.accessToken);
+      const loginResponse = await Login(member);
+      setToken(loginResponse);
       navigate("/", { replace: true });
     } catch (error) {
       console.error("로그인 실패:", error);

@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import chatIcon from "../../assets/icons/chaticon.png";
 import { useNavigate } from "react-router-dom";
 import useUserStore from "../../store/UseUserStore";
-import axios from "axios";
+import { getAccountInfo, getPetInfo, getUserInfo } from "../../api/userAPI";
+import { formatName } from "../../utils/calcDate";
 
 interface Account {
   accountNumber: string;
@@ -28,78 +29,30 @@ export const Main = () => {
     bankName: "",
   });
 
-  const getUserInfo = async () => {
+  const getInfo = async () => {
     try {
-      const userResponse = await axios.get(
-        `https://moneynyang.site/api/v1/members/info`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setUserInfo(userResponse.data.data);
+      const userResponse = await getUserInfo(token);
+      setUserInfo(userResponse);
 
-      const petResponse = await axios.get(
-        `https://moneynyang.site/api/v1/pets`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setPetInfo(petResponse.data.data);
+      const petResponse = await getPetInfo(token);
+      setPetInfo(petResponse);
 
-      const accountResponse = await axios.get(
-        `https://moneynyang.site/api/v1/accounts/info`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log(accountResponse.data.data);
-      setAccount(accountResponse.data.data);
+      const accountResponse = await getAccountInfo(token);
+      setAccount(accountResponse);
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (
-          error.response?.data?.message ===
-          "해당 회원의 계좌를 찾을 수 없습니다."
-        ) {
-          setAccount(null); // 계좌가 없을 경우 null로 설정
-        } else {
-          console.error("다른 오류 발생:", error);
-        }
-      } else {
-        console.error("오류 발생:", error);
-      }
+      console.error("오류 발생:", error);
     } finally {
       setLoading(false); // 데이터 로딩 완료
     }
   };
 
-  const formattedAccountNumber = `${account!.accountNumber.slice(
-    0,
-    4
-  )}-${account!.accountNumber.slice(4, 8)}-${account!.accountNumber.slice(
-    8,
-    12
-  )}-${account!.accountNumber.slice(12)}`;
-
-  const formattedBankName = `${account!.bankName.slice(0, 2)}`;
-
-  const handleClick = () => {
-    if (account === null) {
-      // account가 null일 경우 다른 경로로 이동
-      navigate("/signup/account"); // 원하는 경로로 변경
-    } else {
-      // account가 null이 아닐 경우 /invest로 이동
-      navigate("/invest");
-    }
-  };
+  const { formattedBankName, formattedAccountNumber } = formatName(
+    account!.bankName,
+    account!.accountNumber
+  );
 
   useEffect(() => {
-    getUserInfo();
+    getInfo();
   }, []);
 
   if (loading) {
@@ -165,7 +118,7 @@ export const Main = () => {
             <div
               className="bg-main-color rounded-lg"
               style={{ cursor: "pointer" }}
-              onClick={handleClick}
+              onClick={() => navigate("/invest")}
             >
               <p className="text-white font-semibold p-5">
                 나의 펫 <br /> 덕질하기

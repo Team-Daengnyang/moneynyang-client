@@ -1,4 +1,11 @@
+import useUserStore from "../../store/UseUserStore";
+
 export const Mypage = () => {
+  const { userInfo, petInfo } = useUserStore((state) => ({
+    userInfo: state.userInfo,
+    petInfo: state.petInfo,
+  }));
+
   return (
     <div className="h-full pt-6 px-4 bg-white">
       <p className="py-2 mb-3 text-center font-semibold">마이 페이지</p>
@@ -12,8 +19,10 @@ export const Mypage = () => {
               className="w-[52px] h-[52px]"
             />
             <div className="text-white">
-              <p className="font-semibold">최승빈님</p>
-              <p className="text-sm font-medium">집사 Lv.4</p>
+              <p className="font-semibold">{userInfo.memberName}님</p>
+              <p className="text-sm font-medium">
+                집사 Lv.{userInfo.memberLevel}
+              </p>
             </div>
           </div>
           <div className="bg-[#005EED] py-5 rounded-lg flex justify-evenly">
@@ -26,7 +35,9 @@ export const Mypage = () => {
                 />
                 <p className="font-medium text-sm">모은 포인트</p>
               </div>
-              <p className="font-semibold">1,320P</p>
+              <p className="font-semibold">
+                {`${Number(userInfo.memberPoint).toLocaleString()}`}P
+              </p>
             </div>
             <div className="w-px bg-[#0E6EFF]"></div>
             <div className="text-center text-white space-y-3">
@@ -38,7 +49,7 @@ export const Mypage = () => {
                 />
                 <p className="font-medium text-sm">목표 갯수</p>
               </div>
-              <p className="font-semibold">8개</p>
+              <p className="font-semibold">{userInfo.memberTarget}개</p>
             </div>
           </div>
         </div>
@@ -56,8 +67,8 @@ export const Mypage = () => {
                 }}
               ></div>
               <div className="space-y-1">
-                <p className="text-sm font-medium">아롱이</p>
-                <p className="text-xs text-[#9FA4A9]">말티즈</p>
+                <p className="text-sm font-medium">{petInfo.petName}</p>
+                <p className="text-xs text-[#9FA4A9]">{petInfo.specie}</p>
               </div>
             </div>
             {/* 추가하기 버튼 */}

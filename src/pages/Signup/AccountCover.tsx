@@ -1,11 +1,33 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { TopBar } from "../../components/Topbar";
 import { useState } from "react";
+import { updateAccount } from "../../api/investAPI";
+import useUserStore from "../../store/UseUserStore";
+
+interface Response {
+  accountNumber: string;
+  accountTitle: string;
+}
+
+interface Request {
+  accountColor: string;
+  accountImage: string;
+}
 
 export const AccountCover = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { token, petInfo } = useUserStore((state) => ({
+    token: state.token,
+    petInfo: state.petInfo,
+  }));
+  const { accountNumber, accountTitle } = location.state as Response;
   const [myColor, setMyColor] = useState("bg-[#F4F4F4]");
+  const [request, setRequest] = useState<Request>({
+    accountColor: "",
+    accountImage: petInfo.petImage,
+  });
   const colorList = [
     "bg-[#F4F4F4]",
     "bg-[#FFD0D0]",
@@ -13,6 +35,25 @@ export const AccountCover = () => {
     "bg-[#DEEEE7]",
     "bg-[#F6E1F8]",
   ];
+  const formattedAccountNumber = `${accountNumber.slice(
+    0,
+    4
+  )}-${accountNumber.slice(4, 8)}-${accountNumber.slice(
+    8,
+    12
+  )}-${accountNumber.slice(12)}`;
+
+  const update = async () => {
+    const updatedRequest = {
+      ...request,
+      accountColor: myColor,
+    };
+    const updateResponse = await updateAccount(updatedRequest, token);
+    console.log(updateResponse);
+    navigate("/", {
+      replace: true,
+    });
+  };
 
   return (
     <div className="h-full pt-6 px-4 bg-white flex flex-col justify-between">
@@ -30,8 +71,10 @@ export const AccountCover = () => {
           className={`${myColor} px-5 py-6 flex justify-between rounded-lg place-items-end`}
         >
           <div className="space-y-3">
-            <p className="font-semibold">신한은행</p>
-            <p className="font-medium text-gray-500">12-3456-7899</p>
+            <p className="font-semibold">{accountTitle}</p>
+            <p className="font-medium text-gray-500">
+              {formattedAccountNumber}
+            </p>
           </div>
           <img
             src={`${
@@ -75,7 +118,7 @@ export const AccountCover = () => {
           </div>
         </div>
       </div>
-      <Button text={"완료"} onClick={() => navigate("/")}></Button>
+      <Button text={"완료"} onClick={() => update()}></Button>
     </div>
   );
 };

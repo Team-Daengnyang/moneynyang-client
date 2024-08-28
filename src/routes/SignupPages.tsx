@@ -5,6 +5,7 @@ import { AnimalCheck } from "../pages/Signup/AnimalCheck";
 import { AnimalInfo } from "../pages/Signup/AnimalInfo";
 import { Signup } from "../pages/Signup/Signup";
 import { SignupSuccess } from "../pages/Signup/SignupSuccess";
+import { AccountCheck } from "../pages/Signup/AccountCheck";
 
 const SignupPages = () => {
   return (
@@ -14,6 +15,7 @@ const SignupPages = () => {
         <Route path="/animal" element={<AnimalInfo />} />
         <Route path="/check" element={<AnimalCheck />} />
         <Route path="/account" element={<AccountRegistration />} />
+        <Route path="/account-check" element={<AccountCheck />} />
         <Route path="/custom" element={<AccountCover />} />
         <Route path="/success" element={<SignupSuccess />} />
       </Routes>

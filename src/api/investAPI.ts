@@ -204,3 +204,57 @@ export const checkAccount = async (token: string) => {
     throw error;
   }
 };
+
+interface createRequest {
+  accountTitle: string;
+  accountTypeUniqueNo: string;
+}
+
+export const createAccount = async (request: createRequest, token: string) => {
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/api/v1/accounts/create`,
+      {
+        accountTitle: request.accountTitle,
+        accountTypeUniqueNo: request.accountTypeUniqueNo,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(response);
+    return response.data.data;
+  } catch (error) {
+    console.log("저축 계좌 생성 에러 : ", error);
+    throw error;
+  }
+};
+
+interface updateRequest {
+  accountImage: string;
+  accountColor: string;
+}
+
+export const updateAccount = async (request: updateRequest, token: string) => {
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/api/v1/accounts/create`,
+      {
+        accountImage: request.accountImage,
+        accountColor: request.accountColor,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(response);
+    return response.data.data;
+  } catch (error) {
+    console.log("저축 계좌 업데이트 에러 : ", error);
+    throw error;
+  }
+};

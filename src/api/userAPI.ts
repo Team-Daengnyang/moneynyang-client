@@ -1,5 +1,5 @@
 import axios from "axios";
-import BASE_URL from "./APIconfig";
+import { BASE_URL } from "./APIconfig";
 
 export const getUserInfo = async (token: string) => {
   try {
@@ -92,7 +92,7 @@ export const registerUser = async (inputUserInfo: inputUserInfo) => {
         name: inputUserInfo.name,
       }
     );
-    return userResponse?.data?.data;
+    return userResponse?.data?.data.accessToken;
   } catch (error) {
     console.error("유저 회원 가입 실패:", error);
   }

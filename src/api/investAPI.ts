@@ -1,5 +1,6 @@
 import axios from "axios";
-import BASE_URL from "./APIconfig";
+import { BASE_URL } from "./APIconfig";
+// import { BASE_URL, accessToken } from "./APIconfig";
 
 const accessToken = localStorage.getItem("accessToken");
 

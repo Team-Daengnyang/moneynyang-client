@@ -1,14 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import send from "../../assets/icons/send.png";
 import chatIcon from "../../assets/icons/chaticon.png";
 import { TopBar } from "../../components/Topbar";
+import { getReply } from "../../api/chatbotAPI";
 
-// import { getReply } from "../services/chatbotAPI";
-// import { useRecoilValue } from "recoil";
-// import { userIdState } from "../atoms";
 // import { fetchAndPlaySpeech } from "../services/chatbotAPI";
 
 const ChatBot = () => {
@@ -30,42 +26,26 @@ const ChatBot = () => {
     }
   }, [messages]);
 
-  // const handleSend = async () => {
-  //   if (inputValue.trim()) {
-  //     const newMessages = [...messages, { text: inputValue, user: true }];
-  //     setMessages(newMessages);
-  //     setInputValue("");
+  const handleSend = async () => {
+    if (inputValue.trim()) {
+      const newMessages = [...messages, { text: inputValue, user: true }];
+      setMessages(newMessages);
+      setInputValue("");
 
-  //     const reply = await getReply(userId, inputValue);
-  //     fetchAndPlaySpeech(reply.chat);
-  //     const botMessage =
-  //       reply && reply.chat
-  //         ? reply.chat
-  //         : "챗봇 서비스에 문제가 발생했습니다. 나중에 다시 시도해주세요.";
+      const reply = await getReply(inputValue);
+      const botMessage = reply
+        ? reply
+        : "챗봇 서비스에 문제가 발생했습니다. 나중에 다시 시도해주세요.";
 
-  //     setMessages((prevMessages) => [
-  //       ...prevMessages,
-  //       { text: botMessage, user: false },
-  //     ]);
-  //   }
-  // };
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { text: botMessage, user: false },
+      ]);
+    }
+  };
 
   return (
     <div className="h-full pt-6 px-4 flex flex-col justify-between  overflow-hidden relative bg-gray-100">
-      {/* <div className="flex items-center bg-gray-100 p-5 pb-0">
-        <Link to={"/"} className="h-6 flex items-center">
-          <FontAwesomeIcon
-            icon={faChevronLeft}
-            className="text-gray-800 pr-4"
-            onClick={() => {
-              navigate(-1);
-            }}
-          />
-        </Link>
-        <span className="text-gray-800 text-lg font-semibold leading-6">
-          AI 챗봇
-        </span>
-      </div> */}
       <TopBar title={"AI 챗봇"} skip={""} />
       <div
         className="flex flex-col justify-start flex-1 overflow-y-auto "
@@ -103,7 +83,7 @@ const ChatBot = () => {
         <button
           className="w-10 h-10 bg-no-repeat bg-center bg-contain"
           style={{ backgroundImage: `url(${send})` }}
-          // onClick={handleSend}
+          onClick={handleSend}
         />
       </div>
     </div>

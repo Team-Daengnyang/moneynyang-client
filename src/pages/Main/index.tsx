@@ -3,6 +3,7 @@ import chatIcon from "../../assets/icons/chaticon.png";
 import { useNavigate } from "react-router-dom";
 import useUserStore from "../../store/UseUserStore";
 import axios from "axios";
+import { enterChat } from "../../api/chatbotAPI";
 
 interface Account {
   accountNumber: string;
@@ -224,6 +225,7 @@ export const Main = () => {
           {/* 챗봇 */}
           <div
             onClick={() => {
+              enterChat();
               navigate("/chatbot");
             }}
             className="flex justify-end cursor-pointer"

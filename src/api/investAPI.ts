@@ -25,8 +25,8 @@ interface GetSavingsGoalListResponse {
 interface SavingsGoalRequest {
   targetTitle: string;
   targetAmount: number;
-  targetStartDate: string;
-  targetEndDate: string;
+  startDate: string;
+  endDate: string;
 }
 
 interface GoalHistoryDetail {
@@ -84,14 +84,14 @@ export const getSavingsGoalList = async (): Promise<SavingsGoal[]> => {
 export const addSavingsGoal = async ({
   targetTitle,
   targetAmount,
-  targetStartDate,
-  targetEndDate,
+  startDate,
+  endDate,
 }: SavingsGoalRequest) => {
   const data = {
     targetTitle,
     targetAmount,
-    targetStartDate,
-    targetEndDate,
+    startDate,
+    endDate,
   };
   try {
     const response = await axios.post(`${BASE_URL}/api/v1/targets`, data, {

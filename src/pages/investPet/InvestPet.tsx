@@ -87,7 +87,7 @@ const InvestPet = () => {
         return (
           <GoalCard
             key={i}
-            title={data.description}
+            title={data.targetTitle}
             from={data.startDate}
             to={data.endDate}
             currentMoney={data.currentAmount}

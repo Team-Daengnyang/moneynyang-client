@@ -188,3 +188,19 @@ export const depositGoal = async ({
     throw error;
   }
 };
+
+export const checkAccount = async (token: string) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/api/v1/accounts/inquire`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+    console.log(response);
+    return response.data.data;
+  } catch (error) {
+    console.log("저축 목표에 입금하기 에러 : ", error);
+    throw error;
+  }
+};

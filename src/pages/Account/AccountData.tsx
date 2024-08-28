@@ -25,7 +25,7 @@ export const AccountData = () => {
   const month = currentDate.toLocaleString("default", { month: "long" }); // 월 이름을 가져옵니다.
 
   return (
-    <div className="h-full pt-6 px-4 bg-gray-0 overflow-y-auto">
+    <div className="h-full pt-6 px-4 pb-10 bg-gray-0 overflow-y-auto">
       <TopBar title={""} skip={""} />
       <div className="space-y-5">
         {/* 월 선택 */}

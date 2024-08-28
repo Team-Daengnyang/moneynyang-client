@@ -2,13 +2,13 @@ import { useState } from "react";
 import { Button } from "../../components/Button";
 import { TopBar } from "../../components/Topbar";
 import { useNavigate } from "react-router-dom";
-import useUserStore from "../../store/UseUserStore";
+import useSignupStore from "../../store/UseSignupStore";
 
 export const Signup = () => {
   const navigate = useNavigate();
   const [pwd, setPwd] = useState("");
   const [valid, setValid] = useState(true);
-  const { inputUserInfo, setInputUserInfo } = useUserStore((state) => ({
+  const { inputUserInfo, setInputUserInfo } = useSignupStore((state) => ({
     inputUserInfo: state.inputUserInfo,
     setInputUserInfo: state.setInputUserInfo,
   }));

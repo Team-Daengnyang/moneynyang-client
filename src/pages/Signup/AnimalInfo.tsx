@@ -1,18 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { TopBar } from "../../components/Topbar";
-import useUserStore from "../../store/UseUserStore";
+import useSignupStore from "../../store/UseSignupStore";
 
 export const AnimalInfo = () => {
   const navigate = useNavigate();
-  const { petInfo, setPetInfo } = useUserStore((state) => ({
-    petInfo: state.petInfo,
-    setPetInfo: state.setPetInfo,
+  const { inputPetInfo, setInputPetInfo } = useSignupStore((state) => ({
+    inputPetInfo: state.inputPetInfo,
+    setInputPetInfo: state.setInputPetInfo,
   }));
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setPetInfo({ [name]: value });
+    setInputPetInfo({ [name]: value });
     // setPet((prev) => ({ ...prev, [name]: value })); // 상태 업데이트
   };
   const handleImageClick = () => {
@@ -23,7 +23,7 @@ export const AnimalInfo = () => {
     const files = event.target.files;
     if (files && files.length > 0) {
       const file = files[0];
-      setPetInfo({ petImage: file }); // 선택된 파일을 상태에 저장합니다.
+      setInputPetInfo({ petImage: file }); // 선택된 파일을 상태에 저장합니다.
       console.log("Selected file:", file);
     }
   };
@@ -64,7 +64,7 @@ export const AnimalInfo = () => {
               <input
                 type="text"
                 name="petName"
-                value={petInfo.petName}
+                value={inputPetInfo.petName}
                 onChange={handleChange} // 상태 업데이트
                 placeholder="예) 춘삼이"
                 className="border rounded-lg px-4 py-3 w-full text-sm"
@@ -79,21 +79,21 @@ export const AnimalInfo = () => {
             <div className="flex justify-between">
               <div
                 className={`px-16 py-3 text-center rounded-lg font-medium text-sm ${
-                  petInfo.petGender === "여아"
+                  inputPetInfo.petGender === "여아"
                     ? "bg-[#DBEAFF] border border-main-color text-main-color"
                     : "bg-[#F4F4F4] text-[#73787E]"
                 }`}
-                onClick={() => setPetInfo({ petGender: "여아" })}
+                onClick={() => setInputPetInfo({ petGender: "여아" })}
               >
                 <p>여아</p>
               </div>
               <div
                 className={`px-16 py-3 text-center rounded-lg font-medium text-sm ${
-                  petInfo.petGender === "남아"
+                  inputPetInfo.petGender === "남아"
                     ? "bg-[#DBEAFF] border border-main-color text-main-color"
                     : "bg-[#F4F4F4] text-[#73787E]"
                 }`}
-                onClick={() => setPetInfo({ petGender: "남아" })}
+                onClick={() => setInputPetInfo({ petGender: "남아" })}
               >
                 <p>남아</p>
               </div>
@@ -107,7 +107,7 @@ export const AnimalInfo = () => {
             <input
               type="text"
               name="petBirth"
-              value={petInfo.petBirth}
+              value={inputPetInfo.petBirth}
               onChange={handleChange} // 상태 업데이트
               placeholder="예) 240101"
               className="border rounded-lg px-4 py-3 w-full text-sm"
@@ -121,21 +121,21 @@ export const AnimalInfo = () => {
             <div className="flex justify-between">
               <div
                 className={`px-[58px] py-3 text-center rounded-lg font-medium text-sm ${
-                  petInfo.petType === "강아지"
+                  inputPetInfo.petType === "강아지"
                     ? "bg-[#DBEAFF] border border-main-color text-main-color"
                     : "bg-[#F4F4F4] text-[#73787E]"
                 }`}
-                onClick={() => setPetInfo({ petType: "강아지" })}
+                onClick={() => setInputPetInfo({ petType: "강아지" })}
               >
                 <p>강아지</p>
               </div>
               <div
                 className={`px-[58px] py-3 text-center rounded-lg font-medium text-sm ${
-                  petInfo.petType === "고양이"
+                  inputPetInfo.petType === "고양이"
                     ? "bg-[#DBEAFF] border border-main-color text-main-color"
                     : "bg-[#F4F4F4] text-[#73787E]"
                 }`}
-                onClick={() => setPetInfo({ petType: "고양이" })}
+                onClick={() => setInputPetInfo({ petType: "고양이" })}
               >
                 <p>고양이</p>
               </div>
@@ -149,7 +149,7 @@ export const AnimalInfo = () => {
             <input
               type="text"
               name="specie"
-              value={petInfo.specie}
+              value={inputPetInfo.specie}
               onChange={handleChange} // 상태 업데이트
               placeholder="예) 말티즈"
               className="border rounded-lg px-4 py-3 w-full text-sm"

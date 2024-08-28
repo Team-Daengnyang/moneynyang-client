@@ -5,10 +5,12 @@ import blueCheck from "../../assets/icons/blueCheck.png";
 import FinishedGoalCard from "../../components/Card/FinishedGoalCard";
 import { getAllSummary } from "../../api/investAPI";
 import { useQuery } from "react-query";
+import useUserStore from "../../store/UseUserStore";
 
 const TotalSpent = () => {
+  const token = useUserStore((state) => state.token);
   const { data: summaryDatas } = useQuery("summaryDatas", () =>
-    getAllSummary()
+    getAllSummary(token)
   );
 
   const dummyDatas = [

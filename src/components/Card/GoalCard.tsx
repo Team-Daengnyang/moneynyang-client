@@ -6,6 +6,7 @@ import trash from "../../assets/icons/trash.png";
 import { deleteGoal, getGoalHistory } from "../../api/investAPI";
 import { useQuery } from "react-query";
 import { useMutation, useQueryClient } from "react-query";
+import useUserStore from "../../store/UseUserStore";
 
 export interface IGoalCard {
   title: string;
@@ -35,9 +36,9 @@ const GoalCard = ({
   const [isOpen, setIsOpen] = useState(false);
   const [startX, setStartX] = useState(0);
   const [moveX, setMoveX] = useState(0);
-
+  const token = useUserStore((state) => state.token);
   const queryClient = useQueryClient();
-  const mutation = useMutation(() => deleteGoal(targetId), {
+  const mutation = useMutation(() => deleteGoal(targetId, token), {
     onSuccess: () => {
       console.log(` ${targetId}번 목표 삭제 성공`);
       //삭제한 뒤 골리스트 쿼리 무효화하여 데이터 갱신
@@ -51,7 +52,7 @@ const GoalCard = ({
   });
 
   const { data: depositDatas } = useQuery(["depositDatas", targetId], () =>
-    getGoalHistory(targetId)
+    getGoalHistory(targetId, token)
   );
 
   const navigate = useNavigate();

@@ -10,24 +10,18 @@ import { useEffect } from "react";
 
 import { useQuery, useQueryClient } from "react-query";
 import { getSavingsGoalList } from "../../api/investAPI";
+import useUserStore from "../../store/UseUserStore";
 
 const InvestPet = () => {
   const navigate = useNavigate();
-
+  const token = useUserStore((state) => state.token);
   const { data: SavingGoalList } = useQuery("goalsList", () =>
-    getSavingsGoalList()
+    getSavingsGoalList(token)
   );
 
   useEffect(() => {
     console.log(SavingGoalList);
   }, [SavingGoalList]);
-
-  useEffect(() => {
-    localStorage.setItem(
-      "accessToken",
-      "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyS2V5IjoiOGI5NDIxN2EtODc3MS00MzBmLWIwZDAtM2Q1NmI0MDRiN2M3IiwibWVtYmVySWQiOjI4LCJpYXQiOjE3MjQ3Njg2OTEsImV4cCI6MTcyNDg1NTA5MX0.HQTQ9DPKxUdFCJkavPidchgFPvpoSXlozpKr6bjeumQ"
-    );
-  }, []);
 
   return (
     <div className="h-full pt-6 px-4 bg-gray-0 overflow-auto">

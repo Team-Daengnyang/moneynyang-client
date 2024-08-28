@@ -2,12 +2,14 @@ import { useState } from "react";
 import { TopBar } from "../../components/Topbar";
 import { useNavigate } from "react-router-dom";
 import { addSavingsGoal } from "../../api/investAPI";
+import useUserStore from "../../store/UseUserStore";
 
 const SavingsGoal = () => {
   const [startDate, setTargetStartDate] = useState("");
   const [endDate, setTargetEndDate] = useState("");
   const [targetTitle, setTargetTitle] = useState("");
   const [targetAmount, setTargetAmount] = useState(0);
+  const token = useUserStore((state) => state.token);
 
   const navigate = useNavigate();
 
@@ -50,13 +52,12 @@ const SavingsGoal = () => {
               targetAmount,
               startDate,
               endDate,
+              token,
             });
-            addSavingsGoal({
-              targetTitle,
-              targetAmount,
-              startDate,
-              endDate,
-            });
+            addSavingsGoal(
+              { targetTitle, targetAmount, startDate, endDate },
+              token
+            );
             navigate("/invest");
           }}
         >

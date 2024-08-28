@@ -1,7 +1,8 @@
 import axios from "axios";
-import BASE_URL from "./APIconfig";
+import { BASE_URL } from "./APIconfig";
+// import { BASE_URL, accessToken } from "./APIconfig";
 
-const accessToken = localStorage.getItem("accessToken");
+// const accessToken = localStorage.getItem("accessToken");
 
 interface SavingsGoal {
   targetId: number;
@@ -24,8 +25,8 @@ interface GetSavingsGoalListResponse {
 interface SavingsGoalRequest {
   targetTitle: string;
   targetAmount: number;
-  targetStartDate: string;
-  targetEndDate: string;
+  startDate: string;
+  endDate: string;
 }
 
 interface GoalHistoryDetail {
@@ -60,13 +61,15 @@ interface GetAllSummaryResponse {
 }
 
 //저축 목표 가져오기
-export const getSavingsGoalList = async (): Promise<SavingsGoal[]> => {
+export const getSavingsGoalList = async (
+  token: string
+): Promise<SavingsGoal[]> => {
   try {
     const response = await axios.get<GetSavingsGoalListResponse>(
       `${BASE_URL}/api/v1/targets`,
       {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       }
@@ -80,22 +83,14 @@ export const getSavingsGoalList = async (): Promise<SavingsGoal[]> => {
 };
 
 //저축 목표 추가하기
-export const addSavingsGoal = async ({
-  targetTitle,
-  targetAmount,
-  targetStartDate,
-  targetEndDate,
-}: SavingsGoalRequest) => {
-  const data = {
-    targetTitle,
-    targetAmount,
-    targetStartDate,
-    targetEndDate,
-  };
+export const addSavingsGoal = async (
+  data: SavingsGoalRequest,
+  token: string
+) => {
   try {
     const response = await axios.post(`${BASE_URL}/api/v1/targets`, data, {
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     });
@@ -109,14 +104,15 @@ export const addSavingsGoal = async ({
 
 //저축 목표에 대한 저축내역 가져오기
 export const getGoalHistory = async (
-  targetId: number
+  targetId: number,
+  token: string
 ): Promise<GetGoalHistoryResponse> => {
   try {
     const response = await axios.get(
       `${BASE_URL}/api/v1/targets/detail?targetId=${targetId}`,
       {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       }
@@ -129,13 +125,13 @@ export const getGoalHistory = async (
 };
 
 //저축 목표 삭제하기(금융)
-export const deleteGoal = async (targetId: number) => {
+export const deleteGoal = async (targetId: number, token: string) => {
   try {
     const response = await axios.delete(
       `${BASE_URL}/api/v1/targets/${targetId}`,
       {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       }
@@ -148,11 +144,11 @@ export const deleteGoal = async (targetId: number) => {
 };
 
 //전체 목표 요약 정보 가져오기
-export const getAllSummary = async (): Promise<AllSummaryData> => {
+export const getAllSummary = async (token: string): Promise<AllSummaryData> => {
   try {
     const response = await axios.get(`${BASE_URL}/api/v1/targets/summary`, {
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     });
@@ -168,9 +164,11 @@ export const getAllSummary = async (): Promise<AllSummaryData> => {
 export const depositGoal = async ({
   targetId,
   amount,
+  token,
 }: {
   targetId: number;
   amount: number;
+  token: string;
 }) => {
   try {
     const response = await axios.post(
@@ -178,13 +176,29 @@ export const depositGoal = async ({
       { amount },
       {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       }
     );
     console.log(response);
     return response.data;
+  } catch (error) {
+    console.log("저축 목표에 입금하기 에러 : ", error);
+    throw error;
+  }
+};
+
+export const checkAccount = async (token: string) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/api/v1/accounts/inquire`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+    console.log(response);
+    return response.data.data;
   } catch (error) {
     console.log("저축 목표에 입금하기 에러 : ", error);
     throw error;

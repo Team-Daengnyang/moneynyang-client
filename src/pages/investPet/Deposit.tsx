@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { TopBar } from "../../components/Topbar";
 import { depositGoal } from "../../api/investAPI";
 import { useState } from "react";
+import useUserStore from "../../store/UseUserStore";
 
 interface IState {
   title: string;
@@ -10,6 +11,7 @@ interface IState {
 
 const Deposit = () => {
   const navigate = useNavigate();
+  const token = useUserStore((state) => state.token);
   const location = useLocation();
   const { title, targetId } = (location.state as IState) || {};
   const [amount, setAmount] = useState(0);
@@ -25,7 +27,7 @@ const Deposit = () => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          depositGoal({ targetId, amount });
+          depositGoal({ targetId, amount, token });
           navigate("/invest/complete");
         }}
       >

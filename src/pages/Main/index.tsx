@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import useUserStore from "../../store/UseUserStore";
 import { getAccountInfo, getPetInfo, getUserInfo } from "../../api/userAPI";
 import { formatName } from "../../utils/calcDate";
+import { enterChat } from "../../api/chatbotAPI";
 
 interface Account {
   accountNumber: string;
@@ -192,6 +193,7 @@ export const Main = () => {
           {/* 챗봇 */}
           <div
             onClick={() => {
+              enterChat();
               navigate("/chatbot");
             }}
             className="flex justify-end cursor-pointer"

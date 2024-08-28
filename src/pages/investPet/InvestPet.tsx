@@ -9,24 +9,32 @@ import { IGoalCard } from "../../components/Card/GoalCard";
 import { useEffect } from "react";
 
 import { useQuery, useQueryClient } from "react-query";
-import { getSavingsGoalList } from "../../api/investAPI";
+import { checkAccount, getSavingsGoalList } from "../../api/investAPI";
+import useUserStore from "../../store/UseUserStore";
 
 const InvestPet = () => {
   const navigate = useNavigate();
+  const { token, petInfo } = useUserStore((state) => ({
+    token: state.token,
+    petInfo: state.petInfo,
+  }));
 
   const { data: SavingGoalList } = useQuery("goalsList", () =>
-    getSavingsGoalList()
+    getSavingsGoalList(token)
   );
+
+  const { data: account } = useQuery("account", () => checkAccount(token));
 
   useEffect(() => {
     console.log(SavingGoalList);
   }, [SavingGoalList]);
 
   useEffect(() => {
-    localStorage.setItem(
-      "accessToken",
-      "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyS2V5IjoiOGI5NDIxN2EtODc3MS00MzBmLWIwZDAtM2Q1NmI0MDRiN2M3IiwibWVtYmVySWQiOjI4LCJpYXQiOjE3MjQ3Njg2OTEsImV4cCI6MTcyNDg1NTA5MX0.HQTQ9DPKxUdFCJkavPidchgFPvpoSXlozpKr6bjeumQ"
-    );
+    if (account === null) {
+      navigate("/signup/account");
+    } else {
+      navigate("/invest");
+    }
   }, []);
 
   return (
@@ -44,7 +52,9 @@ const InvestPet = () => {
           <div>
             <span className="font-semibold text-sm">지금까지 나는</span>
             <br />
-            <span className="font-semibold text-blue-100 text-sm	">아롱이</span>
+            <span className="font-semibold text-blue-100 text-sm	">
+              {petInfo.petName}
+            </span>
             <span className="font-semibold text-sm	">에게 얼마나 썼을까?</span>
           </div>
         </div>
@@ -56,10 +66,10 @@ const InvestPet = () => {
       <div className="flex justify-between items-center">
         <div>
           <div className="">
-            <h1 className="text-blue-100 text-sm mb-1	font-semibold">아롱이</h1>
-            <span className="font-bold text-base	">
-              오늘 나의 저축 목표{" "}
-            </span>{" "}
+            <h1 className="text-blue-100 text-sm mb-1	font-semibold">
+              {petInfo.petName}
+            </h1>
+            <span className="font-bold text-base	">오늘 나의 저축 목표 </span>{" "}
             <span className="text-blue-100 font-bold text-base">2</span>
             <span className="font-bold text-base">개</span>
             <div className="flex gap-1 items-center">
@@ -87,7 +97,7 @@ const InvestPet = () => {
         return (
           <GoalCard
             key={i}
-            title={data.description}
+            title={data.targetTitle}
             from={data.startDate}
             to={data.endDate}
             currentMoney={data.currentAmount}

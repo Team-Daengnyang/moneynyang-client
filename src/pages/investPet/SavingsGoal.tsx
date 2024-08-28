@@ -2,12 +2,14 @@ import { useState } from "react";
 import { TopBar } from "../../components/Topbar";
 import { useNavigate } from "react-router-dom";
 import { addSavingsGoal } from "../../api/investAPI";
+import useUserStore from "../../store/UseUserStore";
 
 const SavingsGoal = () => {
-  const [targetStartDate, setTargetStartDate] = useState("");
-  const [targetEndDate, setTargetEndDate] = useState("");
+  const [startDate, setTargetStartDate] = useState("");
+  const [endDate, setTargetEndDate] = useState("");
   const [targetTitle, setTargetTitle] = useState("");
   const [targetAmount, setTargetAmount] = useState(0);
+  const token = useUserStore((state) => state.token);
 
   const navigate = useNavigate();
 
@@ -48,15 +50,14 @@ const SavingsGoal = () => {
             console.log({
               targetTitle,
               targetAmount,
-              targetStartDate,
-              targetEndDate,
+              startDate,
+              endDate,
+              token,
             });
-            addSavingsGoal({
-              targetTitle,
-              targetAmount,
-              targetStartDate,
-              targetEndDate,
-            });
+            addSavingsGoal(
+              { targetTitle, targetAmount, startDate, endDate },
+              token
+            );
             navigate("/invest");
           }}
         >
@@ -103,7 +104,7 @@ const SavingsGoal = () => {
             <div className="flex items-center">
               <input
                 type="text"
-                value={targetStartDate}
+                value={startDate}
                 onChange={(e) =>
                   handleDateInput(e.target.value, setTargetStartDate)
                 }
@@ -115,7 +116,7 @@ const SavingsGoal = () => {
               <span className="mx-3 text-gray-300">-</span>
               <input
                 type="text"
-                value={targetEndDate}
+                value={endDate}
                 onChange={(e) =>
                   handleDateInput(e.target.value, setTargetEndDate)
                 }

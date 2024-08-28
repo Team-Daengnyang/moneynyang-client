@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { TopBar } from "../../components/Topbar";
 import { useNavigate } from "react-router-dom";
+import { addSavingsGoal } from "../../api/investAPI";
 
 const SavingsGoal = () => {
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [targetStartDate, setTargetStartDate] = useState("");
+  const [targetEndDate, setTargetEndDate] = useState("");
+  const [targetTitle, setTargetTitle] = useState("");
+  const [targetAmount, setTargetAmount] = useState(0);
 
   const navigate = useNavigate();
 
@@ -15,16 +18,16 @@ const SavingsGoal = () => {
     // 숫자만 남기기
     const numericValue = value.replace(/\D/g, "");
 
-    // YYYY.MM.DD 형식으로 포맷팅
+    // YYYY-MM-DD 형식으로 포맷팅
     let formattedValue = numericValue;
     if (numericValue.length > 4) {
-      formattedValue = `${numericValue.slice(0, 4)}.${numericValue.slice(4)}`;
+      formattedValue = `${numericValue.slice(0, 4)}-${numericValue.slice(4)}`;
     }
     if (numericValue.length > 6) {
-      formattedValue = `${numericValue.slice(0, 4)}.${numericValue.slice(
+      formattedValue = `${numericValue.slice(0, 4)}-${numericValue.slice(
         4,
         6
-      )}.${numericValue.slice(6)}`;
+      )}-${numericValue.slice(6)}`;
     }
 
     // 값 업데이트
@@ -41,8 +44,19 @@ const SavingsGoal = () => {
       </h1>
       <div>
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
+          onSubmit={() => {
+            console.log({
+              targetTitle,
+              targetAmount,
+              targetStartDate,
+              targetEndDate,
+            });
+            addSavingsGoal({
+              targetTitle,
+              targetAmount,
+              targetStartDate,
+              targetEndDate,
+            });
             navigate("/invest");
           }}
         >
@@ -52,6 +66,9 @@ const SavingsGoal = () => {
               <h1 className="text-blue-100 text-[14px]">*</h1>
             </div>
             <input
+              required
+              value={targetTitle}
+              onChange={(e) => setTargetTitle(e.target.value)}
               placeholder="어떤 목표인가요?"
               type="text"
               className="w-full h-[43px] p-3 border-[1px] rounded-[12px] text-[14px] placeholder:text-[14px] focus:border-blue-100 focus:outline-none mb-5"
@@ -64,6 +81,11 @@ const SavingsGoal = () => {
             </div>
             <div className="pb-6 flex items-center">
               <input
+                onChange={(event) => {
+                  setTargetAmount(Number(event.target.value));
+                }}
+                // value={targetAmount}
+                required
                 type="number"
                 placeholder="얼마나 모을까요?"
                 className="w-full h-[43px] p-3 border-[1px] rounded-[12px] text-[14px] placeholder:text-[14px] focus:border-blue-100 focus:outline-none"
@@ -81,18 +103,23 @@ const SavingsGoal = () => {
             <div className="flex items-center">
               <input
                 type="text"
-                value={startDate}
-                onChange={(e) => handleDateInput(e.target.value, setStartDate)}
-                placeholder="YYYY.MM.DD"
+                value={targetStartDate}
+                onChange={(e) =>
+                  handleDateInput(e.target.value, setTargetStartDate)
+                }
+                required
+                placeholder="YYYY-MM-DD"
                 maxLength={10}
                 className="w-full h-[43px] p-3 border-[1px] rounded-[12px] text-[14px] placeholder:text-[14px] focus:border-blue-100 focus:outline-none"
               />
               <span className="mx-3 text-gray-300">-</span>
               <input
                 type="text"
-                value={endDate}
-                onChange={(e) => handleDateInput(e.target.value, setEndDate)}
-                placeholder="YYYY.MM.DD"
+                value={targetEndDate}
+                onChange={(e) =>
+                  handleDateInput(e.target.value, setTargetEndDate)
+                }
+                placeholder="YYYY-MM-DD"
                 maxLength={10}
                 className="w-full h-[43px] p-3 border-[1px] rounded-[12px] text-[14px] placeholder:text-[14px] focus:border-blue-100 focus:outline-none"
               />

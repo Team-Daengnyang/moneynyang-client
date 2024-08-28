@@ -3,6 +3,9 @@ import chevronDown from "../../assets/icons/chevronDown.png";
 import chevronUp from "../../assets/icons/chevronUp.png";
 import { useNavigate } from "react-router-dom";
 import trash from "../../assets/icons/trash.png";
+import { deleteGoal, getGoalHistory } from "../../api/investAPI";
+import { useQuery } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 
 export interface IGoalCard {
   title: string;
@@ -10,7 +13,8 @@ export interface IGoalCard {
   to: string;
   currentMoney: number;
   goalMoney: number;
-  depositDatas: depositData[];
+  // depositDatas: depositData[];
+  targetId: number;
 }
 
 type depositData = {
@@ -24,13 +28,31 @@ const GoalCard = ({
   to,
   currentMoney,
   goalMoney,
-  depositDatas,
+  // depositDatas,
+  targetId,
 }: IGoalCard) => {
   const [isClicked, setIsClicked] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [startX, setStartX] = useState(0);
   const [moveX, setMoveX] = useState(0);
-  const [endX, setEndX] = useState(0);
+
+  const queryClient = useQueryClient();
+  const mutation = useMutation(() => deleteGoal(targetId), {
+    onSuccess: () => {
+      console.log(` ${targetId}번 목표 삭제 성공`);
+      //삭제한 뒤 골리스트 쿼리 무효화하여 데이터 갱신
+      queryClient.invalidateQueries("goalsList");
+    },
+    onError: () => {
+      console.log("삭제 중 에러 발생");
+    },
+    // retry: 2,
+    retryDelay: 1000,
+  });
+
+  const { data: depositDatas } = useQuery(["depositDatas", targetId], () =>
+    getGoalHistory(targetId)
+  );
 
   const navigate = useNavigate();
 
@@ -42,12 +64,10 @@ const GoalCard = ({
       <div
         onMouseDown={(e) => {
           setIsClicked(true);
-          // console.log("클릭 시작 위치 : ", e.clientX);
           setStartX(e.clientX);
         }}
         onMouseMove={(e) => {
           if (isClicked) {
-            // console.log("이동한 거리 : ", e.clientX - startX);
             if (e.clientX - startX < -30) {
               setMoveX(-80);
             } else {
@@ -57,7 +77,6 @@ const GoalCard = ({
         }}
         onMouseUp={() => {
           setIsClicked(false);
-          // console.log("마지막 위치 : ");
         }}
         style={{
           transform: `translateX(${moveX}px)`,
@@ -79,7 +98,12 @@ const GoalCard = ({
           </div>
           <button
             onClick={() => {
-              navigate("/invest/deposit");
+              navigate("/invest/deposit", {
+                state: {
+                  title: title,
+                  targetId,
+                },
+              });
             }}
             className="bg-blue-100 flex items-center justify-center py-2 px-4 rounded-[99px] text-gray-0 text-[14px] h-auto"
           >
@@ -102,10 +126,10 @@ const GoalCard = ({
             }`}
           >
             {/* 각 입금 내역 */}
-            {depositDatas.map((data, i) => (
+            {depositDatas?.data.map((data, i: number) => (
               <div className="mb-4 w-full flex gap-7" key={i}>
                 <span className="font-semibold text-[14px] text-gray-500">
-                  {data.date}
+                  {data.createdDate}
                 </span>
                 <span className="font-semibold text-[14px]">
                   {data.amount}원
@@ -129,6 +153,9 @@ const GoalCard = ({
       </div>
       {/* 삭제 */}
       <div
+        onClick={() => {
+          mutation.mutate();
+        }}
         className="absolute right-0 top-0 w-[72px] h-[168px] rounded-md flex items-center justify-center gap-1 flex-col  cursor-pointer z-[1]"
         style={{ backgroundColor: "#FF6E6E" }}
       >

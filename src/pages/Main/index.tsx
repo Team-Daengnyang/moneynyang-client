@@ -86,7 +86,8 @@ export const Main = () => {
               className="w-3 h-3"
             />
             <p className="font-medium text-sm text-[#73787E]">
-              멍이냥에서 덕질한지 <span className="text-[#26282B]">26</span>일째
+              멍이냥에서 덕질한지{" "}
+              <span className="text-[#26282B]">{userInfo.memberDate}</span>일째
             </p>
           </div>
           {/* 내 계좌 */}

@@ -7,7 +7,7 @@ import axios from "axios";
 interface Account {
   accountNumber: string;
   accountBalance: string;
-  bankname: string;
+  bankName: string;
 }
 
 export const Main = () => {
@@ -25,7 +25,7 @@ export const Main = () => {
   const [account, setAccount] = useState<Account | null>({
     accountNumber: "",
     accountBalance: "",
-    bankname: "",
+    bankName: "",
   });
 
   const getUserInfo = async () => {
@@ -77,6 +77,16 @@ export const Main = () => {
       setLoading(false); // 데이터 로딩 완료
     }
   };
+
+  const formattedAccountNumber = `${account!.accountNumber.slice(
+    0,
+    4
+  )}-${account!.accountNumber.slice(4, 8)}-${account!.accountNumber.slice(
+    8,
+    12
+  )}-${account!.accountNumber.slice(12)}`;
+
+  const formattedBankName = `${account!.bankName.slice(0, 2)}`;
 
   const handleClick = () => {
     if (account === null) {
@@ -141,9 +151,13 @@ export const Main = () => {
                 alt=""
                 className="w-5 h-5"
               />
-              <p className="text-sm text-[#73787E]">신한 12-3456-7899</p>
+              <p className="text-sm text-[#73787E]">
+                {formattedBankName} {formattedAccountNumber}
+              </p>
             </div>
-            <p className="font-semibold text-[26px]">398,227원</p>
+            <p className="font-semibold text-[26px]">
+              {`${Number(account!.accountBalance).toLocaleString()}`}원
+            </p>
           </div>
 
           {/* 메인 버튼 */}

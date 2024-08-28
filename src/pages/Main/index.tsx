@@ -1,11 +1,95 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from "react";
 import chatIcon from "../../assets/icons/chaticon.png";
-
 import { useNavigate } from "react-router-dom";
+import useUserStore from "../../store/UseUserStore";
+import axios from "axios";
+import { AccountBtn } from "../../components/accountBtn";
+
+interface Account {
+  accountId: number;
+  accountNumber: string;
+  accountCash: number;
+}
 
 export const Main = () => {
   const navigate = useNavigate();
+  const { userInfo, setUserInfo, petInfo, setPetInfo, token } = useUserStore(
+    (state) => ({
+      userInfo: state.userInfo,
+      setUserInfo: state.setUserInfo,
+      petInfo: state.petInfo,
+      setPetInfo: state.setPetInfo,
+      token: state.token,
+    })
+  );
+  const [loading, setLoading] = useState(true);
+  const [account, setAccount] = useState<Account | null>({
+    accountId: 0,
+    accountNumber: "",
+    accountCash: 0,
+  });
+
+  const getUserInfo = async () => {
+    try {
+      const userResponse = await axios.get(
+        `https://moneynyang.site/api/v1/members/info`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setUserInfo(userResponse.data.data);
+
+      const petResponse = await axios.get(
+        `https://moneynyang.site/api/v1/pets`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setPetInfo(petResponse.data.data);
+
+      const accountResponse = await axios.get(
+        `https://moneynyang.site/api/v1/accounts/info`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(accountResponse.data.data);
+    } catch (error) {
+      // 네트워크 오류 또는 다른 오류 처리
+      if (axios.isAxiosError(error)) {
+        // Axios 에러인 경우
+        if (
+          error.response?.data?.message ===
+          "해당 회원의 계좌를 찾을 수 없습니다."
+        ) {
+          setAccount(null); // 계좌가 없을 경우 null로 설정
+          console.log("계좌 정보가 없습니다."); // 추가적인 로그
+        } else {
+          // 다른 에러 메시지 처리
+          console.error("다른 오류 발생:", error.response?.data);
+        }
+      } else {
+        // Axios가 아닌 다른 오류 처리
+        console.error("오류 발생:", error);
+      }
+    } finally {
+      setLoading(false); // 데이터 로딩 완료
+    }
+  };
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>; // 로딩 중일 때 표시할 내용
+  }
 
   return (
     <div className="h-full pt-6 px-4 bg-[#F8F8F8] overflow-auto pb-[70px]">
@@ -21,7 +105,9 @@ export const Main = () => {
             />
             <div>
               <p className="font-semibold">최승빈님</p>
-              <p className="text-[#9FA4A9] text-sm font-medium">집사 Lv.4</p>
+              <p className="text-[#9FA4A9] text-sm font-medium">
+                집사 Lv.{userInfo.memberLevel}
+              </p>
             </div>
           </div>
           {/* 덕질 일 수 */}
@@ -36,24 +122,28 @@ export const Main = () => {
             </p>
           </div>
           {/* 내 계좌 */}
-          <div
-            className="border rounded-lg bg-white p-5"
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              navigate("/account");
-            }}
-          >
-            <p className="font-semibold text-lg mb-1">내 계좌</p>
-            <div className="flex space-x-1 place-items-center mb-3">
-              <img
-                src="src/assets/Main/shinhan.png"
-                alt=""
-                className="w-5 h-5"
-              />
-              <p className="text-sm text-[#73787E]">신한 12-3456-7899</p>
+          {account ? (
+            <div
+              className="border rounded-lg bg-white p-5"
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                navigate("/account");
+              }}
+            >
+              <p className="font-semibold text-lg mb-1">내 계좌</p>
+              <div className="flex space-x-1 place-items-center mb-3">
+                <img
+                  src="src/assets/Main/shinhan.png"
+                  alt=""
+                  className="w-5 h-5"
+                />
+                <p className="text-sm text-[#73787E]">신한 12-3456-7899</p>
+              </div>
+              <p className="font-semibold text-[26px]">398,227원</p>
             </div>
-            <p className="font-semibold text-[26px]">398,227원</p>
-          </div>
+          ) : (
+            <AccountBtn />
+          )}
           {/* 메인 버튼 */}
           <div className="flex justify-between gap-2">
             <div
@@ -125,8 +215,8 @@ export const Main = () => {
               />
               <p className="font-medium text-sm">
                 지금까지 나는 <br />{" "}
-                <span className="text-main-color">아롱이</span>에게 얼마나
-                썼을까?
+                <span className="text-main-color">{petInfo.petName}</span>에게
+                얼마나 썼을까?
               </p>
             </div>
             <img src="src/assets/rightAngle.png" alt="" className="w-5" />

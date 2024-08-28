@@ -14,7 +14,7 @@ interface inputPetInfo {
   petType: string; // 강아지 고양이
   petGender: string; // 여아 남아
   specie: string;
-  // petImage: File;
+  petImage: File;
 }
 
 interface StoreState {
@@ -44,10 +44,10 @@ const useSignupStore = create<StoreState>((set) => ({
     petType: "",
     petBirth: "",
     specie: "",
-    // petImage: new File(
-    //   [],
-    //   `${import.meta.env.VITE_PUBLIC_URL}/src/assets/Signup/picture.png`
-    // ) as File,
+    petImage: new File(
+      [],
+      `${import.meta.env.VITE_PUBLIC_URL}/src/assets/Signup/picture.png`
+    ) as File,
   },
   setInputPetInfo: (newInfo) =>
     set((state) => ({

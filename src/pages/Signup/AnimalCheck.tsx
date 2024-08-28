@@ -19,26 +19,30 @@ export const AnimalCheck = () => {
     try {
       // 유저 회원 가입 요청
       const userResponse = await registerUser(inputUserInfo);
-      setToken(userResponse);
+      setToken(userResponse.accessToken);
 
+      const formData = new FormData();
+
+      // 텍스트 필드를 FormData에 추가
+      formData.append("petName", inputPetInfo.petName);
+      formData.append("petBirth", inputPetInfo.petBirth || "");
+      formData.append("petType", inputPetInfo.petType);
+      formData.append("petGender", inputPetInfo.petGender);
+      formData.append("specie", inputPetInfo.specie || "");
+
+      // 이미지 파일을 FormData에 추가
+      if (inputPetInfo.petImage) {
+        formData.append("petImage", inputPetInfo.petImage);
+      }
+
+      console.log(userResponse.accessToken);
       // 반려동물 정보 저장 요청
-      await axios.post(
-        `https://moneynyang.site/api/v1/pets`,
-        {
-          petName: inputPetInfo.petName,
-          petBirth: inputPetInfo.petBirth,
-          petType: inputPetInfo.petType,
-          petGender: inputPetInfo.petGender,
-          specie: inputPetInfo.specie,
-          // petImage: inputPetInfo.petImage,
+      await axios.post(`https://moneynyang.site/api/v1/pets`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${userResponse.accessToken}`,
         },
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${userResponse.data.data.accessToken}`,
-          },
-        }
-      );
+      });
       navigate("/signup/success", { replace: true });
     } catch (error) {
       console.error("회원 가입 실패:", error);

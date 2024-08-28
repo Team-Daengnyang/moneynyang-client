@@ -1,13 +1,18 @@
 // import { useNavigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { TopBar } from "../../components/Topbar";
+import { Button } from "../../components/Button";
 import axios from "axios";
 import useUserStore from "../../store/UseUserStore";
-import { Button } from "../../components/Button";
+import useSignupStore from "../../store/UseSignupStore";
 
 export const AnimalCheck = () => {
   const navigate = useNavigate();
-  const { setToken, inputUserInfo, petInfo } = useUserStore();
+  const setToken = useUserStore((state) => state.setToken);
+  const { inputUserInfo, inputPetInfo } = useSignupStore((state) => ({
+    inputUserInfo: state.inputUserInfo,
+    inputPetInfo: state.inputPetInfo,
+  }));
 
   const signup = async () => {
     try {
@@ -27,12 +32,12 @@ export const AnimalCheck = () => {
       await axios.post(
         `https://moneynyang.site/api/v1/pets`,
         {
-          petName: petInfo.petName,
-          petBirth: petInfo.petBirth,
-          petType: petInfo.petType,
-          petGender: petInfo.petGender,
-          specie: petInfo.specie,
-          // petImage: petInfo.petImage,
+          petName: inputPetInfo.petName,
+          petBirth: inputPetInfo.petBirth,
+          petType: inputPetInfo.petType,
+          petGender: inputPetInfo.petGender,
+          specie: inputPetInfo.specie,
+          // petImage: inputPetInfo.petImage,
         },
         {
           headers: {
@@ -60,24 +65,24 @@ export const AnimalCheck = () => {
             </p>
           </div>
           <div className="bg-[#F4F4F4] p-5 rounded-lg place-items-center space-y-3">
-            <p className="font-semibold">{petInfo.petName}</p>
+            <p className="font-semibold">{inputPetInfo.petName}</p>
             <table className="text-sm text-left border-separate border-spacing-y-2">
               <tbody>
                 <tr>
                   <th className="text-[#9FA4A9] font-medium">성별</th>
-                  <td className="px-5">{petInfo.petGender}</td>
+                  <td className="px-5">{inputPetInfo.petGender}</td>
                 </tr>
                 <tr>
                   <th className="text-[#9FA4A9] font-medium">강아지/고양이</th>
-                  <td className="px-5">{petInfo.petType}</td>
+                  <td className="px-5">{inputPetInfo.petType}</td>
                 </tr>
                 <tr>
                   <th className="text-[#9FA4A9] font-medium">생년월일</th>
-                  <td className="px-5">{petInfo.petBirth}</td>
+                  <td className="px-5">{inputPetInfo.petBirth}</td>
                 </tr>
                 <tr>
                   <th className="text-[#9FA4A9] font-medium">반려동물 타입</th>
-                  <td className="px-5">{petInfo.specie}</td>
+                  <td className="px-5">{inputPetInfo.specie}</td>
                 </tr>
               </tbody>
             </table>

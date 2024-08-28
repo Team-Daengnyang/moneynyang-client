@@ -1,13 +1,6 @@
 import create from "zustand";
 import { persist } from "zustand/middleware";
 
-// 회원가입 정보
-interface inputUserInfo {
-  email: string;
-  password: string;
-  name: string;
-}
-
 // 내 정보 조회
 interface UserInfo {
   memberId: number;
@@ -29,9 +22,6 @@ interface PetInfo {
 }
 
 interface StoreState {
-  inputUserInfo: inputUserInfo;
-  setInputUserInfo: (newInfo: Partial<inputUserInfo>) => void; // 부분적 업데이트를 허용
-
   userInfo: UserInfo;
   setUserInfo: (newInfo: Partial<UserInfo>) => void; // 부분적 업데이트를 허용
   petInfo: PetInfo;
@@ -43,18 +33,6 @@ interface StoreState {
 const useUserStore = create(
   persist<StoreState>(
     (set) => ({
-      // 회원 가입을 위한 정보
-      inputUserInfo: {
-        email: "",
-        password: "",
-        name: "",
-      },
-      setInputUserInfo: (newInfo) =>
-        set((state) => ({
-          inputUserInfo: { ...state.inputUserInfo, ...newInfo },
-        })),
-
-      // 스토어에 저장할 유저 정보
       userInfo: {
         memberId: 0,
         memberName: "",

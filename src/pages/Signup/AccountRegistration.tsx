@@ -14,7 +14,7 @@ export const AccountRegistration = () => {
   const navigate = useNavigate();
   const token = useUserStore((state) => state.token);
   const [selectedBank, setSelectedBank] = useState("");
-  const [request, setRequest] = useState<Request>({
+  const [request] = useState<Request>({
     accountTitle: "",
     accountTypeUniqueNo: "001-1-82fe5fa7eca441",
   });

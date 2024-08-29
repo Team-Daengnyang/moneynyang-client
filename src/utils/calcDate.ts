@@ -43,3 +43,13 @@ export const formatName = (bankName: string, accountNumber: string) => {
 
   return { formattedBankName, formattedAccountNumber };
 };
+
+export const formatDate = (date: string, time: string) => {
+  const formattedDate = `${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(
+    6
+  )}`;
+  const formattedTime = `${time.slice(0, 2)}:${time.slice(2, 4)}:${time.slice(
+    4
+  )}`;
+  return { formattedDate, formattedTime };
+};

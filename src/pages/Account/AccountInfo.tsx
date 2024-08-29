@@ -78,7 +78,7 @@ export const AccountInfo = () => {
   }, [currentDate]); // currentDate가 변경될 때마다 getInfo 호출
 
   return (
-    <div className="h-full pt-6 px-4 bg-gray-0 ">
+    <div className="h-full flex flex-col py-6 px-4 bg-gray-0 ">
       <TopBar title={"거래 내역 조회"} skip={""} />
       <div className="space-y-4">
         {/* 내 계좌 */}
@@ -132,7 +132,9 @@ export const AccountInfo = () => {
             onClick={() => setCurrentDate(increment(currentDate))}
           />
         </div>
-        {/* 거래 내역 리스트 */}
+      </div>
+      {/* 거래 내역 리스트 */}
+      <div className="space-y-4 overflow-y-auto h-full">
         {infoList?.map((data, index) => {
           return <AccountInfoCard key={index} {...data} />;
         })}

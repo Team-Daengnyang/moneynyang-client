@@ -1,8 +1,5 @@
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import { BASE_URL } from "./APIconfig";
-// import { BASE_URL, accessToken } from "./APIconfig";
-
-// const accessToken = localStorage.getItem("accessToken");
 
 interface SavingsGoal {
   targetId: number;
@@ -200,6 +197,10 @@ export const checkAccount = async (token: string) => {
     console.log(response);
     return response.data.data;
   } catch (error) {
+    if (isAxiosError(error) && error.response?.data.data == null) {
+      console.log("에러는 발생하지만 넘어가기");
+      return null;
+    }
     console.log("저축 목표에 입금하기 에러 : ", error);
     throw error;
   }

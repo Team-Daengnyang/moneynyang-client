@@ -14,9 +14,10 @@ import useUserStore from "../../store/UseUserStore";
 
 const InvestPet = () => {
   const navigate = useNavigate();
-  const { token, petInfo } = useUserStore((state) => ({
+  const { token, petInfo, userInfo } = useUserStore((state) => ({
     token: state.token,
     petInfo: state.petInfo,
+    userInfo: state.userInfo,
   }));
 
   const { data: SavingGoalList } = useQuery("goalsList", () =>
@@ -26,17 +27,13 @@ const InvestPet = () => {
   const { data: account } = useQuery("account", () => checkAccount(token));
 
   useEffect(() => {
-    console.log(SavingGoalList);
-  }, [SavingGoalList]);
-
-  useEffect(() => {
     console.log("투자계좌 확인: ", account);
     if (account === null) {
       navigate("/signup/account");
     } else {
       navigate("/invest");
     }
-  }, []);
+  }, [SavingGoalList, account]);
 
   return (
     <div className="h-full pt-6 px-4 bg-gray-0 overflow-auto">
@@ -71,11 +68,15 @@ const InvestPet = () => {
               {petInfo.petName}
             </h1>
             <span className="font-bold text-base	">오늘 나의 저축 목표 </span>{" "}
-            <span className="text-blue-100 font-bold text-base">2</span>
+            <span className="text-blue-100 font-bold text-base">
+              {SavingGoalList?.length}
+            </span>
             <span className="font-bold text-base">개</span>
             <div className="flex gap-1 items-center">
               <img src={paw} style={{ width: "12px", height: "12px" }} />
-              <h4 className="text-gray-500 mt-1 text-xs">200일째 덕질 중</h4>
+              <h4 className="text-gray-500 mt-1 text-xs">
+                {userInfo.memberDate}일째 덕질 중
+              </h4>
             </div>
           </div>
         </div>

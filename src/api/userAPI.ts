@@ -1,5 +1,5 @@
 import axios from "axios";
-import BASE_URL from "./APIconfig";
+import { BASE_URL } from "./APIconfig";
 
 export const getUserInfo = async (token: string) => {
   try {
@@ -72,16 +72,6 @@ interface inputUserInfo {
   name: string;
 }
 
-interface inputPetInfo {
-  petId: number;
-  petName: string;
-  petBirth: string;
-  petType: string; // 강아지 고양이
-  petGender: string; // 여아 남아
-  specie: string;
-  // petImage: File;
-}
-
 export const registerUser = async (inputUserInfo: inputUserInfo) => {
   try {
     const userResponse = await axios.post(
@@ -92,8 +82,31 @@ export const registerUser = async (inputUserInfo: inputUserInfo) => {
         name: inputUserInfo.name,
       }
     );
-    return userResponse?.data?.data;
+    return userResponse?.data?.data.accessToken;
   } catch (error) {
     console.error("유저 회원 가입 실패:", error);
+  }
+};
+
+export const sendMoney = async (
+  { account, amount }: { account: string; amount: number },
+  token: string
+) => {
+  try {
+    const sendResponse = await axios.post(
+      `https://moneynyang.site/api/v1/accounts/transfer`,
+      {
+        account,
+        amount,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return sendResponse?.data?.data;
+  } catch (error) {
+    console.error("송금하기 실패:", error);
   }
 };

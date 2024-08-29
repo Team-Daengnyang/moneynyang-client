@@ -88,6 +88,46 @@ export const registerUser = async (inputUserInfo: inputUserInfo) => {
   }
 };
 
+interface inputPetInfo {
+  petId: number;
+  petName: string;
+  petBirth: string;
+  petType: string; // 강아지 고양이
+  petGender: string; // 여아 남아
+  specie: string;
+  petImage: File | null;
+}
+
+export const registerPet = async (
+  inputPetInfo: inputPetInfo,
+  token: string
+) => {
+  try {
+    const formData = new FormData();
+
+    // 텍스트 필드를 FormData에 추가
+    formData.append("petName", inputPetInfo.petName);
+    formData.append("petBirth", inputPetInfo.petBirth || "");
+    formData.append("petType", inputPetInfo.petType);
+    formData.append("petGender", inputPetInfo.petGender);
+    formData.append("specie", inputPetInfo.specie || "");
+
+    // 이미지 파일을 FormData에 추가
+    if (inputPetInfo.petImage) {
+      formData.append("petImage", inputPetInfo.petImage);
+    }
+    // 반려동물 정보 저장 요청
+    await axios.post(`https://moneynyang.site/api/v1/pets`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (error) {
+    console.error("반려 동물 등록 실패:", error);
+  }
+};
+
 export const sendMoney = async (
   { account, amount }: { account: string; amount: number },
   token: string
@@ -108,5 +148,55 @@ export const sendMoney = async (
     return sendResponse?.data?.data;
   } catch (error) {
     console.error("송금하기 실패:", error);
+  }
+};
+
+export const updateAnimal = async (
+  { account, amount }: { account: string; amount: number },
+  token: string
+) => {
+  try {
+    const sendResponse = await axios.post(
+      `https://moneynyang.site/api/v1/accounts/transfer`,
+      {
+        account,
+        amount,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return sendResponse?.data?.data;
+  } catch (error) {
+    console.error("송금하기 실패:", error);
+  }
+};
+
+export const updatePet = async (inputPetInfo: inputPetInfo, token: string) => {
+  try {
+    const formData = new FormData();
+
+    // 텍스트 필드를 FormData에 추가
+    formData.append("petName", inputPetInfo.petName);
+    formData.append("petBirth", inputPetInfo.petBirth || "");
+    formData.append("petType", inputPetInfo.petType);
+    formData.append("petGender", inputPetInfo.petGender);
+    formData.append("specie", inputPetInfo.specie || "");
+
+    // 이미지 파일을 FormData에 추가
+    if (inputPetInfo.petImage) {
+      formData.append("petImage", inputPetInfo.petImage);
+    }
+    // 반려동물 정보 저장 요청
+    await axios.patch(`https://moneynyang.site/api/v1/pets`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (error) {
+    console.error("반려 동물 수정 실패:", error);
   }
 };

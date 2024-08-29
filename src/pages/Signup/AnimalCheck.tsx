@@ -2,9 +2,8 @@
 import { useNavigate } from "react-router-dom";
 import { TopBar } from "../../components/Topbar";
 import { Button } from "../../components/Button";
-import axios from "axios";
 import useUserStore from "../../store/UseUserStore";
-import { registerUser } from "../../api/userAPI";
+import { registerPet, registerUser } from "../../api/userAPI";
 import useSignupStore from "../../store/UseSignupStore";
 
 interface inputUserInfo {
@@ -20,7 +19,7 @@ interface inputPetInfo {
   petType: string; // 강아지 고양이
   petGender: string; // 여아 남아
   specie: string;
-  petImage: File;
+  petImage: File | null;
 }
 
 interface SignupState {
@@ -44,28 +43,7 @@ export const AnimalCheck = () => {
       const userResponse = await registerUser(inputUserInfo);
       setToken(userResponse);
 
-      const formData = new FormData();
-
-      // 텍스트 필드를 FormData에 추가
-      formData.append("petName", inputPetInfo.petName);
-      formData.append("petBirth", inputPetInfo.petBirth || "");
-      formData.append("petType", inputPetInfo.petType);
-      formData.append("petGender", inputPetInfo.petGender);
-      formData.append("specie", inputPetInfo.specie || "");
-
-      // 이미지 파일을 FormData에 추가
-      if (inputPetInfo.petImage) {
-        formData.append("petImage", inputPetInfo.petImage);
-      }
-
-      console.log(userResponse);
-      // 반려동물 정보 저장 요청
-      await axios.post(`https://moneynyang.site/api/v1/pets`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${userResponse}`,
-        },
-      });
+      await registerPet(inputPetInfo, userResponse);
       navigate("/signup/success", { replace: true });
     } catch (error) {
       console.error("회원 가입 실패:", error);

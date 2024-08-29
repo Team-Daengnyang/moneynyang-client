@@ -27,15 +27,12 @@ const InvestPet = () => {
 
   useEffect(() => {
     console.log(SavingGoalList);
-  }, [SavingGoalList]);
-
-  useEffect(() => {
     if (account === null) {
       navigate("/signup/account");
     } else {
       navigate("/invest");
     }
-  }, []);
+  }, [SavingGoalList, account]);
 
   return (
     <div className="h-full pt-6 px-4 bg-gray-0 overflow-auto">

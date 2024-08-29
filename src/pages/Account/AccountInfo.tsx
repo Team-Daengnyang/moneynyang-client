@@ -40,19 +40,16 @@ export const AccountInfo = () => {
 
     const { startDate, endDate } = getRangeDate(currentDate);
 
-    const historyResponse = await axios.get(
-      `https://moneynyang.site/api/v1/accounts/history`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        params: {
-          startDate,
-          endDate,
-          accountName: account!.accountNumber,
-        },
-      }
-    );
+    await axios.get(`https://moneynyang.site/api/v1/accounts/history`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        startDate,
+        endDate,
+        accountName: account!.accountNumber,
+      },
+    });
   };
 
   const { formattedBankName, formattedAccountNumber } = formatName(

@@ -20,10 +20,10 @@ export interface IGoalCard {
   isDone: boolean;
 }
 
-type depositData = {
-  date: string;
-  amount: number;
-};
+// type depositData = {
+//   date: string;
+//   amount: number;
+// };
 
 const GoalCard = ({
   title,

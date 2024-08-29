@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import send from "../../assets/icons/send.png";
 import chatIcon from "../../assets/icons/chaticon.png";
 import { TopBar } from "../../components/Topbar";
@@ -18,7 +17,7 @@ const ChatBot = () => {
   }));
 
   const [inputValue, setInputValue] = useState("");
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const chatBoxRef = useRef<HTMLDivElement>(null); // HTMLDivElement 타입으로 명시적으로 지정
 
   useEffect(() => {

@@ -13,11 +13,21 @@ import {
   getRangeDate,
   increment,
 } from "../../utils/calcDate";
+import { AccountInfoCard } from "../../components/Card/AccountInfoCard";
 
 interface Account {
   accountNumber: string;
   accountBalance: string;
   bankName: string;
+}
+
+interface accountInfo {
+  transactionUniqueNo: number;
+  transactionDate: string;
+  transactionTime: string;
+  transactionBalance: number;
+  transactionAfterBalance: number;
+  transactionSummary: string; // 입금 출금
 }
 
 export const AccountInfo = () => {
@@ -33,6 +43,7 @@ export const AccountInfo = () => {
     bankName: "",
   });
   const { year, month } = getDate(currentDate);
+  const [infoList, setInfoList] = useState<accountInfo[]>([]);
 
   const getInfo = async () => {
     const accountResponse = await getAccountInfo(token);
@@ -40,16 +51,21 @@ export const AccountInfo = () => {
 
     const { startDate, endDate } = getRangeDate(currentDate);
 
-    await axios.get(`https://moneynyang.site/api/v1/accounts/history`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      params: {
-        startDate,
-        endDate,
-        accountName: account!.accountNumber,
-      },
-    });
+    const listResponse = await axios.get(
+      `https://moneynyang.site/api/v1/target-detail`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          startDate,
+          endDate,
+          accountNo: accountResponse!.accountNumber,
+        },
+      }
+    );
+    setInfoList(listResponse.data.data);
+    console.log(infoList);
   };
 
   const { formattedBankName, formattedAccountNumber } = formatName(
@@ -117,30 +133,9 @@ export const AccountInfo = () => {
           />
         </div>
         {/* 거래 내역 리스트 */}
-        <div className=" border-b border-gray-100 space-y-3 py-5">
-          <p className="font-medium text-gray-500 text-xs">
-            2024.08.23 <span className="text-gray-400">15:05:28</span>
-          </p>
-          <div className="flex justify-between">
-            <p className="font-medium text-lg">최승빈</p>
-            <div className="text-right space-y-1">
-              <p className="text-lg text-main-color font-semibold">+1,500원</p>
-              <p className="text-gray-500 font-medium">잔액 394,277원</p>
-            </div>
-          </div>
-        </div>
-        <div className=" border-b border-gray-100 space-y-3 py-5">
-          <p className="font-medium text-gray-500 text-xs">
-            2024.08.23 <span className="text-gray-400">15:05:28</span>
-          </p>
-          <div className="flex justify-between">
-            <p className="font-medium text-lg">최승빈</p>
-            <div className="text-right space-y-1">
-              <p className="text-lg text-main-color font-semibold">+1,500원</p>
-              <p className="text-gray-500 font-medium">잔액 394,277원</p>
-            </div>
-          </div>
-        </div>
+        {infoList?.map((data, index) => {
+          return <AccountInfoCard key={index} {...data} />;
+        })}
       </div>
     </div>
   );

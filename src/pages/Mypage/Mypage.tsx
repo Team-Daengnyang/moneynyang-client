@@ -1,10 +1,28 @@
 import useUserStore from "../../store/UseUserStore";
+import profile from "../../assets/Main/profile.png";
+import coin from "../../assets/Mypage/coin.png";
+import target from "../../assets/Mypage/target.png";
+import { useNavigate } from "react-router-dom";
 
 export const Mypage = () => {
-  const { userInfo, petInfo } = useUserStore((state) => ({
+  const navigate = useNavigate();
+  const { userInfo, petInfo, setToken } = useUserStore((state) => ({
     userInfo: state.userInfo,
     petInfo: state.petInfo,
+    setToken: state.setToken,
   }));
+  const clearUserIdStorage = useUserStore.persist.clearStorage;
+
+  const logout = () => {
+    if (window.confirm("로그아웃 하시겠습니까?")) {
+      alert("로그아웃 되었습니다.");
+    } else {
+      return;
+    }
+    setToken("");
+    clearUserIdStorage();
+    navigate("/login", { replace: true });
+  };
 
   return (
     <div className="h-full pt-6 px-4 bg-white">
@@ -13,11 +31,7 @@ export const Mypage = () => {
         {/* 프로필 */}
         <div className="bg-main-color rounded-lg p-5 space-y-5">
           <div className="flex space-x-5 place-items-cente">
-            <img
-              src="src/assets/Main/profile.png"
-              alt=""
-              className="w-[52px] h-[52px]"
-            />
+            <img src={profile} alt="" className="w-[52px] h-[52px]" />
             <div className="text-white">
               <p className="font-semibold">{userInfo.memberName}님</p>
               <p className="text-sm font-medium">
@@ -28,11 +42,7 @@ export const Mypage = () => {
           <div className="bg-[#005EED] py-5 rounded-lg flex justify-evenly">
             <div className="text-center text-white space-y-3">
               <div className="flex space-x-1">
-                <img
-                  src="src/assets/Mypage/coin.png"
-                  alt=""
-                  className="w-[18px] h-[18px]"
-                />
+                <img src={coin} alt="" className="w-[18px] h-[18px]" />
                 <p className="font-medium text-sm">모은 포인트</p>
               </div>
               <p className="font-semibold">
@@ -42,11 +52,7 @@ export const Mypage = () => {
             <div className="w-px bg-[#0E6EFF]"></div>
             <div className="text-center text-white space-y-3">
               <div className="flex space-x-1">
-                <img
-                  src="src/assets/Mypage/target.png"
-                  alt=""
-                  className="w-[18px] h-[18px]"
-                />
+                <img src={target} alt="" className="w-[18px] h-[18px]" />
                 <p className="font-medium text-sm">목표 갯수</p>
               </div>
               <p className="font-semibold">{userInfo.memberTarget}개</p>
@@ -61,7 +67,7 @@ export const Mypage = () => {
               <div
                 className="w-14 h-14 rounded-full"
                 style={{
-                  backgroundImage: "url('src/assets/dogSample.jpg')",
+                  backgroundImage: `url(${petInfo.petImage || profile})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }}
@@ -107,7 +113,10 @@ export const Mypage = () => {
               style={{ cursor: "pointer" }}
             />
           </div>
-          <div className="flex justify-between py-3">
+          <div
+            className="flex justify-between py-3 cursor-pointer"
+            onClick={() => logout()}
+          >
             <p className="font-semibold text-sm">로그아웃</p>
           </div>
         </div>

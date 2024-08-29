@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TopBar } from "../../components/Topbar";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import moment from "moment";
 import diary from "../../assets/images/diary.png";
 import { useNavigate } from "react-router-dom";
+import useUserStore from "../../store/UseUserStore";
+import { useQuery } from "react-query";
+import { getMonthDiary } from "../../api/cashwalkAPI";
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -23,12 +26,27 @@ const CalendarView = () => {
     string | null
   >(null);
 
+  const { token } = useUserStore((state) => ({
+    token: state.token,
+  }));
+
   const navigate = useNavigate();
 
-  const attendDay = [
-    { date: "2024-08-03", diaryContent: "2024년 8월 3일의 일기 내용입니다." },
-    { date: "2024-08-20", diaryContent: "2024년 8월 20일의 일기 내용입니다." },
-  ];
+  const { data: attendDay } = useQuery(
+    ["monthDiaryDatas", activeStartDate],
+    () => getMonthDiary(token, moment(activeStartDate).format("YYYY-MM-01")),
+    {
+      enabled: !!activeStartDate,
+      initialData: [],
+    }
+  );
+
+  useEffect(() => {
+    if (activeStartDate) {
+      const firstDayOfMonth = moment(activeStartDate).format("YYYY-MM-01");
+      console.log("First day of the current month:", firstDayOfMonth);
+    }
+  }, [activeStartDate]);
 
   const handleDateChange = (newDate: Value) => {
     setDate(newDate);
@@ -44,18 +62,17 @@ const CalendarView = () => {
       setMonth(month);
       setDay(day);
 
-      console.log(`Year: ${year}, Month: ${month}, Day: ${day}`);
+      console.log(moment(selectedDate).format("YYYY-MM-DD"));
 
-      // 오늘 이후의 날짜인지 확인하고 버튼 활성화 상태 업데이트
       if (selectedDate > today) {
         setIsButtonDisabled(true);
       } else {
         setIsButtonDisabled(false);
       }
 
-      // 선택된 날짜에 해당하는 일지 내용 설정
-      const selectedDay = attendDay.find(
-        (x) => x.date === moment(selectedDate).format("YYYY-MM-DD")
+      const selectedDay = attendDay?.find(
+        (x: { date: string; diaryContent: string }) =>
+          x.date === moment(selectedDate).format("YYYY-MM-DD")
       );
       if (selectedDay) {
         setSelectedDiaryContent(selectedDay.diaryContent);
@@ -68,7 +85,6 @@ const CalendarView = () => {
   return (
     <div className="h-full pt-6 px-4 bg-gray-0">
       <TopBar skip={""} title={""} />
-      {/* 캘린더 */}
       <div className="w-full flex justify-center relative">
         <Calendar
           value={date}
@@ -86,15 +102,22 @@ const CalendarView = () => {
           activeStartDate={
             activeStartDate === null ? undefined : activeStartDate
           }
-          onActiveStartDateChange={({ activeStartDate }) =>
-            setActiveStartDate(activeStartDate)
-          }
+          onActiveStartDateChange={({ activeStartDate }) => {
+            setActiveStartDate(activeStartDate);
+
+            if (activeStartDate) {
+              const firstDayOfMonth =
+                moment(activeStartDate).format("YYYY-MM-01");
+              console.log("First day of the new month:", firstDayOfMonth);
+            }
+          }}
           tileContent={({ date, view }) => {
             let html = [];
             if (
               view === "month" &&
-              attendDay.find(
-                (x) => x.date === moment(date).format("YYYY-MM-DD")
+              attendDay?.find(
+                (x: { date: string; diaryContent: string }) =>
+                  x.date === moment(date).format("YYYY-MM-DD")
               )
             ) {
               html.push(
@@ -115,8 +138,9 @@ const CalendarView = () => {
               }
 
               if (
-                attendDay.some(
-                  (x) => x.date === moment(date).format("YYYY-MM-DD")
+                attendDay?.some(
+                  (x: { date: string; diaryContent: string }) =>
+                    x.date === moment(date).format("YYYY-MM-DD")
                 )
               ) {
                 classes.push("relative");
@@ -129,9 +153,7 @@ const CalendarView = () => {
           }}
         />
       </div>
-      {/* 구분선 */}
       <div className="h-2 bg-gray-100 my-5" />
-      {/* 일지 */}
       <div className="">
         <div className="flex gap-1 mb-[7px]">
           <img src={diary} className="w-[28px]" />
@@ -142,7 +164,6 @@ const CalendarView = () => {
           </h1>
         </div>
 
-        {/* 일지 작성했던 경우 */}
         {selectedDiaryContent ? (
           <div className="p-4 bg-gray-100 text-gray-600 text-[14px] font-semibold rounded-lg">
             <span>{selectedDiaryContent}</span>
@@ -153,7 +174,7 @@ const CalendarView = () => {
             <button
               onClick={() => {
                 navigate("/cashwalk/write", {
-                  state: { year, month, day, date },
+                  state: { year, month, day, date, activeStartDate },
                 });
               }}
               className={`w-[81px] h-[36px] rounded-full text-gray-0 ${
@@ -197,7 +218,7 @@ const CalendarView = () => {
           .react-calendar__navigation__label:active {
             background-color: transparent !important; /* 포커스 시 배경색 제거 */
           }
-            .react-calendar__tile--now:hover {
+          .react-calendar__tile--now:hover {
             background-color: #97c5fd !important; /* blue-100 */
           }
         `}

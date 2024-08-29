@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { TopBar } from "../../components/Topbar";
 import useSignupStore from "../../store/UseSignupStore";
+import { useState } from "react";
+import trash from "../../assets/Signup/trash-bg.png";
 
 interface inputPetInfo {
   petId: number;
@@ -20,6 +22,7 @@ interface SignupState {
 
 export const AnimalInfo = () => {
   const navigate = useNavigate();
+  const [imageSrc, setImageSrc] = useState<string | null>(null);
   const { inputPetInfo, setInputPetInfo } = useSignupStore(
     (state: SignupState) => ({
       inputPetInfo: state.inputPetInfo,
@@ -42,6 +45,13 @@ export const AnimalInfo = () => {
       const file = files[0];
       setInputPetInfo({ petImage: file }); // 선택된 파일을 상태에 저장합니다.
       console.log("Selected file:", file);
+
+      // FileReader를 사용하여 이미지 URL 생성
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImageSrc(reader.result as string); // 이미지 URL을 상태에 저장
+      };
+      reader.readAsDataURL(file); // 파일을 Data URL로 읽기
     }
   };
 
@@ -58,15 +68,33 @@ export const AnimalInfo = () => {
         </p>
         <div className="space-y-5">
           {/* 이름 */}
-          <div className="flex space-x-5">
-            <img
-              src={`${
-                import.meta.env.VITE_PUBLIC_URL
-              }/src/assets/Signup/picture.png`}
-              alt=""
-              className="w-[78px] cursor-pointer"
-              onClick={handleImageClick}
-            />
+          <div className="flex space-x-5 justify-between">
+            <div className="relative">
+              <img
+                src={
+                  imageSrc ||
+                  `${
+                    import.meta.env.VITE_PUBLIC_URL
+                  }/src/assets/Signup/picture.png`
+                }
+                alt=""
+                className={`w-[78px] h-[78px] ${
+                  !imageSrc ? "cursor-pointer" : ""
+                } object-cover border rounded-full`}
+                onClick={!imageSrc ? handleImageClick : undefined}
+                style={{ maxWidth: "100%", maxHeight: "100%" }}
+              />
+              {!imageSrc ? (
+                ""
+              ) : (
+                <img
+                  src={trash}
+                  alt=""
+                  className="absolute bottom-0 right-0 w-7 cursor-pointer"
+                  onClick={() => setImageSrc(null)}
+                />
+              )}
+            </div>
             <input
               type="file"
               id="file-input"
@@ -74,7 +102,7 @@ export const AnimalInfo = () => {
               style={{ display: "none" }} // input을 숨깁니다.
               accept="image/*" // 이미지 파일만 선택 가능하도록 설정
             />
-            <div className="space-y-2 w-full">
+            <div className="space-y-2">
               <label htmlFor="" className="block font-medium text-sm">
                 이름 <span className="text-main-color">*</span>
               </label>

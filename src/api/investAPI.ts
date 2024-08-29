@@ -54,11 +54,11 @@ interface AllSummaryData {
   achievedTargets: AchievedTarget[];
 }
 
-interface GetAllSummaryResponse {
-  status: number;
-  message: string;
-  data: AllSummaryData;
-}
+// interface GetAllSummaryResponse {
+//   status: number;
+//   message: string;
+//   data: AllSummaryData;
+// }
 
 //저축 목표 목록 가져오기
 export const getSavingsGoalList = async (

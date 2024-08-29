@@ -3,7 +3,7 @@ import { TopBar } from "../../components/Topbar";
 import diary from "../../assets/images/diary.png";
 import { useState } from "react";
 import { writeDiary } from "../../api/cashwalkAPI";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation } from "react-query";
 import useUserStore from "../../store/UseUserStore";
 
 interface IState {
@@ -16,7 +16,7 @@ interface IState {
 
 const Write: React.FC = () => {
   const location = useLocation();
-  const { year, month, day, activeStartDate } =
+  const { year, month, day /* activeStartDate */ } =
     (location.state as IState) || {};
   const [typedText, setTypedText] = useState("");
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ const Write: React.FC = () => {
     token: state.token,
   }));
 
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
   const mutation = useMutation(
     () =>
       writeDiary(

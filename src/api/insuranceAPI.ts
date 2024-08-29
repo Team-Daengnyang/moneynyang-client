@@ -20,9 +20,7 @@ export const getInsuranceDatas = async (token: string) => {
 //펫 보험 상세 조회하기
 export const getInsuranceDetail = async (insuranceId: number) => {
   try {
-    const response = await axios.get(
-      `${BASE_URL}/api/v1/insurances/${insuranceId}`
-    );
+    await axios.get(`${BASE_URL}/api/v1/insurances/${insuranceId}`);
   } catch (error) {
     console.log("펫 보험 상세 조회하기 에러", error);
   }

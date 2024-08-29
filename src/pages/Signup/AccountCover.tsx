@@ -24,7 +24,7 @@ export const AccountCover = () => {
   }));
   const { accountNumber, accountTitle } = location.state as Response;
   const [myColor, setMyColor] = useState("bg-[#F4F4F4]");
-  const [request, setRequest] = useState<Request>({
+  const [request] = useState<Request>({
     accountColor: "",
     accountImage: petInfo.petImage,
   });

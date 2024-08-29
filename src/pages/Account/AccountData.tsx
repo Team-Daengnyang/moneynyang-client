@@ -2,11 +2,10 @@ import { TopBar } from "../../components/Topbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Chart } from "./Chart";
 
 export const AccountData = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
 
   const incrementMonth = () => {

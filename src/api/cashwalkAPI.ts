@@ -8,7 +8,7 @@ export const writeDiary = async (
   createdAt: string
 ) => {
   try {
-    const response = await axios.post(
+    await axios.post(
       `${BASE_URL}/api/v1/cashwalks`,
       {
         content,

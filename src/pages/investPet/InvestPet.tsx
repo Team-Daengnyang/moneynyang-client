@@ -5,10 +5,10 @@ import sampleDog from "../../assets/images/sampleDog.jpg";
 import paw from "../../assets/icons/gray paw.png";
 import GoalCard from "../../components/Card/GoalCard";
 import { useNavigate } from "react-router-dom";
-import { IGoalCard } from "../../components/Card/GoalCard";
+// import { IGoalCard } from "../../components/Card/GoalCard";
 import { useEffect } from "react";
 
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 import { checkAccount, getSavingsGoalList } from "../../api/investAPI";
 import useUserStore from "../../store/UseUserStore";
 
@@ -104,6 +104,7 @@ const InvestPet = () => {
             goalMoney={data.targetAmount}
             // depositDatas={data.depositDatas}
             targetId={data.targetId}
+            isDone={false}
           />
         );
       })}

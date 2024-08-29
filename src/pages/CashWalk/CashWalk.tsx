@@ -1,6 +1,4 @@
 import { TopBar } from "../../components/Topbar";
-import goldCoin from "../../assets/icons/gold coin.png";
-import chevronRightWhite from "../../assets/icons/chevronRightWhite.png";
 import sampleDog from "../../assets/images/sampleDog.jpg";
 import pawCalendar from "../../assets/images/pawCalendar.png";
 import chevronRight from "../../assets/icons/chevronRight.png";

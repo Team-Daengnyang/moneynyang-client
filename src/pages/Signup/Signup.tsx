@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "../../components/Button";
 import { TopBar } from "../../components/Topbar";
 import { useNavigate } from "react-router-dom";
-import useSignupStore from "../../store/UseSignupStore";
+import useSignupStore from "../../store/useSignupStore";
 
 export const Signup = () => {
   const navigate = useNavigate();

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { TopBar } from "../../components/Topbar";
-import useSignupStore from "../../store/UseSignupStore";
+import useSignupStore from "../../store/useSignupStore";
 
 export const AnimalInfo = () => {
   const navigate = useNavigate();

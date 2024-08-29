@@ -1,9 +1,9 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { TopBar } from "../../components/Topbar";
 import hanhwa from "../../assets/images/hanhwa.png";
 
 const InsuranceDetail = () => {
-  const { insuranceId } = useParams();
+  // const { insuranceId } = useParams();
   const navigate = useNavigate();
 
   const insuranceData = {

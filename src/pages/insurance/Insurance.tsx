@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { TopBar } from "../../components/Topbar";
 import sampleDog from "../../assets/images/sampleDog.jpg";
 import idea from "../../assets/icons/Idea.png";
@@ -162,7 +162,7 @@ const Insurance = () => {
           price={55000}
           insuranceId={4}
         /> */}
-        {dummyDatas.map((data, i) => {
+        {dummyDatas.map((data, _i) => {
           return (
             <InsuranceCard
               key={data.insuranceId}

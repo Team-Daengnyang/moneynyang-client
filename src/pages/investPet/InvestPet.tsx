@@ -30,6 +30,7 @@ const InvestPet = () => {
   }, [SavingGoalList]);
 
   useEffect(() => {
+    console.log("투자계좌 확인: ", account);
     if (account === null) {
       navigate("/signup/account");
     } else {

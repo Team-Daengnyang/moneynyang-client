@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import loginlogo from "../../assets/Login/loginLogo.png";
+import loginimg from "../../assets/Login/loginImg.png";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -7,12 +9,12 @@ export const Login = () => {
     <div className="h-full flex flex-col justify-center pt-6 px-4 bg-main-color text-center">
       <div className="space-y-5 mb-20">
         <div className="flex place-content-center">
-          <img src="src/assets/Login/loginLogo.png" alt="" width={165} />
+          <img src={loginlogo} alt="" width={165} />
         </div>
         <p className="text-white">반려동물과 함께하는 금융 서비스</p>
       </div>
       <div className="flex place-content-center">
-        <img src="src/assets/Login/loginImg.png" alt="" className="w-full" />
+        <img src={loginimg} alt="" className="w-full" />
       </div>
       <div className="flex-col place-content-center space-y-3">
         <div

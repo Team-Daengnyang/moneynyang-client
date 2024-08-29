@@ -12,7 +12,7 @@ interface Account {
   bankName: string;
 }
 
-interface Response {
+interface IState {
   accountNumber: string;
   selectedBank: string;
 }
@@ -21,7 +21,7 @@ export const PayMoney = () => {
   const navigate = useNavigate();
   const token = useUserStore((state) => state.token);
   const location = useLocation();
-  const { accountNumber, selectedBank } = location.state as Response;
+  const { accountNumber, selectedBank } = location.state as IState;
   const { formattedBankName, formattedAccountNumber } = formatName(
     selectedBank,
     accountNumber
@@ -31,7 +31,7 @@ export const PayMoney = () => {
     accountBalance: "",
     bankName: "",
   });
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState<number | "">(""); // 초기값을 빈 문자열로 설정
 
   const getInfo = async () => {
     try {
@@ -45,11 +45,17 @@ export const PayMoney = () => {
   const send = async () => {
     try {
       const sendResponse = await sendMoney(
-        { amount, account: accountNumber },
+        { amount: Number(amount), account: accountNumber },
         token
       );
       console.log(sendResponse);
-      navigate("/pay/success");
+      navigate("/pay/success", {
+        state: {
+          amount,
+          bankName: formattedBankName,
+          accountNumber: formattedAccountNumber,
+        },
+      });
     } catch (error) {
       console.error("입금 발생:", error);
     }

@@ -19,7 +19,7 @@ interface PetInfo {
   petType: string; // 강아지 고양이
   petGender: string; // 여아 남아
   specie: string;
-  petImage: File;
+  petImage: string;
 }
 
 interface StoreState {
@@ -54,10 +54,7 @@ const useUserStore = create(
         petType: "",
         petBirth: "",
         specie: "",
-        petImage: new File(
-          [],
-          `${import.meta.env.VITE_PUBLIC_URL}/src/assets/Signup/picture.png`
-        ) as File,
+        petImage: "",
       },
       setPetInfo: (newInfo) =>
         set((state) => ({

@@ -193,7 +193,7 @@ export const Main = () => {
           {/* 챗봇 */}
           <div
             onClick={() => {
-              enterChat();
+              enterChat(token);
               navigate("/chatbot");
             }}
             className="flex justify-end cursor-pointer"

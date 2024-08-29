@@ -4,6 +4,7 @@ import send from "../../assets/icons/send.png";
 import chatIcon from "../../assets/icons/chaticon.png";
 import { TopBar } from "../../components/Topbar";
 import { getReply } from "../../api/chatbotAPI";
+import useUserStore from "../../store/UseUserStore";
 
 // import { fetchAndPlaySpeech } from "../services/chatbotAPI";
 
@@ -11,6 +12,10 @@ const ChatBot = () => {
   const [messages, setMessages] = useState<{ text: string; user: boolean }[]>(
     []
   );
+
+  const { token } = useUserStore((state) => ({
+    token: state.token,
+  }));
 
   const [inputValue, setInputValue] = useState("");
   const navigate = useNavigate();
@@ -32,7 +37,7 @@ const ChatBot = () => {
       setMessages(newMessages);
       setInputValue("");
 
-      const reply = await getReply(inputValue);
+      const reply = await getReply(inputValue, token);
       const botMessage = reply
         ? reply
         : "챗봇 서비스에 문제가 발생했습니다. 나중에 다시 시도해주세요.";
@@ -45,13 +50,13 @@ const ChatBot = () => {
   };
 
   return (
-    <div className="h-full pt-6 px-4 flex flex-col justify-between  overflow-hidden relative bg-gray-100">
+    <div className="h-full pt-6 px-4 flex flex-col justify-between  overflow-hidden relative bg-gray-100 overflow-y-auto">
       <TopBar title={"AI 챗봇"} skip={""} />
       <div
         className="flex flex-col justify-start flex-1 overflow-y-auto "
         ref={chatBoxRef}
       >
-        <div className="flex flex-col gap-2 ">
+        <div className="flex flex-col gap-2  overflow-y-auto">
           {messages.map((message, index) =>
             message.user ? (
               <div

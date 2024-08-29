@@ -14,41 +14,28 @@ const Insurance = () => {
     token: state.token,
   }));
 
-  const { data } = useQuery("insuranceDatas", () => getInsuranceDatas(token));
+  const {
+    data: dummyDatas,
+    error,
+    isLoading,
+  } = useQuery("insuranceDatas", () => getInsuranceDatas(token));
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  interface IInsuranceCard {
+    insuranceId: number;
+    title: string;
+    companyImage: string;
+    price: string;
+  }
 
-  const dummyDatas = [
-    {
-      imgSrc: hanhwa,
-      insuranceName: "한화손해보험",
-      price: 55000,
-      insuranceId: 1,
-    },
-    {
-      imgSrc: hanhwa,
-      insuranceName: "싸피보험",
-      price: 40000,
-      insuranceId: 2,
-    },
-    {
-      imgSrc: hanhwa,
-      insuranceName: "신한라이프",
-      price: 76000,
-      insuranceId: 3,
-    },
-    {
-      imgSrc: hanhwa,
-      insuranceName: "신한생명",
-      price: 55000,
-      insuranceId: 4,
-    },
-  ];
+  // Handle cases where data is not loaded or an error occurred
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading data</div>;
+
+  // Ensure dummyDatas is an array before mapping
+  const insuranceList = Array.isArray(dummyDatas) ? dummyDatas : [];
 
   return (
-    <div className="h-full pt-6 px-4 bg-gray-0">
+    <div className="h-full flex flex-col pt-6 px-4 bg-gray-0 ">
       <TopBar title={"펫 금융상품 알아보기"} skip={""} />
       {/* 아롱이 */}
       <div className="flex justify-between items-center mb-5">
@@ -68,47 +55,30 @@ const Insurance = () => {
       <div>
         <h1 className="text-[18px] font-semibold mb-3">가입 가능한 상품</h1>
 
-        {isLeft ? (
-          <div className="cursor-pointer flex h-[46px] items-center justify-center bg-gray-100 rounded-md gap-1 ">
-            <div
-              onClick={() => {
-                setIsLeft(true);
-              }}
-              className="w-[158px] h-[38px] bg-gray-0 flex justify-center items-center rounded-md"
-            >
-              <span>갱신형</span>
-            </div>
-            <div
-              onClick={() => {
-                setIsLeft(false);
-              }}
-              className="w-[158px] h-[38px] bg-gray-100 flex justify-center items-center rounded-md"
-            >
-              <div>재가입형</div>
-            </div>
+        <div className="cursor-pointer flex h-[46px] items-center justify-center bg-gray-100 rounded-md gap-1 ">
+          <div
+            onClick={() => {
+              setIsLeft(true);
+            }}
+            className={`w-[158px] h-[38px] ${
+              isLeft ? "bg-gray-0" : "bg-gray-100"
+            } flex justify-center items-center rounded-md`}
+          >
+            <span>갱신형</span>
           </div>
-        ) : (
-          <div className="cursor-pointer flex h-[46px] items-center justify-center bg-gray-100 rounded-md gap-1 ">
-            <div
-              onClick={() => {
-                setIsLeft(true);
-              }}
-              className="w-[158px] h-[38px] bg-gray-100 flex justify-center items-center rounded-md"
-            >
-              <span>갱신형</span>
-            </div>
-
-            <div
-              onClick={() => {
-                setIsLeft(false);
-              }}
-              className="w-[158px] h-[38px] bg-gray-0 flex justify-center items-center rounded-md"
-            >
-              <div>재가입형</div>
-            </div>
+          <div
+            onClick={() => {
+              setIsLeft(false);
+            }}
+            className={`w-[158px] h-[38px] ${
+              !isLeft ? "bg-gray-0" : "bg-gray-100"
+            } flex justify-center items-center rounded-md`}
+          >
+            <div>재가입형</div>
           </div>
-        )}
+        </div>
       </div>
+
       {/* 갱신형 상품이란 */}
       {isLeft ? (
         <div className=" rounded-lg  border-2 border-gray-200 px-4 py-3 my-4 ">
@@ -137,43 +107,25 @@ const Insurance = () => {
       )}
 
       {/* 리스트 */}
-      <ul>
-        {/* <InsuranceCard
-          imgSrc={hanhwa}
-          insuranceName="한화손해보험"
-          price={52000}
-          insuranceId={1}
-        />
-        <InsuranceCard
-          imgSrc={hanhwa}
-          insuranceName="싸피보험"
-          price={40000}
-          insuranceId={2}
-        />
-        <InsuranceCard
-          imgSrc={hanhwa}
-          insuranceName="신한라이프"
-          price={76000}
-          insuranceId={3}
-        />
-        <InsuranceCard
-          imgSrc={hanhwa}
-          insuranceName="신한생명"
-          price={55000}
-          insuranceId={4}
-        /> */}
-        {dummyDatas.map((data, _i) => {
-          return (
+      <div className="flex-col overflow-y-auto">
+        <ul>
+          <InsuranceCard
+            companyImage={hanhwa}
+            title="한화손해보험"
+            price={"52000"}
+            insuranceId={1}
+          />
+          {insuranceList.map((data: IInsuranceCard, i: number) => (
             <InsuranceCard
-              key={data.insuranceId}
-              imgSrc={data.imgSrc}
-              insuranceName={data.insuranceName}
+              key={i}
+              companyImage={data.companyImage}
+              title={data.title}
               price={data.price}
               insuranceId={data.insuranceId}
             />
-          );
-        })}
-      </ul>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

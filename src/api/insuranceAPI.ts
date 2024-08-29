@@ -11,7 +11,7 @@ export const getInsuranceDatas = async (token: string) => {
       },
     });
     console.log("펫 보험 조회 : ", response);
-    return response.data;
+    return response.data.data;
   } catch (error) {
     console.log("펫 보험 조회하기 에러 : ", error);
   }

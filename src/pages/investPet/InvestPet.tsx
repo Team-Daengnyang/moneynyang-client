@@ -67,7 +67,9 @@ const InvestPet = () => {
               {petInfo.petName}
             </h1>
             <span className="font-bold text-base	">오늘 나의 저축 목표 </span>{" "}
-            <span className="text-blue-100 font-bold text-base">2</span>
+            <span className="text-blue-100 font-bold text-base">
+              {SavingGoalList?.length}
+            </span>
             <span className="font-bold text-base">개</span>
             <div className="flex gap-1 items-center">
               <img src={paw} style={{ width: "12px", height: "12px" }} />

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import success from "../../assets/Signup/success.png";
 
 export const SignupSuccess = () => {
   const navigate = useNavigate();
@@ -18,13 +19,7 @@ export const SignupSuccess = () => {
         </p>
       </div>
       <div className="flex place-content-center">
-        <img
-          src={`${
-            import.meta.env.VITE_PUBLIC_URL
-          }/src/assets/Signup/success.png`}
-          alt=""
-          className="w-4/5"
-        />
+        <img src={success} alt="" className="w-4/5" />
       </div>
     </div>
   );

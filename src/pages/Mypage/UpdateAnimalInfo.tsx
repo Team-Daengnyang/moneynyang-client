@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { TopBar } from "../../components/Topbar";
-import useSignupStore from "../../store/UseSignupStore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import trash from "../../assets/Signup/trash-bg.png";
 import picture from "../../assets/Signup/picture.png";
+import useUserStore from "../../store/UseUserStore";
+import { updatePet } from "../../api/userAPI";
 
 interface inputPetInfo {
   petId: number;
@@ -16,26 +17,29 @@ interface inputPetInfo {
   petImage: File | null;
 }
 
-interface SignupState {
-  inputPetInfo: inputPetInfo;
-  setInputPetInfo: (newInfo: Partial<inputPetInfo>) => void; // 부분적 업데이트를 허용
-}
-
-export const AnimalInfo = () => {
+export const UpdateAnimalInfo = () => {
   const navigate = useNavigate();
   const [imageSrc, setImageSrc] = useState<string | null>(null);
-  const { inputPetInfo, setInputPetInfo } = useSignupStore(
-    (state: SignupState) => ({
-      inputPetInfo: state.inputPetInfo,
-      setInputPetInfo: state.setInputPetInfo,
-    })
-  );
+  const { petInfo, token } = useUserStore((state) => ({
+    petInfo: state.petInfo,
+    token: state.token,
+  }));
+
+  const [inputPetInfo, setInputPetInfo] = useState<inputPetInfo>({
+    petId: petInfo.petId,
+    petName: petInfo.petName,
+    petBirth: petInfo.petBirth,
+    petType: petInfo.petType,
+    petGender: petInfo.petGender,
+    specie: petInfo.specie,
+    petImage: null,
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setInputPetInfo({ [name]: value });
-    // setPet((prev) => ({ ...prev, [name]: value })); // 상태 업데이트
+    setInputPetInfo((prev) => ({ ...prev, [name]: value })); // 이전 상태를 유지하면서 업데이트
   };
+
   const handleImageClick = () => {
     document.getElementById("file-input")?.click();
   };
@@ -44,7 +48,7 @@ export const AnimalInfo = () => {
     const files = event.target.files;
     if (files && files.length > 0) {
       const file = files[0];
-      setInputPetInfo({ petImage: file }); // 선택된 파일을 상태에 저장합니다.
+      setInputPetInfo((prev) => ({ ...prev, petImage: file })); // 선택된 파일을 상태에 저장합니다.
       console.log("Selected file:", file);
 
       // FileReader를 사용하여 이미지 URL 생성
@@ -56,17 +60,22 @@ export const AnimalInfo = () => {
     }
   };
 
-  const signup = async () => {
-    navigate("/signup/check");
+  const update = async () => {
+    await updatePet(inputPetInfo, token);
+    navigate("/mypage", { replace: true });
   };
+
+  useEffect(() => {
+    if (petInfo.petImage) {
+      setImageSrc(petInfo.petImage);
+      console.log(imageSrc);
+    }
+  }, []);
 
   return (
     <div className="h-full pt-6 px-4 bg-white flex flex-col justify-between">
       <div>
-        <TopBar title={""} skip={""} />
-        <p className="text-xl font-semibold mb-5">
-          우리 아이의 <br /> 정보를 알려주세요
-        </p>
+        <TopBar title={"우리 아이 정보 수정하기"} skip={""} />
         <div className="space-y-5">
           {/* 이름 */}
           <div className="flex space-x-5 justify-between">
@@ -124,7 +133,9 @@ export const AnimalInfo = () => {
                     ? "bg-[#DBEAFF] border border-main-color text-main-color"
                     : "bg-[#F4F4F4] text-[#73787E]"
                 }`}
-                onClick={() => setInputPetInfo({ petGender: "여아" })}
+                onClick={() => {
+                  setInputPetInfo((prev) => ({ ...prev, petGender: "여아" }));
+                }}
               >
                 <p>여아</p>
               </div>
@@ -134,7 +145,9 @@ export const AnimalInfo = () => {
                     ? "bg-[#DBEAFF] border border-main-color text-main-color"
                     : "bg-[#F4F4F4] text-[#73787E]"
                 }`}
-                onClick={() => setInputPetInfo({ petGender: "남아" })}
+                onClick={() => {
+                  setInputPetInfo((prev) => ({ ...prev, petGender: "남아" }));
+                }}
               >
                 <p>남아</p>
               </div>
@@ -166,7 +179,9 @@ export const AnimalInfo = () => {
                     ? "bg-[#DBEAFF] border border-main-color text-main-color"
                     : "bg-[#F4F4F4] text-[#73787E]"
                 }`}
-                onClick={() => setInputPetInfo({ petType: "강아지" })}
+                onClick={() => {
+                  setInputPetInfo((prev) => ({ ...prev, petType: "강아지" }));
+                }}
               >
                 <p>강아지</p>
               </div>
@@ -176,7 +191,9 @@ export const AnimalInfo = () => {
                     ? "bg-[#DBEAFF] border border-main-color text-main-color"
                     : "bg-[#F4F4F4] text-[#73787E]"
                 }`}
-                onClick={() => setInputPetInfo({ petType: "고양이" })}
+                onClick={() => {
+                  setInputPetInfo((prev) => ({ ...prev, petType: "고양이" }));
+                }}
               >
                 <p>고양이</p>
               </div>
@@ -201,7 +218,7 @@ export const AnimalInfo = () => {
       <Button
         text={"다음"}
         onClick={() => {
-          signup();
+          update();
         }}
       ></Button>
     </div>

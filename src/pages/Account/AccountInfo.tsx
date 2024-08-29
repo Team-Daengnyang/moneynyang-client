@@ -14,6 +14,7 @@ import {
   increment,
 } from "../../utils/calcDate";
 import { AccountInfoCard } from "../../components/Card/AccountInfoCard";
+import shinhan from "../../assets/Main/shinhan.png";
 
 interface Account {
   accountNumber: string;
@@ -78,13 +79,13 @@ export const AccountInfo = () => {
   }, [currentDate]); // currentDate가 변경될 때마다 getInfo 호출
 
   return (
-    <div className="h-full pt-6 px-4 bg-gray-0 ">
+    <div className="h-full flex flex-col py-6 px-4 bg-gray-0 ">
       <TopBar title={"거래 내역 조회"} skip={""} />
       <div className="space-y-4">
         {/* 내 계좌 */}
         <div className="mb-5">
           <div className="flex space-x-1 place-items-center mb-1">
-            <img src="src/assets/Main/shinhan.png" alt="" className="w-5 h-5" />
+            <img src={shinhan} alt="" className="w-5 h-5" />
             <p className="text-sm text-[#73787E]">
               {formattedBankName} {formattedAccountNumber}
             </p>
@@ -132,7 +133,9 @@ export const AccountInfo = () => {
             onClick={() => setCurrentDate(increment(currentDate))}
           />
         </div>
-        {/* 거래 내역 리스트 */}
+      </div>
+      {/* 거래 내역 리스트 */}
+      <div className="space-y-4 overflow-y-auto h-full">
         {infoList?.map((data, index) => {
           return <AccountInfoCard key={index} {...data} />;
         })}

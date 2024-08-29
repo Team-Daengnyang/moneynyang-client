@@ -2,7 +2,6 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import InvestPetPages from "./routes/InvestPages";
 import { Main } from "./pages/Main";
 import { Navbar } from "./components/Navbar";
-import { Mypage } from "./pages/Mypage/Mypage";
 import SignupPages from "./routes/SignupPages";
 import PaymentPages from "./routes/PaymentPages";
 import InsurancePages from "./routes/InsurancePages";
@@ -10,6 +9,7 @@ import CashWalkPages from "./routes/CashWalkPages";
 import LoginPages from "./routes/LoginPages";
 import AccountPages from "./routes/AccountPages";
 import ChatBot from "./pages/ChatBot/ChatBot";
+import MyPages from "./routes/MyPages";
 // import useUserStore from "./store/UseUserStore";
 // import { useEffect } from "react";
 
@@ -25,7 +25,7 @@ function App() {
       <div className="w-[360px] h-[780px] relative">
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/mypage" element={<Mypage />} />
+          <Route path="/mypage/*" element={<MyPages />} />
           <Route path="/login/*" element={<LoginPages />} />
           <Route path="/signup/*" element={<SignupPages />} />
           <Route path="/invest/*" element={<InvestPetPages />} />

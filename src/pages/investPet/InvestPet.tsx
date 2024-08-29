@@ -27,7 +27,7 @@ const InvestPet = () => {
   const { data: account } = useQuery("account", () => checkAccount(token));
 
   useEffect(() => {
-    console.log(SavingGoalList);
+    console.log("투자계좌 확인: ", account);
     if (account === null) {
       navigate("/signup/account");
     } else {

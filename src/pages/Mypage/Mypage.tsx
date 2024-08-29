@@ -2,6 +2,7 @@ import useUserStore from "../../store/UseUserStore";
 import { useNavigate } from "react-router-dom";
 import { MyProfile } from "./components/MyProfile";
 import { MyPets } from "./components/MyPets";
+import rightAngle from "../../assets/rightAngle.png";
 
 export const Mypage = () => {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ export const Mypage = () => {
           <div className="flex justify-between py-3">
             <p className="font-semibold text-sm">계좌 관리</p>
             <img
-              src="src/assets/rightAngle.png"
+              src={rightAngle}
               alt=""
               className="w-5"
               style={{ cursor: "pointer" }}

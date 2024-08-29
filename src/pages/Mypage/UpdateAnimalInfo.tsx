@@ -3,6 +3,7 @@ import { Button } from "../../components/Button";
 import { TopBar } from "../../components/Topbar";
 import { useEffect, useState } from "react";
 import trash from "../../assets/Signup/trash-bg.png";
+import picture from "../../assets/Signup/picture.png";
 import useUserStore from "../../store/UseUserStore";
 import { updatePet } from "../../api/userAPI";
 
@@ -80,12 +81,7 @@ export const UpdateAnimalInfo = () => {
           <div className="flex space-x-5 justify-between">
             <div className="relative">
               <img
-                src={
-                  imageSrc ||
-                  `${
-                    import.meta.env.VITE_PUBLIC_URL
-                  }/src/assets/Signup/picture.png`
-                }
+                src={imageSrc || picture}
                 alt=""
                 className={`w-[78px] h-[78px] object-cover border rounded-full ${
                   !imageSrc ? "cursor-pointer" : ""

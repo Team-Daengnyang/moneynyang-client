@@ -1,10 +1,19 @@
 import { useEffect, useState } from "react";
-import chatIcon from "../../assets/icons/chaticon.png";
 import { useNavigate } from "react-router-dom";
 import useUserStore from "../../store/UseUserStore";
 import { getAccountInfo, getPetInfo, getUserInfo } from "../../api/userAPI";
 import { formatName } from "../../utils/calcDate";
 import { enterChat } from "../../api/chatbotAPI";
+import logo from "../../assets/Main/mainLogo.png";
+import profile from "../../assets/Main/profile.png";
+import footprint from "../../assets/Main/footPrint.png";
+import shinhan from "../../assets/Main/shinhan.png";
+import animals from "../../assets/Main/animals.png";
+import walk from "../../assets/Main/walk.png";
+import bankbooks from "../../assets/Main/bankbook.png";
+import moneybag from "../../assets/Main/moneyBag.png";
+import rightAngle from "../../assets/rightAngle.png";
+import chatIcon from "../../assets/icons/chaticon.png";
 
 interface Account {
   accountNumber: string;
@@ -63,15 +72,11 @@ export const Main = () => {
   return (
     <div className="h-full pt-6 px-4 bg-[#F8F8F8] overflow-auto pb-[70px]">
       <div className="space-y-5 ">
-        <img src="src/assets/Main/mainLogo.png" alt="" className="h-5 my-2 " />
+        <img src={logo} alt="" className="h-5 my-2 " />
         <div className="space-y-3 flex flex-col justify-between ">
           {/* 프로필 */}
           <div className="flex space-x-5 place-items-center">
-            <img
-              src="src/assets/Main/profile.png"
-              alt=""
-              className="w-[52px] h-[52px]"
-            />
+            <img src={profile} alt="" className="w-[52px] h-[52px]" />
             <div>
               <p className="font-semibold">{userInfo.memberName}님</p>
               <p className="text-[#9FA4A9] text-sm font-medium">
@@ -81,11 +86,7 @@ export const Main = () => {
           </div>
           {/* 덕질 일 수 */}
           <div className="flex space-x-3 place-items-center">
-            <img
-              src="src/assets/Main/footPrint.png"
-              alt=""
-              className="w-3 h-3"
-            />
+            <img src={footprint} alt="" className="w-3 h-3" />
             <p className="font-medium text-sm text-[#73787E]">
               멍이냥에서 덕질한지{" "}
               <span className="text-[#26282B]">{userInfo.memberDate}</span>일째
@@ -101,11 +102,7 @@ export const Main = () => {
           >
             <p className="font-semibold text-lg mb-1">내 계좌</p>
             <div className="flex space-x-1 place-items-center mb-3">
-              <img
-                src="src/assets/Main/shinhan.png"
-                alt=""
-                className="w-5 h-5"
-              />
+              <img src={shinhan} alt="" className="w-5 h-5" />
               <p className="text-sm text-[#73787E]">
                 {formattedBankName} {formattedAccountNumber}
               </p>
@@ -125,11 +122,7 @@ export const Main = () => {
               <p className="text-white font-semibold p-5">
                 나의 펫 <br /> 덕질하기
               </p>
-              <img
-                src="src/assets/Main/animals.png"
-                alt=""
-                className="w-[160px] rounded-b-lg"
-              />
+              <img src={animals} alt="" className="w-[160px] rounded-b-lg" />
             </div>
             <div className="flex flex-col justify-between">
               <div
@@ -144,7 +137,7 @@ export const Main = () => {
                   <br /> 돈 벌기
                 </p>
                 <img
-                  src="src/assets/Main/walk.png"
+                  src={walk}
                   alt=""
                   className="w-[160px] rounded-b-lg absolute bottom-0"
                 />
@@ -161,7 +154,7 @@ export const Main = () => {
                   <br /> 알아보기
                 </p>
                 <img
-                  src="src/assets/Main/bankbook.png"
+                  src={bankbooks}
                   alt=""
                   className="w-[160px] rounded-b-lg"
                 />
@@ -177,18 +170,14 @@ export const Main = () => {
             }}
           >
             <div className="flex space-x-3 place-items-center">
-              <img
-                src="src/assets/Main/moneyBag.png"
-                alt=""
-                className="w-10 h-10"
-              />
+              <img src={moneybag} alt="" className="w-10 h-10" />
               <p className="font-medium text-sm">
                 지금까지 나는 <br />{" "}
                 <span className="text-main-color">{petInfo.petName}</span>에게
                 얼마나 썼을까?
               </p>
             </div>
-            <img src="src/assets/rightAngle.png" alt="" className="w-5" />
+            <img src={rightAngle} alt="" className="w-5" />
           </div>
           {/* 챗봇 */}
           <div

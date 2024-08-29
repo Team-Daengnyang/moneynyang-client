@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import bluecheck from "../../assets/Main/blueCheck.png";
 
 interface IState {
   amount: number;
@@ -20,13 +21,7 @@ export const PayComplete = () => {
   return (
     <div className="h-full flex flex-col justify-center pt-6 px-4 bg-main-color text-center space-y-5">
       <div className="flex place-content-center">
-        <img
-          src={`${
-            import.meta.env.VITE_PUBLIC_URL
-          }/src/assets/Main/blueCheck.png`}
-          alt=""
-          className="w-[60px]"
-        />
+        <img src={bluecheck} alt="" className="w-[60px]" />
       </div>
       <div className="space-y-3 mb-16">
         <p className="text-white font-medium text-xl">

@@ -14,6 +14,7 @@ import {
   increment,
 } from "../../utils/calcDate";
 import { AccountInfoCard } from "../../components/Card/AccountInfoCard";
+import shinhan from "../../assets/Main/shinhan.png";
 
 interface Account {
   accountNumber: string;
@@ -84,7 +85,7 @@ export const AccountInfo = () => {
         {/* 내 계좌 */}
         <div className="mb-5">
           <div className="flex space-x-1 place-items-center mb-1">
-            <img src="src/assets/Main/shinhan.png" alt="" className="w-5 h-5" />
+            <img src={shinhan} alt="" className="w-5 h-5" />
             <p className="text-sm text-[#73787E]">
               {formattedBankName} {formattedAccountNumber}
             </p>

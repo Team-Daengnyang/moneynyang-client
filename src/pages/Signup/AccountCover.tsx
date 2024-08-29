@@ -4,6 +4,8 @@ import { TopBar } from "../../components/Topbar";
 import { useState } from "react";
 import { updateAccount } from "../../api/investAPI";
 import useUserStore from "../../store/UseUserStore";
+import picture from "../../assets/Signup/picture.png";
+import check from "../../assets/Signup/check.png";
 
 interface Response {
   accountNumber: string;
@@ -77,9 +79,7 @@ export const AccountCover = () => {
             </p>
           </div>
           <img
-            src={`${
-              import.meta.env.VITE_PUBLIC_URL
-            }/src/assets/Signup/picture.png`}
+            src={picture}
             alt=""
             className="w-[78px]"
             onClick={() => navigate("/")}
@@ -98,9 +98,7 @@ export const AccountCover = () => {
                     onClick={() => setMyColor(color)}
                   ></div>
                   <img
-                    src={`${
-                      import.meta.env.VITE_PUBLIC_URL
-                    }/src/assets/Signup/check.png`}
+                    src={check}
                     alt=""
                     className="absolute top-0 right-0 w-6"
                   />

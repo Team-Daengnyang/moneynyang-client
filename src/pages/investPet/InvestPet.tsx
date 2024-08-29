@@ -14,9 +14,10 @@ import useUserStore from "../../store/UseUserStore";
 
 const InvestPet = () => {
   const navigate = useNavigate();
-  const { token, petInfo } = useUserStore((state) => ({
+  const { token, petInfo, userInfo } = useUserStore((state) => ({
     token: state.token,
     petInfo: state.petInfo,
+    userInfo: state.userInfo,
   }));
 
   const { data: SavingGoalList } = useQuery("goalsList", () =>
@@ -73,7 +74,9 @@ const InvestPet = () => {
             <span className="font-bold text-base">개</span>
             <div className="flex gap-1 items-center">
               <img src={paw} style={{ width: "12px", height: "12px" }} />
-              <h4 className="text-gray-500 mt-1 text-xs">200일째 덕질 중</h4>
+              <h4 className="text-gray-500 mt-1 text-xs">
+                {userInfo.memberDate}일째 덕질 중
+              </h4>
             </div>
           </div>
         </div>

@@ -1,9 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { TopBar } from "../../components/Topbar";
+import { useState } from "react";
 
 export const Payment = () => {
   const navigate = useNavigate();
+  const [accountNumber, setAccountNumber] = useState(""); // 계좌 번호 상태 추가
+  const [selectedBank, setSelectedBank] = useState(""); // 선택된 은행 상태 추가
   const banks = [
     "국민은행",
     "신한은행",
@@ -33,9 +36,11 @@ export const Payment = () => {
               계좌번호 입력 <span className="text-main-color">*</span>
             </label>
             <input
-              type="text"
+              type="number"
               placeholder="예) 춘삼이"
               className="border rounded-lg px-4 py-3 w-full text-sm"
+              value={accountNumber}
+              onChange={(e) => setAccountNumber(e.target.value)}
             />
           </div>
           {/* 은행 선택 */}
@@ -43,7 +48,11 @@ export const Payment = () => {
             <label htmlFor="" className="block font-medium text-sm">
               은행 선택 <span className="text-main-color">*</span>
             </label>
-            <select className="border rounded-lg px-4 py-3 w-full text-sm">
+            <select
+              className="border rounded-lg px-4 py-3 w-full text-sm"
+              value={selectedBank}
+              onChange={(e) => setSelectedBank(e.target.value)}
+            >
               {banks.map((bank, index) => (
                 <option key={index} value={bank}>
                   {bank}
@@ -53,7 +62,17 @@ export const Payment = () => {
           </div>
         </div>
       </div>
-      <Button text={"다음"} onClick={() => navigate("/pay/money")}></Button>
+      <Button
+        text={"다음"}
+        onClick={() =>
+          navigate("/pay/money", {
+            state: {
+              accountNumber,
+              selectedBank,
+            },
+          })
+        }
+      ></Button>
     </div>
   );
 };

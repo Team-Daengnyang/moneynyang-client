@@ -1,16 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TopBar } from "../../components/Topbar";
 import sampleDog from "../../assets/images/sampleDog.jpg";
 import idea from "../../assets/icons/Idea.png";
 import InsuranceCard from "../../components/Card/InsuranceCard";
 import hanhwa from "../../assets/images/hanhwa.png";
 import useUserStore from "../../store/UseUserStore";
+import { useQuery } from "react-query";
+import { getInsuranceDatas } from "../../api/insuranceAPI";
 
 const Insurance = () => {
   const [isLeft, setIsLeft] = useState(true);
   const { token } = useUserStore((state) => ({
     token: state.token,
   }));
+
+  const { data } = useQuery("insuranceDatas", () => getInsuranceDatas(token));
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   const dummyDatas = [
     {

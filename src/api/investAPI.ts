@@ -60,7 +60,7 @@ interface GetAllSummaryResponse {
   data: AllSummaryData;
 }
 
-//저축 목표 가져오기
+//저축 목표 목록 가져오기
 export const getSavingsGoalList = async (
   token: string
 ): Promise<SavingsGoal[]> => {

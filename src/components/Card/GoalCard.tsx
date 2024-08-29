@@ -7,6 +7,7 @@ import { deleteGoal, getGoalHistory } from "../../api/investAPI";
 import { useQuery } from "react-query";
 import { useMutation, useQueryClient } from "react-query";
 import useUserStore from "../../store/UseUserStore";
+import blueCheck from "../../assets/icons/blueCheck.png";
 
 export interface IGoalCard {
   title: string;
@@ -16,6 +17,7 @@ export interface IGoalCard {
   goalMoney: number;
   // depositDatas: depositData[];
   targetId: number;
+  isDone: boolean;
 }
 
 type depositData = {
@@ -31,6 +33,7 @@ const GoalCard = ({
   goalMoney,
   // depositDatas,
   targetId,
+  isDone,
 }: IGoalCard) => {
   const [isClicked, setIsClicked] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -152,8 +155,31 @@ const GoalCard = ({
           </div>
         </div>
       </div>
-      {/* 삭제 */}
-      <div
+      {/* 삭제 or 완료 */}
+      {!isDone ? (
+        <div
+          onClick={() => {
+            mutation.mutate();
+          }}
+          className="absolute right-0 top-0 w-[72px] h-[168px] rounded-md flex items-center justify-center gap-1 flex-col  cursor-pointer z-[1]"
+          style={{ backgroundColor: "#FF6E6E" }}
+        >
+          <img src={trash} className="w-[24px]" />
+          <h1 className="text-gray-0 text-[14px]">삭제</h1>
+        </div>
+      ) : (
+        <div
+          // onClick={() => {
+          //   mutation.mutate();
+          // }}
+          className="absolute right-0 top-0 w-[72px] h-[168px] rounded-md flex items-center justify-center gap-1 flex-col  cursor-pointer z-[1]"
+          style={{ backgroundColor: "#005EED" }}
+        >
+          <img src={blueCheck} className="w-[24px]" />
+          <h1 className="text-gray-0 text-[14px]">달성</h1>
+        </div>
+      )}
+      {/* <div
         onClick={() => {
           mutation.mutate();
         }}
@@ -162,7 +188,7 @@ const GoalCard = ({
       >
         <img src={trash} className="w-[24px]" />
         <h1 className="text-gray-0 text-[14px]">삭제</h1>
-      </div>
+      </div> */}
     </div>
   );
 };

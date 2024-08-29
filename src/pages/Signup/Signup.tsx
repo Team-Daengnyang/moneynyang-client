@@ -2,16 +2,29 @@ import { useState } from "react";
 import { Button } from "../../components/Button";
 import { TopBar } from "../../components/Topbar";
 import { useNavigate } from "react-router-dom";
-import useSignupStore from "../../store/useSignupStore";
+import useSignupStore from "../../store/UseSignupStore";
+
+interface inputUserInfo {
+  email: string;
+  password: string;
+  name: string;
+}
+
+interface SignupState {
+  inputUserInfo: inputUserInfo;
+  setInputUserInfo: (newInfo: Partial<inputUserInfo>) => void; // 부분적 업데이트를 허용
+}
 
 export const Signup = () => {
   const navigate = useNavigate();
   const [pwd, setPwd] = useState("");
   const [valid, setValid] = useState(true);
-  const { inputUserInfo, setInputUserInfo } = useSignupStore((state) => ({
-    inputUserInfo: state.inputUserInfo,
-    setInputUserInfo: state.setInputUserInfo,
-  }));
+  const { inputUserInfo, setInputUserInfo } = useSignupStore(
+    (state: SignupState) => ({
+      inputUserInfo: state.inputUserInfo,
+      setInputUserInfo: state.setInputUserInfo,
+    })
+  );
 
   // 비밀번호 검증
   const checkPwd = (input: string) => {

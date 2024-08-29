@@ -1,14 +1,31 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { TopBar } from "../../components/Topbar";
-import useSignupStore from "../../store/useSignupStore";
+import useSignupStore from "../../store/UseSignupStore";
+
+interface inputPetInfo {
+  petId: number;
+  petName: string;
+  petBirth: string;
+  petType: string; // 강아지 고양이
+  petGender: string; // 여아 남아
+  specie: string;
+  petImage: File;
+}
+
+interface SignupState {
+  inputPetInfo: inputPetInfo;
+  setInputPetInfo: (newInfo: Partial<inputPetInfo>) => void; // 부분적 업데이트를 허용
+}
 
 export const AnimalInfo = () => {
   const navigate = useNavigate();
-  const { inputPetInfo, setInputPetInfo } = useSignupStore((state) => ({
-    inputPetInfo: state.inputPetInfo,
-    setInputPetInfo: state.setInputPetInfo,
-  }));
+  const { inputPetInfo, setInputPetInfo } = useSignupStore(
+    (state: SignupState) => ({
+      inputPetInfo: state.inputPetInfo,
+      setInputPetInfo: state.setInputPetInfo,
+    })
+  );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

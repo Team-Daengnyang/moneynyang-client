@@ -5,15 +5,38 @@ import { Button } from "../../components/Button";
 import axios from "axios";
 import useUserStore from "../../store/UseUserStore";
 import { registerUser } from "../../api/userAPI";
-import useSignupStore from "../../store/useSignupStore";
+import useSignupStore from "../../store/UseSignupStore";
+
+interface inputUserInfo {
+  email: string;
+  password: string;
+  name: string;
+}
+
+interface inputPetInfo {
+  petId: number;
+  petName: string;
+  petBirth: string;
+  petType: string; // 강아지 고양이
+  petGender: string; // 여아 남아
+  specie: string;
+  petImage: File;
+}
+
+interface SignupState {
+  inputUserInfo: inputUserInfo;
+  inputPetInfo: inputPetInfo;
+}
 
 export const AnimalCheck = () => {
   const navigate = useNavigate();
   const setToken = useUserStore((state) => state.setToken);
-  const { inputUserInfo, inputPetInfo } = useSignupStore((state) => ({
-    inputUserInfo: state.inputUserInfo,
-    inputPetInfo: state.inputPetInfo,
-  }));
+  const { inputUserInfo, inputPetInfo } = useSignupStore(
+    (state: SignupState) => ({
+      inputUserInfo: state.inputUserInfo,
+      inputPetInfo: state.inputPetInfo,
+    })
+  );
 
   const signup = async () => {
     try {

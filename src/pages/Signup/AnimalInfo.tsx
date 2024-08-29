@@ -78,9 +78,9 @@ export const AnimalInfo = () => {
                   }/src/assets/Signup/picture.png`
                 }
                 alt=""
-                className={`w-[78px] h-[78px] ${
+                className={`w-[78px] h-[78px] object-cover border rounded-full ${
                   !imageSrc ? "cursor-pointer" : ""
-                } object-cover border rounded-full`}
+                }`}
                 onClick={!imageSrc ? handleImageClick : undefined}
                 style={{ maxWidth: "100%", maxHeight: "100%" }}
               />

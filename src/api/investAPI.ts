@@ -239,8 +239,8 @@ interface updateRequest {
 
 export const updateAccount = async (request: updateRequest, token: string) => {
   try {
-    const response = await axios.post(
-      `${BASE_URL}/api/v1/accounts/create`,
+    const response = await axios.patch(
+      `${BASE_URL}/api/v1/accounts/create-color`,
       {
         accountImage: request.accountImage,
         accountColor: request.accountColor,

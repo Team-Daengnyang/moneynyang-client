@@ -91,9 +91,8 @@ export const AccountCover = () => {
           <div className="flex justify-between">
             {colorList.map((color, index) =>
               color === myColor ? (
-                <div className="relative">
+                <div className="relative" key={index}>
                   <div
-                    key={index}
                     style={{ cursor: "pointer" }}
                     className={`w-14 h-14 rounded-full ${color} border-2 border-main-color`}
                     onClick={() => setMyColor(color)}

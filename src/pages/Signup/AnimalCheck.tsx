@@ -4,8 +4,8 @@ import { TopBar } from "../../components/Topbar";
 import { Button } from "../../components/Button";
 import axios from "axios";
 import useUserStore from "../../store/UseUserStore";
-import useSignupStore from "../../store/UseSignupStore";
 import { registerUser } from "../../api/userAPI";
+import useSignupStore from "../../store/useSignupStore";
 
 export const AnimalCheck = () => {
   const navigate = useNavigate();

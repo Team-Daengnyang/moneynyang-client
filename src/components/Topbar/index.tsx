@@ -15,7 +15,9 @@ export const TopBar = ({ title, skip }: TopBarProps) => {
   const position = title ? "absolute" : "";
 
   return (
-    <div className={`relative flex py-3 mb-3 ${place} ${center}`}>
+    <div
+      className={`sticky bg-gray-0 top-0 z-10 flex py-3 mb-3 ${place} ${center}`}
+    >
       <img
         src={leftchevron}
         className={`w-6 left-0 ${position}`}

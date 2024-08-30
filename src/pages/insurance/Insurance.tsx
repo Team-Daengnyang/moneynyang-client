@@ -38,7 +38,7 @@ const Insurance = () => {
     <div className="h-full flex flex-col pt-6 px-4 bg-gray-0 ">
       <TopBar title={"펫 금융상품 알아보기"} skip={""} />
       {/* 아롱이 */}
-      <div className="flex justify-between items-center mb-5">
+      <div className="flex justify-between items-center">
         <div>
           <h1 className="text-[20px] font-semibold">아롱이</h1>
           <span className="text-[14px] text-gray-400 ">
@@ -55,12 +55,12 @@ const Insurance = () => {
       <div>
         <h1 className="text-[18px] font-semibold mb-3">가입 가능한 상품</h1>
 
-        <div className="cursor-pointer flex h-[46px] items-center justify-center bg-gray-100 rounded-md gap-1 ">
+        <div className="cursor-pointer border-box flex h-[46px] items-center justify-center bg-gray-100 rounded-md gap-1 p-1">
           <div
             onClick={() => {
               setIsLeft(true);
             }}
-            className={`w-[158px] h-[38px] ${
+            className={`w-[50%] h-[38px] ${
               isLeft ? "bg-gray-0" : "bg-gray-100"
             } flex justify-center items-center rounded-md`}
           >
@@ -70,7 +70,7 @@ const Insurance = () => {
             onClick={() => {
               setIsLeft(false);
             }}
-            className={`w-[158px] h-[38px] ${
+            className={`w-[50%] h-[38px] ${
               !isLeft ? "bg-gray-0" : "bg-gray-100"
             } flex justify-center items-center rounded-md`}
           >

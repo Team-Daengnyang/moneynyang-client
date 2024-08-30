@@ -60,7 +60,7 @@ export const AccountCover = () => {
   return (
     <div className="h-full pt-6 px-4 bg-white flex flex-col justify-between">
       <div className="space-y-5">
-        <TopBar title={""} skip={"/"} />
+        <TopBar pre={"/invest/account-check"} title={""} skip={"/"} />
         <div className="space-y-3">
           <p className="text-xl font-semibold">
             계좌 커버를 <br /> 커스텀 해보세요

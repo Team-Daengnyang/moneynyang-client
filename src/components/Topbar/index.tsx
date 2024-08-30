@@ -4,15 +4,24 @@ import { Link, useNavigate } from "react-router-dom";
 import leftchevron from "../../assets/icons/ChevronLeft.png";
 
 interface TopBarProps {
+  pre: String;
   title: String;
   skip: String;
 }
 
-export const TopBar = ({ title, skip }: TopBarProps) => {
+export const TopBar = ({ pre, title, skip }: TopBarProps) => {
   const navigate = useNavigate();
   const place = skip ? "justify-between" : "";
   const center = title ? "place-content-center" : "";
   const position = title ? "absolute" : "";
+
+  const handleClick = () => {
+    if (pre) {
+      navigate(`${pre}`); // pre가 있을 경우 해당 경로로 이동
+    } else {
+      navigate(-1); // pre가 없을 경우 이전 페이지로 이동
+    }
+  };
 
   return (
     <div
@@ -21,7 +30,9 @@ export const TopBar = ({ title, skip }: TopBarProps) => {
       <img
         src={leftchevron}
         className={`w-6 left-0 ${position}`}
-        onClick={() => navigate(-1)}
+        onClick={() => {
+          handleClick();
+        }}
       />
 
       {/* <FontAwesomeIcon

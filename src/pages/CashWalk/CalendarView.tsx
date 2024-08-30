@@ -84,7 +84,7 @@ const CalendarView = () => {
 
   return (
     <div className="h-full pt-6 px-4 bg-gray-0">
-      <TopBar skip={""} title={""} />
+      <TopBar pre={"/cashwalk"} skip={""} title={""} />
       <div className="w-full flex justify-center relative">
         <Calendar
           value={date}

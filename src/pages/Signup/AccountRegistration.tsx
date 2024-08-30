@@ -55,7 +55,7 @@ export const AccountRegistration = () => {
   return (
     <div className="h-full pt-6 px-4 bg-white flex flex-col justify-between">
       <div>
-        <TopBar title={""} skip={""} />
+        <TopBar pre={"/"} title={""} skip={""} />
         <p className="text-xl font-semibold mb-5">계좌를 생성해 주세요</p>
         <div className="space-y-5">
           {/* 은행 선택 */}

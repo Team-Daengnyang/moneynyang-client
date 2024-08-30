@@ -50,7 +50,7 @@ const ChatBot = () => {
 
   return (
     <div className="h-full pt-6 px-4 flex flex-col justify-between  overflow-hidden relative bg-gray-100 overflow-y-auto">
-      <TopBar title={"AI 챗봇"} skip={""} />
+      <TopBar pre={"/"} title={"AI 챗봇"} skip={""} />
       <div
         className="flex flex-col justify-start flex-1 overflow-y-auto "
         ref={chatBoxRef}

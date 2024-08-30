@@ -38,7 +38,7 @@ const TotalSpent = () => {
 
   return (
     <div className="h-full pt-6 px-4 bg-gray-0 overflow-y-auto overflow-x-hidden">
-      <TopBar title={""} skip={""} />
+      <TopBar pre={"/invest"} title={""} skip={""} />
 
       <div className="mb-5">
         <span className="text-gray-700 text-[20px] font-semibold">

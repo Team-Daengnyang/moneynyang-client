@@ -22,7 +22,7 @@ export const AccountCheck = () => {
   return (
     <div className="h-full pt-6 px-4 bg-white flex flex-col justify-between">
       <div>
-        <TopBar title={""} skip={""} />
+        <TopBar pre={"/invest/account"} title={""} skip={""} />
         <p className="text-xl font-semibold mb-5">계좌 정보를 확인해 주세요</p>
         {/* 계좌 정보 */}
         <div className="bg-[#F4F4F4] p-5 rounded-lg place-items-center">

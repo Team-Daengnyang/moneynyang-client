@@ -59,7 +59,7 @@ export const Signup = () => {
 
   return (
     <div className="h-full pt-6 px-4 bg-white flex flex-col">
-      <TopBar title={""} skip={""} />
+      <TopBar pre={"/login"} title={""} skip={""} />
       <p className="text-xl font-semibold mb-5">회원 정보를 입력해주세요</p>
       <form
         className="flex flex-col justify-between flex-grow"

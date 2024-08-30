@@ -51,7 +51,7 @@ const InsuranceDetail = () => {
 
   return (
     <div className="h-full pt-6 px-4 bg-gray-0 ">
-      <TopBar skip={""} title={"보험상품 자세히 알아보기"} />
+      <TopBar pre={"/insurance"} skip={""} title={"보험상품 자세히 알아보기"} />
       {/* 보험 이름, 아이콘 */}
       <div className="bg-gray-100 h-[126px] flex justify-between items-center px-4  mb-[18px] -mx-4">
         <div className="flex  flex-col gap-2">

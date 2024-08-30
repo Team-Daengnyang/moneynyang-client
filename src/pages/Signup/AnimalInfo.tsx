@@ -81,7 +81,7 @@ export const AnimalInfo = () => {
 
   return (
     <div className="h-full pt-6 px-4 bg-white flex flex-col">
-      <TopBar title={""} skip={""} />
+      <TopBar pre={"/signup"} title={""} skip={""} />
       <p className="text-xl font-semibold mb-5">
         우리 아이의 <br /> 정보를 알려주세요
       </p>

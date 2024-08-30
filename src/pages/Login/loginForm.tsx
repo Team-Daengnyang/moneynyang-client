@@ -41,7 +41,7 @@ export const LoginForm = () => {
   return (
     <div className="h-full pt-6 px-4 bg-white flex flex-col justify-between">
       <div>
-        <TopBar title={""} skip={""} />
+        <TopBar pre={"/login"} title={""} skip={""} />
         <p className="text-xl font-semibold mb-5">로그인 정보를 입력해주세요</p>
         <div className="space-y-5">
           {/* 이메일 */}

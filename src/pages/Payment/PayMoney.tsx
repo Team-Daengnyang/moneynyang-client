@@ -32,6 +32,7 @@ export const PayMoney = () => {
     bankName: "",
   });
   const [amount, setAmount] = useState<number | "">(""); // 초기값을 빈 문자열로 설정
+  const [error, setError] = useState("");
 
   const getInfo = async () => {
     try {
@@ -39,6 +40,14 @@ export const PayMoney = () => {
       setAccount(accountResponse);
     } catch (error) {
       console.error("계좌 정보 조회 오류 발생:", error);
+    }
+  };
+
+  const checkMoney = (input: number) => {
+    if (input > Number(account?.accountBalance)) {
+      setError("잔액이 부족해요");
+    } else {
+      setAmount(input);
     }
   };
 
@@ -57,7 +66,7 @@ export const PayMoney = () => {
         },
       });
     } catch (error) {
-      console.error("입금 발생:", error);
+      console.error("입금 에러 발생:", error);
     }
   };
 
@@ -89,13 +98,16 @@ export const PayMoney = () => {
           </div>
         </div>
         {/* 계좌 번호 */}
-        <div className="mt-12">
+        {error && <p className="text-sm text-red-500 mt-12">{error}</p>}
+        <div className="mt-2">
           <input
             type="number"
             placeholder="얼마를 보낼까요?"
             className="border rounded-lg px-4 py-3 w-full text-lg"
             value={amount}
-            onChange={(e) => setAmount(Number(e.target.value))}
+            onChange={(e) => {
+              checkMoney(Number(e.target.value));
+            }}
           />
         </div>
       </div>

@@ -41,12 +41,22 @@ export const Signup = () => {
     navigate("/signup/animal");
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // 기본 제출 동작 방지
+    if (valid) {
+      signup();
+    }
+  };
+
   return (
-    <div className="h-full pt-6 px-4 bg-white flex flex-col justify-between">
-      <div>
-        <TopBar title={""} skip={""} />
-        <p className="text-xl font-semibold mb-5">회원 정보를 입력해주세요</p>
-        <form className="space-y-5">
+    <div className="h-full pt-6 px-4 bg-white flex flex-col">
+      <TopBar title={""} skip={""} />
+      <p className="text-xl font-semibold mb-5">회원 정보를 입력해주세요</p>
+      <form
+        className="flex flex-col justify-between flex-grow"
+        onSubmit={handleSubmit}
+      >
+        <div className="space-y-5">
           {/* 이름 */}
           <div className="space-y-2">
             <label htmlFor="name" className="block font-medium text-sm">
@@ -58,6 +68,7 @@ export const Signup = () => {
               value={inputUserInfo.name}
               placeholder="이름 입력"
               required
+              maxLength={20}
               className="border rounded-lg px-4 py-3 w-full text-sm"
               onChange={handleChange} // 상태 업데이트
             />
@@ -73,6 +84,7 @@ export const Signup = () => {
               value={inputUserInfo.email}
               placeholder="이메일 입력"
               required
+              maxLength={30}
               className="border rounded-lg px-4 py-3 w-full text-sm"
               onChange={handleChange} // 상태 업데이트
             />
@@ -87,6 +99,8 @@ export const Signup = () => {
               name="password"
               placeholder="비밀번호 입력"
               required
+              minLength={4}
+              maxLength={20}
               className="border rounded-lg px-4 py-3 w-full text-sm"
               onChange={(e) => {
                 handleChange(e); // 상태 업데이트
@@ -98,6 +112,8 @@ export const Signup = () => {
               type="password"
               placeholder="비밀번호 재확인"
               required
+              minLength={4}
+              maxLength={20}
               className="border rounded-lg px-4 py-3 w-full text-sm"
               onChange={(e) => {
                 checkPwd(e.target.value);
@@ -109,14 +125,14 @@ export const Signup = () => {
               <p className="text-sm text-red-500">비밀번호를 확인해주세요</p>
             )}
           </div>
-        </form>
-      </div>
-      <Button
-        text={"다음"}
-        onClick={() => {
-          signup();
-        }}
-      ></Button>
+        </div>
+        <Button
+          text={"다음"}
+          onClick={() => {
+            // signup();
+          }}
+        ></Button>
+      </form>
     </div>
   );
 };

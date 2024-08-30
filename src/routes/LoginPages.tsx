@@ -4,7 +4,7 @@ import { LoginForm } from "../pages/Login/loginForm";
 
 const LoginPages = () => {
   return (
-    <div className="w-[360px] h-[780px] relative">
+    <div className="h-[100vh] relative">
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/form" element={<LoginForm />} />

@@ -11,6 +11,7 @@ import AccountPages from "./routes/AccountPages";
 import ChatBot from "./pages/ChatBot/ChatBot";
 import MyPages from "./routes/MyPages";
 import PrivateRoute from "./components/Routing/PrivateRoute";
+import { Tutorial } from "./pages/Main/Tutorial";
 
 // import useUserStore from "./store/UseUserStore";
 // import { useEffect } from "react";
@@ -29,6 +30,7 @@ function App() {
         <Routes>
           <Route path="/login/*" element={<LoginPages />} />
           <Route path="/signup/*" element={<SignupPages />} />
+          <Route path="/tutorial" element={<Tutorial />} />
 
           <Route
             path="/"

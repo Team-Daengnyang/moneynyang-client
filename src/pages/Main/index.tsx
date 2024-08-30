@@ -14,6 +14,8 @@ import bankbooks from "../../assets/Main/bankbook.png";
 import moneybag from "../../assets/Main/moneyBag.png";
 import rightAngle from "../../assets/rightAngle.png";
 import chatIcon from "../../assets/icons/chaticon.png";
+import { checkAccount } from "../../api/investAPI";
+import { useQuery } from "react-query";
 
 interface Account {
   accountNumber: string;
@@ -38,6 +40,20 @@ export const Main = () => {
     accountBalance: "",
     bankName: "",
   });
+
+  const { data: investAccount } = useQuery("investAccount", () =>
+    checkAccount(token)
+  );
+  const [url, setUrl] = useState("");
+
+  useEffect(() => {
+    console.log("투자계좌 확인: ", investAccount);
+    if (investAccount === null) {
+      setUrl("/signup/account");
+    } else {
+      setUrl("/invest");
+    }
+  }, [investAccount]);
 
   const getInfo = async () => {
     try {
@@ -117,7 +133,7 @@ export const Main = () => {
             <div
               className="bg-main-color rounded-lg"
               style={{ cursor: "pointer" }}
-              onClick={() => navigate("/invest")}
+              onClick={() => navigate(`${url}`)}
             >
               <p className="text-white font-semibold p-5">
                 나의 펫 <br /> 덕질하기

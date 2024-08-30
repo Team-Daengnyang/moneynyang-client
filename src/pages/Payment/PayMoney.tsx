@@ -80,9 +80,11 @@ export const PayMoney = () => {
             </p>
           </div>
           <div className="space-y-1">
-            <p className="text-lg font-semibold">
-              {formattedBankName} {formattedAccountNumber}
-              <span className="font-medium text-base">으로</span>
+            <p className="font-medium">
+              <span className=" text-lg font-semibold text-main-color">
+                {formattedBankName} {formattedAccountNumber}
+              </span>
+              으로
             </p>
           </div>
         </div>

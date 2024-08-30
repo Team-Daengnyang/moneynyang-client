@@ -5,11 +5,8 @@ import sampleDog from "../../assets/images/sampleDog.jpg";
 import paw from "../../assets/icons/gray paw.png";
 import GoalCard from "../../components/Card/GoalCard";
 import { useNavigate } from "react-router-dom";
-// import { IGoalCard } from "../../components/Card/GoalCard";
-import { useEffect } from "react";
-
 import { useQuery } from "react-query";
-import { checkAccount, getSavingsGoalList } from "../../api/investAPI";
+import { getSavingsGoalList } from "../../api/investAPI";
 import useUserStore from "../../store/UseUserStore";
 
 const InvestPet = () => {
@@ -23,17 +20,6 @@ const InvestPet = () => {
   const { data: SavingGoalList } = useQuery("goalsList", () =>
     getSavingsGoalList(token)
   );
-
-  const { data: account } = useQuery("account", () => checkAccount(token));
-
-  useEffect(() => {
-    console.log("투자계좌 확인: ", account);
-    if (account === null) {
-      navigate("/signup/account");
-    } else {
-      navigate("/invest");
-    }
-  }, [SavingGoalList, account]);
 
   return (
     <div className="h-full pt-6 px-4 bg-gray-0 overflow-auto">

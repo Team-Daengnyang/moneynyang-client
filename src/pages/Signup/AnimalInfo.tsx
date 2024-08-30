@@ -132,7 +132,7 @@ export const AnimalInfo = () => {
                 required
                 maxLength={20}
                 placeholder="예) 춘삼이"
-                className="border rounded-lg px-4 py-3 w-full text-sm"
+                className="border rounded-lg px-4 py-3 w-full text-sm focus:border-blue-100 focus:outline-none"
               />
             </div>
           </div>
@@ -186,7 +186,7 @@ export const AnimalInfo = () => {
               minLength={6}
               maxLength={6}
               placeholder="예) 240101"
-              className="border rounded-lg px-4 py-3 w-full text-sm"
+              className="border rounded-lg px-4 py-3 w-full text-sm focus:border-blue-100 focus:outline-none"
             />
           </div>
           {/* 성별 */}
@@ -236,7 +236,7 @@ export const AnimalInfo = () => {
               onChange={handleChange} // 상태 업데이트
               maxLength={20}
               placeholder="예) 말티즈"
-              className="border rounded-lg px-4 py-3 w-full text-sm"
+              className="border rounded-lg px-4 py-3 w-full text-sm focus:border-blue-100 focus:outline-none"
             />
           </div>
         </div>

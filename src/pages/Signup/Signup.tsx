@@ -69,7 +69,7 @@ export const Signup = () => {
               placeholder="이름 입력"
               required
               maxLength={20}
-              className="border rounded-lg px-4 py-3 w-full text-sm"
+              className="border rounded-lg px-4 py-3 w-full text-sm focus:border-blue-100 focus:outline-none"
               onChange={handleChange} // 상태 업데이트
             />
           </div>
@@ -85,7 +85,7 @@ export const Signup = () => {
               placeholder="이메일 입력"
               required
               maxLength={30}
-              className="border rounded-lg px-4 py-3 w-full text-sm"
+              className="border rounded-lg px-4 py-3 w-full text-sm focus:border-blue-100 focus:outline-none"
               onChange={handleChange} // 상태 업데이트
             />
           </div>
@@ -101,7 +101,7 @@ export const Signup = () => {
               required
               minLength={4}
               maxLength={20}
-              className="border rounded-lg px-4 py-3 w-full text-sm"
+              className="border rounded-lg px-4 py-3 w-full text-sm focus:border-blue-100 focus:outline-none"
               onChange={(e) => {
                 handleChange(e); // 상태 업데이트
                 setPwd(e.target.value);
@@ -114,7 +114,7 @@ export const Signup = () => {
               required
               minLength={4}
               maxLength={20}
-              className="border rounded-lg px-4 py-3 w-full text-sm"
+              className="border rounded-lg px-4 py-3 w-full text-sm focus:border-blue-100 focus:outline-none"
               onChange={(e) => {
                 checkPwd(e.target.value);
               }}

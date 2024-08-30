@@ -51,7 +51,7 @@ export const Payment = () => {
             <input
               type="number"
               placeholder="예) 춘삼이"
-              className="border rounded-lg px-4 py-3 w-full text-sm"
+              className="border rounded-lg px-4 py-3 w-full text-sm focus:border-blue-100 focus:outline-none"
               value={accountNumber}
               required
               min={1000000000000000}
@@ -65,7 +65,7 @@ export const Payment = () => {
               은행 선택 <span className="text-main-color">*</span>
             </label>
             <select
-              className="border rounded-lg px-4 py-3 w-full text-sm"
+              className="border rounded-lg px-4 py-3 w-full text-sm focus:border-blue-100 focus:outline-none"
               value={selectedBank}
               required
               onChange={(e) => setSelectedBank(e.target.value)}

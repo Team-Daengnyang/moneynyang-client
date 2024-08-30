@@ -107,20 +107,23 @@ export const PayMoney = () => {
         className="mt-12 space-y-2 flex flex-col flex-grow justify-between"
         onSubmit={handleSubmit}
       >
-        <div className="flex space-x-5 place-items-center">
-          <input
-            type="number"
-            placeholder="얼마를 보낼까요?"
-            className="border rounded-lg px-4 py-3 w-full text-lg"
-            value={amount}
-            required
-            onChange={(e) => {
-              checkMoney(Number(e.target.value));
-            }}
-          />{" "}
-          <span>원</span>
+        <div className="space-y-1">
+          <div className="flex space-x-5 place-items-center">
+            <input
+              type="number"
+              placeholder="얼마를 보낼까요?"
+              className="border rounded-lg px-4 py-3 w-full text-lg focus:border-blue-100 focus:outline-none"
+              value={amount}
+              required
+              max={Number(account?.accountBalance)}
+              onChange={(e) => {
+                checkMoney(Number(e.target.value));
+              }}
+            />{" "}
+            <span>원</span>
+          </div>
+          {error && <p className="text-sm text-red-500">{error}</p>}
         </div>
-        {error && <p className="text-sm text-red-500">{error}</p>}
         <Button
           text={"다음"}
           onClick={() => {

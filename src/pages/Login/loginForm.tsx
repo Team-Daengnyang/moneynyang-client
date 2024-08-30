@@ -17,6 +17,7 @@ export const LoginForm = () => {
     email: "",
     password: "",
   });
+  const [error, setError] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -26,8 +27,12 @@ export const LoginForm = () => {
   const login = async () => {
     try {
       const loginResponse = await Login(member);
-      setToken(loginResponse);
-      navigate("/", { replace: true });
+      if (!loginResponse) {
+        setError("잘못된 이메일 혹은 비밀번호입니다.");
+      } else {
+        setToken(loginResponse);
+        navigate("/", { replace: true });
+      }
     } catch (error) {
       console.error("로그인 실패:", error);
     }
@@ -36,7 +41,7 @@ export const LoginForm = () => {
   return (
     <div className="h-full pt-6 px-4 bg-white flex flex-col justify-between">
       <div>
-        <TopBar title={""} skip={""} />
+        <TopBar pre={"/login"} title={""} skip={""} />
         <p className="text-xl font-semibold mb-5">로그인 정보를 입력해주세요</p>
         <div className="space-y-5">
           {/* 이메일 */}
@@ -65,6 +70,7 @@ export const LoginForm = () => {
               onChange={handleChange}
             />
           </div>
+          {error && <p className="text-sm text-red-500">{error}</p>}
         </div>
       </div>
       <Button onClick={() => login()} text={"로그인"} />

@@ -8,7 +8,7 @@ const CashWalk = () => {
   const navigate = useNavigate();
   return (
     <div className="h-full pt-6 px-4 bg-gray-0 ">
-      <TopBar skip={""} title={"산책 캐시워크"} />
+      <TopBar pre={"/"} skip={""} title={"산책 캐시워크"} />
       <div className="h-[314px] bg-gray-100 rounded-md   p-4 border-gray-200 border-[1px] relative">
         <div>
           <h1 className="text-[12px] font-medium text-gray-500">

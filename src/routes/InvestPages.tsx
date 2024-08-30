@@ -4,6 +4,9 @@ import Deposit from "../pages/investPet/Deposit";
 import SavingsGoal from "../pages/investPet/SavingsGoal";
 import TotalSpent from "../pages/investPet/TotalSpent";
 import Complete from "../pages/investPet/Complete";
+import { AccountCheck } from "../pages/Signup/AccountCheck";
+import { AccountCover } from "../pages/Signup/AccountCover";
+import { AccountRegistration } from "../pages/Signup/AccountRegistration";
 
 const InvestPetPages = () => {
   return (
@@ -14,6 +17,9 @@ const InvestPetPages = () => {
         <Route path="savingsGoal" element={<SavingsGoal />} />
         <Route path="totalSpent" element={<TotalSpent />} />
         <Route path="complete" element={<Complete />} />
+        <Route path="/account" element={<AccountRegistration />} />
+        <Route path="/account-check" element={<AccountCheck />} />
+        <Route path="/custom" element={<AccountCover />} />
       </Routes>
     </div>
   );

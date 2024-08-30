@@ -82,7 +82,7 @@ export const PayMoney = () => {
 
   return (
     <div className="h-full pt-6 pb-5 px-4 bg-white flex flex-col">
-      <TopBar title={""} skip={""} />
+      <TopBar pre={"/pay"} title={""} skip={""} />
       <div className="space-y-8">
         <div className="space-y-1">
           <p className="text-lg font-semibold">

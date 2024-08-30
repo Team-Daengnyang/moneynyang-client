@@ -59,7 +59,7 @@ const Write: React.FC = () => {
 
   return (
     <div className="h-full pt-6 px-4 bg-gray-0">
-      <TopBar skip={""} title={"일지 기록"} />
+      <TopBar pre={"/cashwalk/calendar"} skip={""} title={"일지 기록"} />
       {/* n월 n일의 일지 */}
       <div className="flex gap-1 items-center">
         <img src={diary} className="w-[28px]" />

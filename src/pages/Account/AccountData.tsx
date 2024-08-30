@@ -25,7 +25,7 @@ export const AccountData = () => {
 
   return (
     <div className="h-full pt-6 px-4 pb-10 bg-gray-0 overflow-y-auto">
-      <TopBar title={""} skip={""} />
+      <TopBar pre={"/account"} title={""} skip={""} />
       <div className="space-y-5">
         {/* 월 선택 */}
         <div className="flex space-x-3 place-items-center">

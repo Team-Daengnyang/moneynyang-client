@@ -60,7 +60,7 @@ const Deposit = () => {
 
   return (
     <div className="h-full pt-6 px-4 bg-gray-0 relative box-border	flex flex-col">
-      <TopBar title={""} skip={""} />
+      <TopBar pre={"/invest"} title={""} skip={""} />
       <div className="mb-5">
         <div className="space-y-1">
           <h1 className="font-semibold text-[20px] text-blue-100">{title}</h1>

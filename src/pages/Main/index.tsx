@@ -65,7 +65,7 @@ export const Main = () => {
   useEffect(() => {
     console.log("투자계좌 확인: ", investAccount);
     if (investAccount === null) {
-      setUrl("/signup/account");
+      setUrl("/invest/account");
     } else {
       setUrl("/invest");
     }

@@ -75,7 +75,7 @@ export const UpdateAnimalInfo = () => {
   return (
     <div className="h-full pt-6 px-4 bg-white flex flex-col justify-between">
       <div>
-        <TopBar title={"우리 아이 정보 수정하기"} skip={""} />
+        <TopBar pre={"/mypage"} title={"우리 아이 정보 수정하기"} skip={""} />
         <div className="space-y-5">
           {/* 이름 */}
           <div className="flex space-x-5 justify-between">

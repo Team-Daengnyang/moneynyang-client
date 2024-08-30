@@ -56,7 +56,7 @@ export const AnimalCheck = () => {
   return (
     <div className="h-full pt-6 px-4 bg-white flex flex-col justify-between">
       <div>
-        <TopBar title={""} skip={""} />
+        <TopBar pre={"/signup/animal"} title={""} skip={""} />
         <div className="space-y-8">
           <div className="space-y-3">
             <p className="text-xl font-semibold">

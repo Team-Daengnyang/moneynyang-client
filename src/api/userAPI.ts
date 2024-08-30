@@ -64,7 +64,7 @@ export const Login = async (member: Member) => {
     return response.data.data.accessToken;
   } catch (error) {
     console.error("로그인 실패:", error);
-    throw error;
+    return null;
   }
 };
 
@@ -87,6 +87,21 @@ export const registerUser = async (inputUserInfo: inputUserInfo) => {
     return userResponse?.data?.data.accessToken;
   } catch (error) {
     console.error("유저 회원 가입 실패:", error);
+    throw error;
+  }
+};
+
+export const checkEmail = async (email: string) => {
+  try {
+    const checkResponse = await axios.post(
+      `https://moneynyang.site/api/v1/members/check`,
+      {
+        email,
+      }
+    );
+    return checkResponse?.data?.data;
+  } catch (error) {
+    console.error("이메일 중복 체크 실패:", error);
     throw error;
   }
 };

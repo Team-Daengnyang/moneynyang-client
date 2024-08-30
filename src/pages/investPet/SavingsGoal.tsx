@@ -69,7 +69,8 @@ const SavingsGoal = () => {
 
   return (
     <div className="h-full w-full pt-6 px-4 bg-gray-0 flex flex-col">
-      <TopBar title={""} skip={""} />
+      <TopBar pre={"/invest"} title={""} skip={""} />
+      {/* 헤딩 */}
       <h1 className="text-gray-700 text-[20px] font-semibold mb-5">
         저축 목표와 금액을 <br />
         적어주세요

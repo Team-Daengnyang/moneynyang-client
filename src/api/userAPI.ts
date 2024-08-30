@@ -64,6 +64,7 @@ export const Login = async (member: Member) => {
     return response.data.data.accessToken;
   } catch (error) {
     console.error("로그인 실패:", error);
+    throw error;
   }
 };
 
@@ -86,6 +87,7 @@ export const registerUser = async (inputUserInfo: inputUserInfo) => {
     return userResponse?.data?.data.accessToken;
   } catch (error) {
     console.error("유저 회원 가입 실패:", error);
+    throw error;
   }
 };
 
@@ -126,6 +128,7 @@ export const registerPet = async (
     });
   } catch (error) {
     console.error("반려 동물 등록 실패:", error);
+    throw error;
   }
 };
 
@@ -149,6 +152,7 @@ export const sendMoney = async (
     return sendResponse?.data?.data;
   } catch (error) {
     console.error("송금하기 실패:", error);
+    throw error;
   }
 };
 
@@ -172,6 +176,7 @@ export const updateAnimal = async (
     return sendResponse?.data?.data;
   } catch (error) {
     console.error("송금하기 실패:", error);
+    throw error;
   }
 };
 
@@ -199,5 +204,6 @@ export const updatePet = async (inputPetInfo: inputPetInfo, token: string) => {
     });
   } catch (error) {
     console.error("반려 동물 수정 실패:", error);
+    throw error;
   }
 };

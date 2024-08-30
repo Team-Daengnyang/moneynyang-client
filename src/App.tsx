@@ -10,6 +10,8 @@ import LoginPages from "./routes/LoginPages";
 import AccountPages from "./routes/AccountPages";
 import ChatBot from "./pages/ChatBot/ChatBot";
 import MyPages from "./routes/MyPages";
+import PrivateRoute from "./components/Routing/PrivateRoute";
+
 // import useUserStore from "./store/UseUserStore";
 // import { useEffect } from "react";
 
@@ -24,16 +26,73 @@ function App() {
       {/* pt-6 px-4 bg-white // status bar 크기 24px (pt-6), 양쪽 패딩 16px (px-4)으로 고정  */}
       <div className="w-[360px] h-[780px] relative">
         <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/mypage/*" element={<MyPages />} />
           <Route path="/login/*" element={<LoginPages />} />
           <Route path="/signup/*" element={<SignupPages />} />
-          <Route path="/invest/*" element={<InvestPetPages />} />
-          <Route path="/pay/*" element={<PaymentPages />} />
-          <Route path="/insurance/*" element={<InsurancePages />} />
-          <Route path="/cashwalk/*" element={<CashWalkPages />} />
-          <Route path="/account/*" element={<AccountPages />} />
-          <Route path="/chatbot" element={<ChatBot />} />
+
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <Main />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/mypage/*"
+            element={
+              <PrivateRoute>
+                <MyPages />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/invest/*"
+            element={
+              <PrivateRoute>
+                <InvestPetPages />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/pay/*"
+            element={
+              <PrivateRoute>
+                <PaymentPages />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/insurance/*"
+            element={
+              <PrivateRoute>
+                <InsurancePages />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/cashwalk/*"
+            element={
+              <PrivateRoute>
+                <CashWalkPages />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/account/*"
+            element={
+              <PrivateRoute>
+                <AccountPages />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/chatbot"
+            element={
+              <PrivateRoute>
+                <ChatBot />
+              </PrivateRoute>
+            }
+          />
         </Routes>
         {location.pathname == "/" || location.pathname == "/mypage" ? (
           <Navbar />

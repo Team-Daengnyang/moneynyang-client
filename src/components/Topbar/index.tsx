@@ -24,7 +24,11 @@ export const TopBar = ({ title, skip }: TopBarProps) => {
         onClick={() => navigate(-1)}
       />
        */}
-      <FontAwesomeIcon icon={faChevronLeft} className="w-[24px] h-" />
+      <FontAwesomeIcon
+        icon={faChevronLeft}
+        className="w-[24px] left-0 ${position}"
+        onClick={() => navigate(-1)}
+      />
       <p className="font-semibold">{title}</p>
       {skip ? (
         <Link to={`${skip}`} className="text-main-color mt-1">

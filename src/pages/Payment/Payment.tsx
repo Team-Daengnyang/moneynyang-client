@@ -50,7 +50,7 @@ export const Payment = () => {
             </label>
             <input
               type="number"
-              placeholder="예) 춘삼이"
+              placeholder="계좌번호를 입력해주세요"
               className="border rounded-lg px-4 py-3 w-full text-sm focus:border-blue-100 focus:outline-none"
               value={accountNumber}
               required

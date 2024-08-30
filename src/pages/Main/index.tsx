@@ -16,6 +16,21 @@ import rightAngle from "../../assets/rightAngle.png";
 import chatIcon from "../../assets/icons/chaticon.png";
 import { checkAccount } from "../../api/investAPI";
 import { useQuery } from "react-query";
+import 광주 from "../../assets/bankLogo/광주.jpeg";
+import 국민 from "../../assets/bankLogo/국민.png";
+import 기업 from "../../assets/bankLogo/기업.png";
+import 대구 from "../../assets/bankLogo/대구.png";
+import 부산 from "../../assets/bankLogo/부산.png";
+import 우리 from "../../assets/bankLogo/우리.png";
+import 전북 from "../../assets/bankLogo/전북.png";
+import 제주 from "../../assets/bankLogo/제주.png";
+import 토스 from "../../assets/bankLogo/토스.webp";
+import 하나 from "../../assets/bankLogo/하나.png";
+import 한국 from "../../assets/bankLogo/한국.jpg";
+import 신한 from "../../assets/bankLogo/shinhan.png";
+import 농협 from "../../assets/bankLogo/농협.png";
+import sc from "../../assets/bankLogo/sc.png";
+import k from "../../assets/bankLogo/k.png";
 
 interface Account {
   accountNumber: string;
@@ -34,7 +49,7 @@ export const Main = () => {
       token: state.token,
     })
   );
-
+  const [bankLogo, setBankLogo] = useState("");
   const [loading, setLoading] = useState(true);
   const [account, setAccount] = useState<Account | null>({
     accountNumber: "",
@@ -66,6 +81,42 @@ export const Main = () => {
 
       const accountResponse = await getAccountInfo(token);
       setAccount(accountResponse);
+
+      if (accountResponse.bankName === "국민은행") {
+        setBankLogo(국민);
+      } else if (accountResponse.bankName === "신한은행") {
+        setBankLogo(shinhan);
+      } else if (accountResponse.bankName === "우리은행") {
+        setBankLogo(우리);
+      } else if (accountResponse.bankName === "하나은행") {
+        setBankLogo(하나);
+      } else if (accountResponse.bankName === "농협은행") {
+        setBankLogo(농협);
+      } else if (accountResponse.bankName === "기업은행") {
+        setBankLogo(기업);
+      } else if (accountResponse.bankName === "SC제일은행") {
+        setBankLogo(sc);
+      } else if (accountResponse.bankName === "케이뱅크") {
+        setBankLogo(k);
+      } else if (accountResponse.bankName === "토스뱅크") {
+        setBankLogo(토스);
+      } else if (accountResponse.bankName === "부산은행") {
+        setBankLogo(부산);
+      } else if (accountResponse.bankName === "대구은행") {
+        setBankLogo(대구);
+      } else if (accountResponse.bankName === "광주은행") {
+        setBankLogo(광주);
+      } else if (accountResponse.bankName === "전북은행") {
+        setBankLogo(전북);
+      } else if (accountResponse.bankName === "제주은행") {
+        setBankLogo(제주);
+      } else if (accountResponse.bankName === "한국은행") {
+        setBankLogo(한국);
+      } else if (accountResponse.bankName === "신한은행") {
+        setBankLogo(신한);
+      } else {
+        setBankLogo(""); // 해당되지 않는 경우 기본값 설정
+      }
     } catch (error) {
       console.error("오류 발생:", error);
     } finally {
@@ -119,7 +170,7 @@ export const Main = () => {
           >
             <p className="font-semibold text-lg mb-1">내 계좌</p>
             <div className="flex space-x-1 place-items-center mb-3">
-              <img src={shinhan} alt="" className="w-5 h-5" />
+              <img src={bankLogo} alt="" className="w-5 h-5" />
               <p className="text-sm text-[#73787E]">
                 {formattedBankName} {formattedAccountNumber}
               </p>

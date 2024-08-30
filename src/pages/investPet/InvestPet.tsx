@@ -81,6 +81,17 @@ const InvestPet = () => {
         저축 목표 추가하기
       </div>
 
+      {!SavingGoalList && (
+        <div className="w-full h-[440px] flex justify-center itmes-center flex-col">
+          <h1 className="mb-5 text-3 text-gray-300 font-semibold">
+            현재 저축 목표가 없습니다
+          </h1>
+          <h1 className="text-4 text-gray-300 font-semibold">
+            저축 목표를 추가해보세요
+          </h1>
+        </div>
+      )}
+
       {SavingGoalList?.map((data, i) => {
         return (
           <GoalCard

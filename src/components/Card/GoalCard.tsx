@@ -54,6 +54,19 @@ const GoalCard = ({
     retryDelay: 1000,
   });
 
+  const mutation2 = useMutation(() => withdrawGoal(token, targetId), {
+    onSuccess: () => {
+      console.log(`성공 목표 출금 완료요~~`);
+      //삭제한 뒤 골리스트 쿼리 무효화하여 데이터 갱신
+      queryClient.invalidateQueries("goalsList");
+    },
+    onError: () => {
+      console.log("출금 중 에러 발생");
+    },
+    // retry: 2,
+    retryDelay: 1000,
+  });
+
   const { data: depositDatas } = useQuery(["depositDatas", targetId], () =>
     getGoalHistory(targetId, token)
   );
@@ -117,10 +130,7 @@ const GoalCard = ({
           ) : (
             <button
               onClick={async () => {
-                const response = await withdrawGoal(token, targetId);
-                if (response == 200) {
-                  queryClient.invalidateQueries("goalsList");
-                }
+                mutation2.mutate();
               }}
               className="bg-blue-100 flex items-center justify-center py-2 px-4 rounded-[99px] text-gray-0 text-[14px] h-[36px] w-[100px]"
             >

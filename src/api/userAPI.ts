@@ -91,6 +91,21 @@ export const registerUser = async (inputUserInfo: inputUserInfo) => {
   }
 };
 
+export const checkEmail = async (email: string) => {
+  try {
+    const checkResponse = await axios.post(
+      `https://moneynyang.site/api/v1/members/check`,
+      {
+        email,
+      }
+    );
+    return checkResponse?.data?.data;
+  } catch (error) {
+    console.error("이메일 중복 체크 실패:", error);
+    throw error;
+  }
+};
+
 interface inputPetInfo {
   petId: number;
   petName: string;

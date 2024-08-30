@@ -84,7 +84,7 @@ export const AccountRegistration = () => {
             </label>
             <select
               className="border rounded-lg px-4 py-3 w-full text-sm"
-              value={selectedBank}
+              value={selectedType}
               onChange={(e) => setSelectedType(Number(e.target.value))}
             >
               <option value="" disabled>

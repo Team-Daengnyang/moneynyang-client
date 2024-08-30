@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { TopBar } from "../../components/Topbar";
-import { useState } from "react";
+import React, { useState } from "react";
 
 export const Payment = () => {
   const navigate = useNavigate();
@@ -24,11 +24,24 @@ export const Payment = () => {
     "제주은행",
   ];
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // 기본 제출 동작 방지
+    navigate("/pay/money", {
+      state: {
+        accountNumber,
+        selectedBank,
+      },
+    });
+  };
+
   return (
-    <div className="h-full pt-6 px-4 bg-white flex flex-col justify-between">
-      <div>
-        <TopBar title={""} skip={""} />
-        <p className="text-xl font-semibold mb-5">어떤 계좌로 보낼까요?</p>
+    <div className="h-full pt-6 px-4 bg-white flex flex-col">
+      <TopBar title={""} skip={""} />
+      <p className="text-xl font-semibold mb-5">어떤 계좌로 보낼까요?</p>
+      <form
+        className="flex flex-col justify-between flex-grow"
+        onSubmit={handleSubmit}
+      >
         <div className="space-y-5">
           {/* 계좌 번호 */}
           <div className="space-y-2">
@@ -40,6 +53,9 @@ export const Payment = () => {
               placeholder="예) 춘삼이"
               className="border rounded-lg px-4 py-3 w-full text-sm"
               value={accountNumber}
+              required
+              min={1000000000000000}
+              max={9999999999999999}
               onChange={(e) => setAccountNumber(e.target.value)}
             />
           </div>
@@ -51,8 +67,12 @@ export const Payment = () => {
             <select
               className="border rounded-lg px-4 py-3 w-full text-sm"
               value={selectedBank}
+              required
               onChange={(e) => setSelectedBank(e.target.value)}
             >
+              <option value="" disabled>
+                은행을 선택하세요
+              </option>
               {banks.map((bank, index) => (
                 <option key={index} value={bank}>
                   {bank}
@@ -61,18 +81,8 @@ export const Payment = () => {
             </select>
           </div>
         </div>
-      </div>
-      <Button
-        text={"다음"}
-        onClick={() =>
-          navigate("/pay/money", {
-            state: {
-              accountNumber,
-              selectedBank,
-            },
-          })
-        }
-      ></Button>
+        <Button text={"다음"} onClick={() => {}}></Button>
+      </form>
     </div>
   );
 };

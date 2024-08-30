@@ -3,7 +3,7 @@ import { Button } from "../../components/Button";
 import { TopBar } from "../../components/Topbar";
 import { getAccountInfo, sendMoney } from "../../api/userAPI";
 import useUserStore from "../../store/UseUserStore";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { formatName } from "../../utils/calcDate";
 
 interface Account {
@@ -48,6 +48,7 @@ export const PayMoney = () => {
       setError("잔액이 부족해요");
     } else {
       setAmount(input);
+      setError("");
     }
   };
 
@@ -70,53 +71,63 @@ export const PayMoney = () => {
     }
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    send();
+  };
+
   useEffect(() => {
     getInfo();
   }, []);
 
   return (
-    <div className="h-full pt-6 px-4 bg-white flex flex-col justify-between">
-      <div>
-        <TopBar title={""} skip={""} />
-        <div className="space-y-8">
-          <div className="space-y-1">
-            <p className="text-lg font-semibold">
-              내 {account?.bankName} 통장
-              <span className=" font-medium text-base">에서</span>
-            </p>
-            <p className="text-gray-400 text-sm">
-              잔액: {Number(account?.accountBalance).toLocaleString()}원
-            </p>
-          </div>
-          <div className="space-y-1">
-            <p className="font-medium">
-              <span className=" text-lg font-semibold text-main-color">
-                {formattedBankName} {formattedAccountNumber}
-              </span>
-              으로
-            </p>
-          </div>
+    <div className="h-full pt-6 pb-5 px-4 bg-white flex flex-col">
+      <TopBar title={""} skip={""} />
+      <div className="space-y-8">
+        <div className="space-y-1">
+          <p className="text-lg font-semibold">
+            내 {account?.bankName} 통장
+            <span className=" font-medium text-base">에서</span>
+          </p>
+          <p className="text-gray-400 text-sm">
+            잔액: {Number(account?.accountBalance).toLocaleString()}원
+          </p>
         </div>
-        {/* 계좌 번호 */}
-        {error && <p className="text-sm text-red-500 mt-12">{error}</p>}
-        <div className="mt-2">
+        <div className="space-y-1">
+          <p className="font-medium">
+            <span className=" text-lg font-semibold text-main-color">
+              {formattedBankName} {formattedAccountNumber}
+            </span>
+            으로
+          </p>
+        </div>
+      </div>
+      {/* 계좌 번호 */}
+      <form
+        className="mt-12 space-y-2 flex flex-col flex-grow justify-between"
+        onSubmit={handleSubmit}
+      >
+        <div className="flex space-x-5 place-items-center">
           <input
             type="number"
             placeholder="얼마를 보낼까요?"
             className="border rounded-lg px-4 py-3 w-full text-lg"
             value={amount}
+            required
             onChange={(e) => {
               checkMoney(Number(e.target.value));
             }}
-          />
+          />{" "}
+          <span>원</span>
         </div>
-      </div>
-      <Button
-        text={"다음"}
-        onClick={() => {
-          send();
-        }}
-      ></Button>
+        {error && <p className="text-sm text-red-500">{error}</p>}
+        <Button
+          text={"다음"}
+          onClick={() => {
+            // send();
+          }}
+        />
+      </form>
     </div>
   );
 };

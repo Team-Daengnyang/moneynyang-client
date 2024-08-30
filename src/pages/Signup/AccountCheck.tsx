@@ -33,7 +33,7 @@ export const AccountCheck = () => {
       <Button
         text={"다음"}
         onClick={() => {
-          navigate("/signup/custom", {
+          navigate("/invest/custom", {
             state: {
               accountTitle,
               accountNumber,

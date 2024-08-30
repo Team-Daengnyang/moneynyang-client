@@ -3,7 +3,7 @@ import chevronDown from "../../assets/icons/chevronDown.png";
 import chevronUp from "../../assets/icons/chevronUp.png";
 import { useNavigate } from "react-router-dom";
 import trash from "../../assets/icons/trash.png";
-import { deleteGoal, getGoalHistory } from "../../api/investAPI";
+import { deleteGoal, getGoalHistory, withdrawGoal } from "../../api/investAPI";
 import { useQuery } from "react-query";
 import { useMutation, useQueryClient } from "react-query";
 import useUserStore from "../../store/UseUserStore";
@@ -100,19 +100,33 @@ const GoalCard = ({
               / {goalMoney}원
             </span>
           </div>
-          <button
-            onClick={() => {
-              navigate("/invest/deposit", {
-                state: {
-                  title: title,
-                  targetId,
-                },
-              });
-            }}
-            className="bg-blue-100 flex items-center justify-center py-2 px-4 rounded-[99px] text-gray-0 text-[14px] h-[36px] w-[100px]"
-          >
-            입금하기
-          </button>
+          {!isDone ? (
+            <button
+              onClick={() => {
+                navigate("/invest/deposit", {
+                  state: {
+                    title: title,
+                    targetId,
+                  },
+                });
+              }}
+              className="bg-blue-100 flex items-center justify-center py-2 px-4 rounded-[99px] text-gray-0 text-[14px] h-[36px] w-[100px]"
+            >
+              입금하기
+            </button>
+          ) : (
+            <button
+              onClick={async () => {
+                const response = await withdrawGoal(token, targetId);
+                if (response == 200) {
+                  queryClient.invalidateQueries("goalsList");
+                }
+              }}
+              className="bg-blue-100 flex items-center justify-center py-2 px-4 rounded-[99px] text-gray-0 text-[14px] h-[36px] w-[100px]"
+            >
+              출금하기
+            </button>
+          )}
 
           {/* <div
             onClick={() => {

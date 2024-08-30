@@ -39,6 +39,7 @@ export const getAccountInfo = async (token: string) => {
         },
       }
     );
+    console.log(accountResponse.data.data);
     return accountResponse.data.data;
   } catch (error) {
     console.log("계좌 정보 조회 오류: ", error);

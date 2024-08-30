@@ -23,10 +23,29 @@ export const AccountInfoCard = (props: accountInfo) => {
       <div className="flex justify-between">
         <p className="font-medium text-lg">최승빈</p>
         <div className="text-right space-y-1">
-          <p className="text-lg text-main-color font-semibold">
-            {props.transactionSummary === "입금" ? "+" : "-"}
+          {props.transactionSummary === "(수시입출금) : 입금(이체)" ? (
+            <p className="text-lg text-red-500  font-semibold">
+              +{Number(props.transactionBalance).toLocaleString()}원
+            </p>
+          ) : (
+            <p className="text-lg text-main-color font-semibold">
+              -{Number(props.transactionBalance).toLocaleString()}원
+            </p>
+          )}
+
+          {/* <p className="text-lg text-main-color font-semibold">
+            {props.transactionSummary === "(수시입출금) : 입금(이체)"
+              ? "+"
+              : "-"}
             {Number(props.transactionBalance).toLocaleString()}원
           </p>
+
+          <p className="text-lg text-red-500 font-semibold">
+            {props.transactionSummary === "(수시입출금) : 입금(이체)"
+              ? "+"
+              : "-"}
+            {Number(props.transactionBalance).toLocaleString()}원
+          </p> */}
           <p className="text-gray-500 font-medium">
             잔액 {Number(props.transactionAfterBalance).toLocaleString()}원
           </p>

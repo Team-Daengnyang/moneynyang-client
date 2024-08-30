@@ -40,7 +40,11 @@ const InsuranceCard = ({
   return (
     <li
       onClick={() => {
-        navigate(`/insurance/detail/${insuranceId}`);
+        navigate(`/insurance/detail/${insuranceId}`, {
+          state: {
+            imgSrc,
+          },
+        });
       }}
       className="px-2 py-3 flex justify-between items-center border-b-2 border-gray-100 cursor-pointer"
     >
@@ -48,7 +52,7 @@ const InsuranceCard = ({
         <img src={imgSrc} className="mr-3 w-[48px] h-[48px] rounded-md" />
         <div>
           <h1 className="text-gray-500 text-[12px] font-medium">{title}</h1>
-          <span className="text-[16px] font-semibold">{price}원</span>
+          <span className="text-[16px] font-semibold">{price}</span>
           <span className="text-[16px] text-gray-400 ">/월</span>
         </div>
       </div>

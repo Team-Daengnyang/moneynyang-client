@@ -1,3 +1,5 @@
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useNavigate } from "react-router-dom";
 
 interface TopBarProps {
@@ -16,11 +18,13 @@ export const TopBar = ({ title, skip }: TopBarProps) => {
 
   return (
     <div className={`relative flex py-3 mb-3 ${place} ${center}`}>
-      <img
+      {/* <img
         src={leftAngle}
         className={`w-6 left-0 ${position}`}
         onClick={() => navigate(-1)}
       />
+       */}
+      <FontAwesomeIcon icon={faChevronLeft} className="w-[24px] h-" />
       <p className="font-semibold">{title}</p>
       {skip ? (
         <Link to={`${skip}`} className="text-main-color mt-1">

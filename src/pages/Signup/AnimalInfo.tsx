@@ -130,6 +130,7 @@ export const AnimalInfo = () => {
                 value={inputPetInfo.petName}
                 onChange={handleChange} // 상태 업데이트
                 required
+                maxLength={20}
                 placeholder="예) 춘삼이"
                 className="border rounded-lg px-4 py-3 w-full text-sm"
               />
@@ -182,6 +183,8 @@ export const AnimalInfo = () => {
               name="petBirth"
               value={inputPetInfo.petBirth}
               onChange={handleChange} // 상태 업데이트
+              minLength={6}
+              maxLength={6}
               placeholder="예) 240101"
               className="border rounded-lg px-4 py-3 w-full text-sm"
             />
@@ -231,6 +234,7 @@ export const AnimalInfo = () => {
               name="specie"
               value={inputPetInfo.specie}
               onChange={handleChange} // 상태 업데이트
+              maxLength={20}
               placeholder="예) 말티즈"
               className="border rounded-lg px-4 py-3 w-full text-sm"
             />

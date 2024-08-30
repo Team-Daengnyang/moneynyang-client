@@ -131,7 +131,7 @@ export const AccountInfo = () => {
 
   return (
     <div className="h-full flex flex-col py-6 px-4 bg-gray-0 ">
-      <TopBar title={"거래 내역 조회"} skip={""} />
+      <TopBar title={"거래 내역 조회"} skip={""} pre={""} />
       <div className="space-y-4">
         {/* 내 계좌 */}
         <div className="mb-5">

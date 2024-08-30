@@ -34,6 +34,7 @@ export const Main = () => {
       token: state.token,
     })
   );
+
   const [loading, setLoading] = useState(true);
   const [account, setAccount] = useState<Account | null>({
     accountNumber: "",
@@ -129,40 +130,46 @@ export const Main = () => {
           </div>
 
           {/* 메인 버튼 */}
-          <div className="flex justify-between gap-2">
+          <div className="flex justify-between gap-2 h-[268px]">
             <div
-              className="bg-main-color rounded-lg w-[50%]"
+              className="bg-main-color rounded-lg w-[50%] relative"
               style={{ cursor: "pointer" }}
               onClick={() => navigate(`${url}`)}
             >
               <p className="text-white font-semibold p-5">
                 나의 펫 <br /> 덕질하기
               </p>
-              <img src={animals} alt="" className="w-[160px] rounded-b-lg" />
+              <img
+                src={animals}
+                alt=""
+                className="w-[160px] rounded-b-lg absolute bottom-0 right-0"
+              />
             </div>
             <div className="flex flex-col justify-between w-[50%]">
               <div
                 onClick={() => {
                   navigate("/cashwalk");
                 }}
-                className="bg-[#FFC946] rounded-lg relative h-full"
+                className="bg-[#FFC946] rounded-lg relative h-[50%]"
                 style={{ cursor: "pointer" }}
               >
                 <p className="font-semibold pt-5 pl-5">
-                  펫과 산책하며
+                  {petInfo.petType == "강아지"
+                    ? "펫과 산책하며"
+                    : "냥이 관찰하며"}
                   <br /> 돈 벌기
                 </p>
                 <img
                   src={walk}
                   alt=""
-                  className="w-[160px] rounded-b-lg absolute bottom-0"
+                  className="w-[160px] rounded-b-lg absolute bottom-0 right-0"
                 />
               </div>
               <div
                 onClick={() => {
                   navigate("/insurance");
                 }}
-                className="bg-[#E3E5E7] rounded-lg mt-2"
+                className="bg-[#E3E5E7] rounded-lg mt-2 relative  h-[50%]"
                 style={{ cursor: "pointer" }}
               >
                 <p className="font-semibold pt-5 pl-5">
@@ -172,7 +179,7 @@ export const Main = () => {
                 <img
                   src={bankbooks}
                   alt=""
-                  className="w-[160px] rounded-b-lg"
+                  className="w-[160px] rounded-b-lg absolute bottom-0 right-0"
                 />
               </div>
             </div>

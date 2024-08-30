@@ -5,7 +5,7 @@ import Write from "../pages/CashWalk/Write";
 
 const CashWalkPages = () => {
   return (
-    <div className="w-[360px] h-[780px] relative">
+    <div className="h-[100vh] relative">
       <Routes>
         <Route path="/" element={<CashWalk />} />
         <Route path="/calendar" element={<CalendarView />} />

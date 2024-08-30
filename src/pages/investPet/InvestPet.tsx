@@ -92,7 +92,7 @@ const InvestPet = () => {
             goalMoney={data.targetAmount}
             // depositDatas={data.depositDatas}
             targetId={data.targetId}
-            isDone={false}
+            isDone={data.isDone}
           />
         );
       })}

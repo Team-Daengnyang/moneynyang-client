@@ -4,7 +4,7 @@ import { AccountData } from "../pages/Account/AccountData";
 
 const AccountPages = () => {
   return (
-    <div className="w-[360px] h-[780px] relative">
+    <div className="h-[100vh] relative">
       <Routes>
         <Route path="/" element={<AccountInfo />} />
         <Route path="/data" element={<AccountData />} />

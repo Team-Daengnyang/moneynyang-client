@@ -131,7 +131,7 @@ export const Main = () => {
           {/* 메인 버튼 */}
           <div className="flex justify-between gap-2">
             <div
-              className="bg-main-color rounded-lg"
+              className="bg-main-color rounded-lg w-[50%]"
               style={{ cursor: "pointer" }}
               onClick={() => navigate(`${url}`)}
             >
@@ -140,7 +140,7 @@ export const Main = () => {
               </p>
               <img src={animals} alt="" className="w-[160px] rounded-b-lg" />
             </div>
-            <div className="flex flex-col justify-between">
+            <div className="flex flex-col justify-between w-[50%]">
               <div
                 onClick={() => {
                   navigate("/cashwalk");

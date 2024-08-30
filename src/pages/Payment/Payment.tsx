@@ -36,7 +36,7 @@ export const Payment = () => {
 
   return (
     <div className="h-full pt-6 px-4 bg-white flex flex-col">
-      <TopBar pre={""} title={""} skip={""} />
+      <TopBar pre={"/"} title={""} skip={""} />
       <p className="text-xl font-semibold mb-5">어떤 계좌로 보낼까요?</p>
       <form
         className="flex flex-col justify-between flex-grow"

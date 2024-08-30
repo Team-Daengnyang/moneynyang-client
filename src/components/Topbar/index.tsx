@@ -22,11 +22,11 @@ export const TopBar = ({ title, skip }: TopBarProps) => {
         src={leftAngle}
         className={`w-6 left-0 ${position}`}
         onClick={() => navigate(-1)}
-      />
-       */}
+      /> */}
+
       <FontAwesomeIcon
         icon={faChevronLeft}
-        className="w-[24px] left-0 ${position}"
+        className="w-6 left-0 ${position}"
         onClick={() => navigate(-1)}
       />
       <p className="font-semibold">{title}</p>

@@ -86,11 +86,11 @@ const GoalCard = ({
           transform: `translateX(${moveX}px)`,
           transition: "transform 0.3s ease",
         }}
-        className="relative z-10 w-full p-4 bg-gray-50 rounded-lg border-2 border-solid border-gray-200 my-2"
+        className="relative z-10 p-4 bg-gray-50 rounded-lg border-2 border-solid border-gray-200 my-2"
       >
         {/* 목표치 */}
-        <div className="flex justify-between items-center">
-          <div>
+        <div className="flex justify-between items-center space-x-5">
+          <div className="w-full">
             <h1 className="text-[14px] font-semibold">{title}</h1>
             <h1 className="text-[12px] text-gray-500 font-semibold">
               {from} ~ {to}
@@ -109,10 +109,24 @@ const GoalCard = ({
                 },
               });
             }}
-            className="bg-blue-100 flex items-center justify-center py-2 px-4 rounded-[99px] text-gray-0 text-[14px] h-auto"
+            className="bg-blue-100 flex items-center justify-center py-2 px-4 rounded-[99px] text-gray-0 text-[14px] h-[36px] w-[100px]"
           >
             입금하기
           </button>
+
+          {/* <div
+            onClick={() => {
+              navigate("/invest/deposit", {
+                state: {
+                  title: title,
+                  targetId,
+                },
+              });
+            }}
+            className="bg-blue-100 flex items-center justify-center py-2 px-4 rounded-[99px] text-gray-0 text-[14px] w-[100px] border-box "
+          >
+            입금하기
+          </div> */}
         </div>
         {/* progress bar */}
         <div className="w-full h-2 bg-gray-200 my-3 rounded-full relative">

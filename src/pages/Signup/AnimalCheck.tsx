@@ -5,6 +5,7 @@ import { Button } from "../../components/Button";
 import useUserStore from "../../store/UseUserStore";
 import { registerPet, registerUser } from "../../api/userAPI";
 import useSignupStore from "../../store/UseSignupStore";
+import { useState } from "react";
 
 interface inputUserInfo {
   email: string;
@@ -36,6 +37,7 @@ export const AnimalCheck = () => {
       inputPetInfo: state.inputPetInfo,
     })
   );
+  const [error, setError] = useState("");
 
   const signup = async () => {
     try {
@@ -47,6 +49,7 @@ export const AnimalCheck = () => {
       navigate("/signup/success", { replace: true });
     } catch (error) {
       console.error("회원 가입 실패:", error);
+      setError("회원 가입 실패");
     }
   };
 
@@ -88,12 +91,15 @@ export const AnimalCheck = () => {
           </div>
         </div>
       </div>
-      <Button
-        text={"가입하기"}
-        onClick={() => {
-          signup();
-        }}
-      />
+      <div className="flex flex-col place-content-center text-center">
+        {error && <p className="text-sm text-red-500">{error}</p>}
+        <Button
+          text={"가입하기"}
+          onClick={() => {
+            signup();
+          }}
+        />
+      </div>
     </div>
   );
 };

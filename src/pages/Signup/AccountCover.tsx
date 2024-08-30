@@ -79,7 +79,7 @@ export const AccountCover = () => {
             </p>
           </div>
           <img
-            src={picture}
+            src={petInfo.petImage || picture}
             alt=""
             className="w-[78px]"
             onClick={() => navigate("/")}

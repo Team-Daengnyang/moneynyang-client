@@ -1,8 +1,9 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { TopBar } from "../../components/Topbar";
 import { useNavigate } from "react-router-dom";
 import { addSavingsGoal } from "../../api/investAPI";
 import useUserStore from "../../store/UseUserStore";
+import { Button } from "../../components/Button";
 
 const SavingsGoal = () => {
   const [startDate, setTargetStartDate] = useState("");
@@ -36,31 +37,34 @@ const SavingsGoal = () => {
     setDate(formattedValue);
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log({
+      targetTitle,
+      targetAmount,
+      startDate,
+      endDate,
+      token,
+    });
+    addSavingsGoal({ targetTitle, targetAmount, startDate, endDate }, token);
+    navigate("/invest");
+  };
+
   return (
-    <div className="h-full w-full pt-6 px-4 bg-gray-0">
+    <div className="h-full w-full pt-6 px-4 bg-gray-0 flex flex-col">
       <TopBar title={""} skip={""} />
       {/* 헤딩 */}
       <h1 className="text-gray-700 text-[20px] font-semibold mb-5">
         저축 목표와 금액을 <br />
         적어주세요
       </h1>
-      <div>
-        <form
-          onSubmit={() => {
-            console.log({
-              targetTitle,
-              targetAmount,
-              startDate,
-              endDate,
-              token,
-            });
-            addSavingsGoal(
-              { targetTitle, targetAmount, startDate, endDate },
-              token
-            );
-            navigate("/invest");
-          }}
-        >
+      <form
+        className="flex flex-col justify-between flex-grow"
+        onSubmit={() => {
+          handleSubmit;
+        }}
+      >
+        <div className="space-y-5">
           <div>
             <div className="flex mb-2">
               <h1 className="text-[14px] font-semibold">목표</h1>
@@ -72,7 +76,7 @@ const SavingsGoal = () => {
               onChange={(e) => setTargetTitle(e.target.value)}
               placeholder="어떤 목표인가요?"
               type="text"
-              className="w-full h-[43px] p-3 border-[1px] rounded-[12px] text-[14px] placeholder:text-[14px] focus:border-blue-100 focus:outline-none mb-5"
+              className="w-full h-[43px] p-3 border-[1px] rounded-[12px] text-[14px] placeholder:text-[14px] focus:border-blue-100 focus:outline-none"
             />
           </div>
           <div>
@@ -80,7 +84,7 @@ const SavingsGoal = () => {
               <h1 className="text-[14px] font-semibold">금액</h1>
               <h1 className="text-blue-100 text-[14px]">*</h1>
             </div>
-            <div className="pb-6 flex items-center">
+            <div className="flex items-center">
               <input
                 onChange={(event) => {
                   setTargetAmount(Number(event.target.value));
@@ -103,7 +107,7 @@ const SavingsGoal = () => {
             </div>
             <div className="flex items-center">
               <input
-                type="text"
+                type="date"
                 value={startDate}
                 onChange={(e) =>
                   handleDateInput(e.target.value, setTargetStartDate)
@@ -115,7 +119,7 @@ const SavingsGoal = () => {
               />
               <span className="mx-3 text-gray-300">-</span>
               <input
-                type="text"
+                type="date"
                 value={endDate}
                 onChange={(e) =>
                   handleDateInput(e.target.value, setTargetEndDate)
@@ -126,14 +130,9 @@ const SavingsGoal = () => {
               />
             </div>
           </div>
-          <button
-            type="submit"
-            className="w-[320px] h-[56px] rounded-[12px] bg-blue-100 text-gray-0 absolute bottom-6 left-1/2 transform -translate-x-1/2"
-          >
-            추가하기
-          </button>
-        </form>
-      </div>
+        </div>
+        <Button text="추가하기" onClick={() => {}} />
+      </form>
     </div>
   );
 };

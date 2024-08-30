@@ -64,7 +64,7 @@ export const Login = async (member: Member) => {
     return response.data.data.accessToken;
   } catch (error) {
     console.error("로그인 실패:", error);
-    throw error;
+    return null;
   }
 };
 

@@ -4,13 +4,31 @@ import { useNavigate } from "react-router-dom";
 import { addSavingsGoal } from "../../api/investAPI";
 import useUserStore from "../../store/UseUserStore";
 import { Button } from "../../components/Button";
+import { useMutation, useQueryClient } from "react-query";
 
 const SavingsGoal = () => {
   const [startDate, setTargetStartDate] = useState("");
   const [endDate, setTargetEndDate] = useState("");
   const [targetTitle, setTargetTitle] = useState("");
   const [targetAmount, setTargetAmount] = useState(0);
+  const [errorMessage, setErrorMessage] = useState("");
   const token = useUserStore((state) => state.token);
+
+  const mutation = useMutation(
+    () =>
+      addSavingsGoal({ targetTitle, targetAmount, startDate, endDate }, token),
+    {
+      onSuccess: () => {
+        console.log("목표 생성 성공!");
+        queryClient.invalidateQueries("goalsList");
+      },
+      onError: () => {
+        console.log("목표 생성 실패ㅠㅠ");
+      },
+    }
+  );
+
+  const queryClient = useQueryClient();
 
   const navigate = useNavigate();
 
@@ -18,10 +36,7 @@ const SavingsGoal = () => {
     value: string,
     setDate: React.Dispatch<React.SetStateAction<string>>
   ): void => {
-    // 숫자만 남기기
     const numericValue = value.replace(/\D/g, "");
-
-    // YYYY-MM-DD 형식으로 포맷팅
     let formattedValue = numericValue;
     if (numericValue.length > 4) {
       formattedValue = `${numericValue.slice(0, 4)}-${numericValue.slice(4)}`;
@@ -32,37 +47,36 @@ const SavingsGoal = () => {
         6
       )}-${numericValue.slice(6)}`;
     }
-
-    // 값 업데이트
     setDate(formattedValue);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log({
-      targetTitle,
-      targetAmount,
-      startDate,
-      endDate,
-      token,
-    });
-    addSavingsGoal({ targetTitle, targetAmount, startDate, endDate }, token);
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    if (end <= start) {
+      setErrorMessage("종료 날짜는 시작 날짜보다 커야 합니다.");
+      return;
+    }
+
+    setErrorMessage("");
+    // addSavingsGoal({ targetTitle, targetAmount, startDate, endDate }, token);
+    mutation.mutate();
+    // queryClient.invalidateQueries("goalsList");
     navigate("/invest");
   };
 
   return (
     <div className="h-full w-full pt-6 px-4 bg-gray-0 flex flex-col">
       <TopBar title={""} skip={""} />
-      {/* 헤딩 */}
       <h1 className="text-gray-700 text-[20px] font-semibold mb-5">
         저축 목표와 금액을 <br />
         적어주세요
       </h1>
       <form
         className="flex flex-col justify-between flex-grow"
-        onSubmit={() => {
-          handleSubmit;
-        }}
+        onSubmit={handleSubmit}
       >
         <div className="space-y-5">
           <div>
@@ -89,7 +103,6 @@ const SavingsGoal = () => {
                 onChange={(event) => {
                   setTargetAmount(Number(event.target.value));
                 }}
-                // value={targetAmount}
                 required
                 type="number"
                 placeholder="얼마나 모을까요?"
@@ -130,6 +143,9 @@ const SavingsGoal = () => {
               />
             </div>
           </div>
+          {errorMessage && (
+            <p className="text-red-500 text-sm mt-2">{errorMessage}</p>
+          )}
         </div>
         <Button text="추가하기" onClick={() => {}} />
       </form>

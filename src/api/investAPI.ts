@@ -259,3 +259,23 @@ export const updateAccount = async (request: updateRequest, token: string) => {
     throw error;
   }
 };
+
+//완료된 저축 목표 출금하기(금융)
+export const withdrawGoal = async (token: string, targetId: number) => {
+  try {
+    const response = await axios.patch(
+      `${BASE_URL}/api/v1/targets/${targetId}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(response.data.status);
+    return response.data.status;
+  } catch (error) {
+    console.log("완료 목표 출금하기 에러 : ", error);
+  }
+};

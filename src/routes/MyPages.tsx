@@ -4,7 +4,7 @@ import { UpdateAnimalInfo } from "../pages/Mypage/UpdateAnimalInfo";
 
 const MyPages = () => {
   return (
-    <div className="w-[360px] h-[780px] relative">
+    <div className="h-[100vh] relative">
       <Routes>
         <Route path="/" element={<Mypage />} />
         <Route path="/update" element={<UpdateAnimalInfo />} />

@@ -5,7 +5,7 @@ import { PayMoney } from "../pages/Payment/PayMoney";
 
 const PaymentPages = () => {
   return (
-    <div className="w-[360px] h-[780px] relative">
+    <div className="h-[100vh] relative">
       <Routes>
         <Route path="/" element={<Payment />} />
         <Route path="/money" element={<PayMoney />} />

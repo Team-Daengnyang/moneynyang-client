@@ -19,13 +19,13 @@ const Write: React.FC = () => {
   const { year, month, day /* activeStartDate */ } =
     (location.state as IState) || {};
   const [typedText, setTypedText] = useState("");
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const navigate = useNavigate();
 
   const { token } = useUserStore((state) => ({
     token: state.token,
   }));
 
-  // const queryClient = useQueryClient();
   const mutation = useMutation(
     () =>
       writeDiary(
@@ -34,11 +34,11 @@ const Write: React.FC = () => {
         `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(
           2,
           "0"
-        )}`
+        )}`,
+        selectedFile
       ),
     {
       onSuccess: () => {
-        // queryClient.invalidateQueries(["monthDiaryDatas", activeStartDate]);
         navigate("/cashwalk/calendar");
       },
       onError: (error) => {
@@ -57,10 +57,15 @@ const Write: React.FC = () => {
     mutation.mutate();
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setSelectedFile(e.target.files[0]);
+    }
+  };
+
   return (
     <div className="h-full pt-6 px-4 bg-gray-0">
       <TopBar pre={"/cashwalk/calendar"} skip={""} title={"일지 기록"} />
-      {/* n월 n일의 일지 */}
       <div className="flex gap-1 items-center">
         <img src={diary} className="w-[28px]" />
         <h1 className="text-gray-700 text-[16px] font-semibold">
@@ -68,7 +73,6 @@ const Write: React.FC = () => {
           일지
         </h1>
       </div>
-      {/* 일지 기록 폼 */}
       <form className="flex flex-col" onSubmit={handleSubmit}>
         <textarea
           onChange={(e) => setTypedText(e.target.value)}
@@ -77,6 +81,7 @@ const Write: React.FC = () => {
           value={typedText}
           required
         ></textarea>
+        <input type="file" onChange={handleFileChange} />
         <button
           type="submit"
           className={`w-full rounded-lg h-[56px] ${

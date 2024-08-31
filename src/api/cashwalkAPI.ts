@@ -5,22 +5,25 @@ import { BASE_URL } from "./APIconfig";
 export const writeDiary = async (
   token: string,
   content: string,
-  createdAt: string
+  createdAt: string,
+  file?: File | null // 이미지 파일을 추가할 수 있도록 수정
 ) => {
   try {
-    await axios.post(
-      `${BASE_URL}/api/v1/cashwalks`,
-      {
-        content,
-        createdAt,
+    const formData = new FormData();
+
+    formData.append("content", content);
+    formData.append("createdAt", createdAt);
+
+    if (file) {
+      formData.append("file", file); // 이미지 파일 추가
+    }
+
+    await axios.post(`${BASE_URL}/api/v1/cashwalks`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
       },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    });
     console.log("일지 작성 성공!");
   } catch (error) {
     console.log("일지 작성 오류 : ", error);

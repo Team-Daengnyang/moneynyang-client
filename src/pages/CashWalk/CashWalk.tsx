@@ -54,11 +54,11 @@ const CashWalk = () => {
           />
           <div className="flex flex-col items-center justify-center gap-1">
             <div className="px-2 py-1 bg-black text-gray-0 text-[12px] flex justify-center items-center rounded-2xl">
-              {data.achievementRate}%
+              {data?.achievementRate}%
             </div>
             <div
               className="bg-blue-100 rounded-lg w-[45px]"
-              style={{ height: `${data.achievementRate * 1.5}px` }}
+              style={{ height: `${data?.achievementRate * 1.5}px` }}
             ></div>
             <h1>작성률</h1>
           </div>

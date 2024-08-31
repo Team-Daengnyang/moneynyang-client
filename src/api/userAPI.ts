@@ -8,6 +8,7 @@ export const getUserInfo = async (token: string) => {
         Authorization: `Bearer ${token}`,
       },
     });
+    console.log("유저 정보 : ", userResponse.data.data);
     return userResponse.data.data;
   } catch (error) {
     console.log("회원 정보 조회 오류: ", error);
@@ -61,6 +62,7 @@ export const Login = async (member: Member) => {
         password: member.password,
       }
     );
+    console.log("로그인 : ", response);
     return response.data.data.accessToken;
   } catch (error) {
     console.error("로그인 실패:", error);

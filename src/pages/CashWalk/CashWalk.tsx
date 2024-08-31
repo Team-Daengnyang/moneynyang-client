@@ -4,12 +4,17 @@ import chevronRight from "../../assets/icons/chevronRight.png";
 import { useNavigate } from "react-router-dom";
 import useUserStore from "../../store/UseUserStore";
 import { useEffect, useState } from "react";
+import { getUserStats } from "../../api/cashwalkAPI";
+import { useQuery } from "react-query";
 
 const CashWalk = () => {
   const navigate = useNavigate();
-  const { petInfo } = useUserStore((state) => ({
+  const { petInfo, token } = useUserStore((state) => ({
     petInfo: state.petInfo,
+    token: state.token,
   }));
+
+  const { data } = useQuery("userStats", () => getUserStats(token));
 
   const [headerText, setHeaderText] = useState("");
   const [typeText, setTypeText] = useState("");
@@ -32,11 +37,13 @@ const CashWalk = () => {
           <h1 className="text-[12px] font-medium text-gray-500">
             반려동물과 함께한
           </h1>
-          <h1 className="text-[18px] font-medium">
-            {petInfo.petName}의 산책 일지
-          </h1>
-          <span className="text-[36px] font-medium mr-1">798</span>
-          <span className="text-[18px] font-semibold text-gray-400">걸음</span>
+          <h1 className="text-[18px] font-medium">{petInfo.petName}의 일지</h1>
+          <span className="text-[36px] font-medium mr-1">
+            {data.totalDiaries}
+          </span>
+          <span className="text-[18px] font-semibold text-gray-400">
+            개의 기록
+          </span>
         </div>
 
         <div className=" left-4 bottom-4 flex items-center min-w-full absolute">
@@ -47,10 +54,13 @@ const CashWalk = () => {
           />
           <div className="flex flex-col items-center justify-center gap-1">
             <div className="px-2 py-1 bg-black text-gray-0 text-[12px] flex justify-center items-center rounded-2xl">
-              12%
+              {data.achievementRate}%
             </div>
-            <div className="h-[70px] bg-blue-100 rounded-lg w-[45px]"></div>
-            <h1>오늘</h1>
+            <div
+              className="bg-blue-100 rounded-lg w-[45px]"
+              style={{ height: `${data.achievementRate * 4}px` }}
+            ></div>
+            <h1>작성률</h1>
           </div>
         </div>
       </div>

@@ -61,11 +61,11 @@ export const AccountData = () => {
     if (dataResponse.compareDiff < 0) {
       setMsg("덜");
       setColor("text-main-color");
-      setMoney(Number(dataResponse.compareDiff.slice(1)));
+      setMoney(dataResponse.compareDiff * -1);
     } else {
       setMsg("더");
       setColor("text-red-500");
-      setMoney(Number(dataResponse.compareDiff.slice(1)));
+      setMoney(dataResponse.compareDiff);
     }
   };
 

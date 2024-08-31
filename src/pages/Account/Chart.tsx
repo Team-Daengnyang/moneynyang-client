@@ -21,21 +21,26 @@ interface dataDetail {
 }
 
 export const Chart = (data: IState) => {
-  const pet = data.data.petRate ? `w-[${data.data.petRate}%]` : "w-1";
-  const shopping = data.data.shoppingRate
-    ? `w-[${data.data.shopping}%]`
-    : "w-1";
-  const transportation = data.data.transportationRate
-    ? `w-[${data.data.transportation}%]`
-    : "w-1";
-  const others = data.data.othersRate ? `w-[${data.data.others}%]` : "w-1";
+  const petRate = data.data.petRate || 1; // 기본값 설정
+  const shoppingRate = data.data.shoppingRate || 1;
+  const transportationRate = data.data.transportationRate || 1;
+  const othersRate = data.data.othersRate || 1;
 
   return (
     <div className="flex w-full h-6 space-x-[2px]">
-      <div className={`bg-main-color rounded-l-lg ${pet}`}></div>
-      <div className={`bg-[#5CC185] ${shopping}`}></div>
-      <div className={`bg-[#F8D36B]  ${transportation}`}></div>
-      <div className={`bg-[#E3E5E7] rounded-r-lg ${others}`}></div>
+      <div
+        className="bg-main-color rounded-l-lg"
+        style={{ width: `${petRate}%` }}
+      ></div>
+      <div className="bg-[#5CC185]" style={{ width: `${shoppingRate}%` }}></div>
+      <div
+        className="bg-[#F8D36B]"
+        style={{ width: `${transportationRate}%` }}
+      ></div>
+      <div
+        className="bg-[#E3E5E7] rounded-r-lg"
+        style={{ width: `${othersRate}%` }}
+      ></div>
     </div>
   );
 };

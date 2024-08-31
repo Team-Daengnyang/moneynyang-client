@@ -8,7 +8,10 @@ import { useQuery } from "react-query";
 import useUserStore from "../../store/UseUserStore";
 
 const TotalSpent = () => {
-  const token = useUserStore((state) => state.token);
+  const { petInfo, token } = useUserStore((state) => ({
+    petInfo: state.petInfo,
+    token: state.token,
+  }));
   const { data: summaryDatas } = useQuery("summaryDatas", () =>
     getAllSummary(token)
   );
@@ -44,7 +47,9 @@ const TotalSpent = () => {
         <span className="text-gray-700 text-[20px] font-semibold">
           지금까지 나는 <br />
         </span>
-        <span className="text-blue-100 text-[20px] font-semibold">아롱이</span>
+        <span className="text-blue-100 text-[20px] font-semibold">
+          {petInfo.petName}
+        </span>
         <span className="text-gray-700 text-[20px] font-semibold">
           에게 얼마나 썼을까?
         </span>

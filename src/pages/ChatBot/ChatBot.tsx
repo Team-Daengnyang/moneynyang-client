@@ -21,7 +21,12 @@ const ChatBot = () => {
   const chatBoxRef = useRef<HTMLDivElement>(null); // HTMLDivElement 타입으로 명시적으로 지정
 
   useEffect(() => {
-    setMessages([{ text: "AI 챗봇과 대화를 시작해 보세요", user: false }]);
+    setMessages([
+      {
+        text: "안녕하세요 멍이냥 챗봇입니다! 궁금하신 내용의 버튼을 선택하거나 아래 채팅창에 질문을 주세요 🐶",
+        user: false,
+      },
+    ]);
   }, []);
 
   useEffect(() => {
@@ -49,7 +54,7 @@ const ChatBot = () => {
   };
 
   return (
-    <div className="h-full pt-6 px-4 flex flex-col justify-between  overflow-hidden relative bg-gray-100 overflow-y-auto">
+    <div className="h-full pt-6 px-4 flex flex-col justify-between  overflow-hidden relative bg-gray-0 overflow-y-auto">
       <TopBar pre={"/"} title={"AI 챗봇"} skip={""} />
       <div
         className="flex flex-col justify-start flex-1 overflow-y-auto "
@@ -60,14 +65,14 @@ const ChatBot = () => {
             message.user ? (
               <div
                 key={index}
-                className="max-w-[60%] p-3 bg-green-500 text-white rounded-lg self-end text-sm leading-6"
+                className="max-w-[60%] p-3 bg-blue-100 text-white rounded-lg self-end text-sm leading-6"
               >
                 {message.text}
               </div>
             ) : (
               <div key={index} className="flex items-center">
                 <img src={chatIcon} className="w-8 mr-1.5" />
-                <div className="max-w-[60%] p-3 bg-white rounded-lg text-sm leading-6">
+                <div className="max-w-[60%] p-3 bg-gray-100 rounded-lg text-sm leading-6">
                   {message.text}
                 </div>
               </div>

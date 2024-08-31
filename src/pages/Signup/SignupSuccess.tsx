@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import success from "../../assets/Signup/success.png";
+// import money from "../../assets/images/money.png";
 
 export const SignupSuccess = () => {
   const navigate = useNavigate();

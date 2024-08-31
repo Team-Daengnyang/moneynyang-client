@@ -1,27 +1,44 @@
 import { TopBar } from "../../components/Topbar";
-import sampleDog from "../../assets/images/sampleDog.jpg";
 import pawCalendar from "../../assets/images/pawCalendar.png";
 import chevronRight from "../../assets/icons/chevronRight.png";
 import { useNavigate } from "react-router-dom";
+import useUserStore from "../../store/UseUserStore";
+import { useEffect, useState } from "react";
 
 const CashWalk = () => {
   const navigate = useNavigate();
+  const { petInfo } = useUserStore((state) => ({
+    petInfo: state.petInfo,
+  }));
+
+  const [headerText, setHeaderText] = useState("");
+
+  useEffect(() => {
+    if (petInfo.petType == "강아지") {
+      setHeaderText("산책일지 기록");
+    } else {
+      setHeaderText("관찰일지 기록");
+    }
+  }, []);
+
   return (
     <div className="h-full pt-6 px-4 bg-gray-0 ">
-      <TopBar pre={"/"} skip={""} title={"산책 캐시워크"} />
+      <TopBar pre={"/"} skip={""} title={headerText} />
       <div className="h-[314px] bg-gray-100 rounded-md   p-4 border-gray-200 border-[1px] relative">
         <div>
           <h1 className="text-[12px] font-medium text-gray-500">
             반려동물과 함께한
           </h1>
-          <h1 className="text-[18px] font-medium">오늘의 걸음 수</h1>
+          <h1 className="text-[18px] font-medium">
+            {petInfo.petName}의 산책 일지
+          </h1>
           <span className="text-[36px] font-medium mr-1">798</span>
           <span className="text-[18px] font-semibold text-gray-400">걸음</span>
         </div>
 
         <div className=" left-4 bottom-4 flex items-center min-w-full absolute">
           <img
-            src={sampleDog}
+            src={petInfo.petImage}
             alt=""
             className="w-[108px] h-[108px] rounded-full object-cover mr-[119px]"
           />

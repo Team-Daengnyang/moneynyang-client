@@ -1,20 +1,22 @@
 import { useNavigate } from "react-router-dom";
 import loginlogo from "../../assets/Login/loginLogo.png";
-import loginimg from "../../assets/Login/loginImg.png";
+// import loginimg from "../../assets/Login/loginImg.png";
+import LoginLottie from "../../utils/loginLottie";
 
 export const Login = () => {
   const navigate = useNavigate();
 
   return (
     <div className="h-full flex flex-col justify-center pt-6 px-4 bg-main-color text-center">
-      <div className="space-y-5 mb-20">
+      <div className="space-y-5 mb-8">
         <div className="flex place-content-center">
           <img src={loginlogo} alt="" width={165} />
         </div>
         <p className="text-white">반려동물과 함께하는 금융 서비스</p>
       </div>
       <div className="flex place-content-center">
-        <img src={loginimg} alt="" className="w-full" />
+        {/* <img src={loginimg} alt="" className="w-full" /> */}
+        <LoginLottie />
       </div>
       <div className="flex-col place-content-center space-y-3">
         <div

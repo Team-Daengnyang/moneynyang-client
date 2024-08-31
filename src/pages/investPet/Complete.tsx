@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import money from "../../assets/images/money.png";
 import { useEffect } from "react";
-import CongratsLottie from "../../utils/CongratsLottie";
+// import CongratsLottie from "../../utils/CongratsLottie";
 
 const Complete = () => {
   const navigate = useNavigate();
@@ -21,11 +21,11 @@ const Complete = () => {
           </h1>
         </div>
         <div
-          // className="w-[360px] h-[275px] bg-no-repeat bg-center"
+          className="w-[360px] h-[275px] bg-no-repeat bg-center"
           style={{ backgroundImage: `url(${money})` }}
         ></div>
 
-        <CongratsLottie />
+        {/* <CongratsLottie /> */}
       </div>
     </div>
   );

@@ -120,7 +120,7 @@ export const AnimalInfo = () => {
               style={{ display: "none" }} // input을 숨깁니다.
               accept="image/*" // 이미지 파일만 선택 가능하도록 설정
             />
-            <div className="space-y-2">
+            <div className="space-y-2 flex-1">
               <label htmlFor="" className="block font-medium text-sm">
                 이름 <span className="text-main-color">*</span>
               </label>
@@ -141,9 +141,9 @@ export const AnimalInfo = () => {
             <label htmlFor="" className="block font-medium text-sm">
               성별 <span className="text-main-color">*</span>
             </label>
-            <div className="flex justify-between">
+            <div className="flex justify-between gap-2">
               <div
-                className={`px-16 py-3 text-center rounded-lg font-medium text-sm ${
+                className={`px-16 py-3 w-[50%] text-center rounded-lg font-medium text-sm ${
                   inputPetInfo.petGender === "여아"
                     ? "bg-[#DBEAFF] border border-main-color text-main-color"
                     : "bg-[#F4F4F4] text-[#73787E]"
@@ -156,7 +156,7 @@ export const AnimalInfo = () => {
                 <p>여아</p>
               </div>
               <div
-                className={`px-16 py-3 text-center rounded-lg font-medium text-sm ${
+                className={`px-16 py-3 w-[50%] text-center rounded-lg font-medium text-sm ${
                   inputPetInfo.petGender === "남아"
                     ? "bg-[#DBEAFF] border border-main-color text-main-color"
                     : "bg-[#F4F4F4] text-[#73787E]"
@@ -194,9 +194,9 @@ export const AnimalInfo = () => {
             <label htmlFor="" className="block font-medium text-sm">
               강아지/고양이 <span className="text-main-color">*</span>
             </label>
-            <div className="flex justify-between">
+            <div className="flex justify-between gap-2">
               <div
-                className={`px-[58px] py-3 text-center rounded-lg font-medium text-sm ${
+                className={`px-[58px] py-3 w-[50%] text-center rounded-lg font-medium text-sm ${
                   inputPetInfo.petType === "강아지"
                     ? "bg-[#DBEAFF] border border-main-color text-main-color"
                     : "bg-[#F4F4F4] text-[#73787E]"
@@ -209,7 +209,7 @@ export const AnimalInfo = () => {
                 <p>강아지</p>
               </div>
               <div
-                className={`px-[58px] py-3 text-center rounded-lg font-medium text-sm ${
+                className={`px-[58px] py-3 w-[50%] text-center rounded-lg font-medium text-sm ${
                   inputPetInfo.petType === "고양이"
                     ? "bg-[#DBEAFF] border border-main-color text-main-color"
                     : "bg-[#F4F4F4] text-[#73787E]"

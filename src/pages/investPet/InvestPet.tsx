@@ -6,7 +6,7 @@ import paw from "../../assets/icons/gray paw.png";
 import GoalCard from "../../components/Card/GoalCard";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
-import { getSavingsGoalList } from "../../api/investAPI";
+import { getSavingsGoalList, recommendGoal } from "../../api/investAPI";
 import useUserStore from "../../store/UseUserStore";
 
 const InvestPet = () => {
@@ -22,6 +22,8 @@ const InvestPet = () => {
   const { data: SavingGoalList } = useQuery("goalsList", () =>
     getSavingsGoalList(token)
   );
+
+  const { data: recommend } = useQuery("recommend", () => recommendGoal(token));
 
   return (
     <div className="h-full pt-6 px-4 bg-gray-0 overflow-auto">
@@ -45,6 +47,10 @@ const InvestPet = () => {
           </div>
         </div>
         <img src={chevronRight} className="w-[18px] " />
+      </div>
+
+      <div className="w-full h-[40px] bg-blue-000 flex justify-center items-center font-semibold text-blue-100 text-[14px] rounded-md cursor-pointer my-[14px]">
+        추천 목표 : {recommend?.data?.recommend}
       </div>
       {/*  */}
       <div className=" bg-gray-100 h-2 w-full my-3" />
@@ -85,12 +91,15 @@ const InvestPet = () => {
 
       {!SavingGoalList && (
         <div className="w-full h-[440px] flex justify-center itmes-center flex-col">
-          <h1 className="mb-5 text-3 text-gray-300 font-semibold">
-            현재 저축 목표가 없습니다
-          </h1>
-          <h1 className="text-4 text-gray-300 font-semibold">
-            저축 목표를 추가해보세요
-          </h1>
+          <div>
+            {" "}
+            <h1 className="mb-5 text-3 text-gray-300 font-semibold">
+              현재 저축 목표가 없습니다
+            </h1>
+            <h1 className="text-4 text-gray-300 font-semibold">
+              저축 목표를 추가해보세요
+            </h1>
+          </div>
         </div>
       )}
 

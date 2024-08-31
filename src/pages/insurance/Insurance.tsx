@@ -35,7 +35,7 @@ const Insurance = () => {
 
   return (
     <div className="h-full flex flex-col pt-6 px-4 bg-gray-0 ">
-      <TopBar pre={""} title={"펫 금융상품 알아보기"} skip={""} />
+      <TopBar pre={"/"} title={"펫 금융상품 알아보기"} skip={""} />
       {/* 아롱이 */}
       <div className="flex justify-between items-center">
         <div>
@@ -108,12 +108,6 @@ const Insurance = () => {
       {/* 리스트 */}
       <div className="flex-col overflow-y-auto">
         <ul>
-          {/* <InsuranceCard
-            companyImage={hanhwa}
-            title="한화손해보험"
-            price={"52000"}
-            insuranceId={1}
-          /> */}
           {insuranceList.map((data: IInsuranceCard, i: number) => (
             <InsuranceCard
               key={i}

@@ -22,7 +22,13 @@ export const AccountInfoCard = (props: accountInfo) => {
         {formattedDate} <span className="text-gray-400">{formattedTime}</span>
       </p>
       <div className="flex justify-between">
-        <p className="font-medium text-lg">{props.transactionMemo}</p>
+        {props.transactionMemo === "투자계좌" ? (
+          <p className="font-medium text-lg">
+            {props.transactionMemo} {props.transactionSummary}
+          </p>
+        ) : (
+          <p className="font-medium text-lg">{props.transactionMemo}</p>
+        )}
         <div className="text-right space-y-1">
           {props.transactionSummary === "입금" ? (
             <p className="text-lg text-red-500  font-semibold">

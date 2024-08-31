@@ -15,9 +15,9 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 const CalendarView = () => {
   const today = new Date();
   const [date, setDate] = useState<Value>(today);
-  const [year, setYear] = useState(0);
-  const [month, setMonth] = useState(0);
-  const [day, setDay] = useState(0);
+  const [year, setYear] = useState(today.getFullYear());
+  const [month, setMonth] = useState(today.getMonth() + 1);
+  const [day, setDay] = useState(today.getDate());
   const [activeStartDate, setActiveStartDate] = useState<Date | null>(
     new Date()
   );
@@ -64,7 +64,8 @@ const CalendarView = () => {
 
       console.log(moment(selectedDate).format("YYYY-MM-DD"));
 
-      if (selectedDate > today) {
+      // Disable the button for all dates except today
+      if (selectedDate.toDateString() !== today.toDateString()) {
         setIsButtonDisabled(true);
       } else {
         setIsButtonDisabled(false);

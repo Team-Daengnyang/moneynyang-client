@@ -138,7 +138,7 @@ export const Main = () => {
   }
 
   return (
-    <div className="h-full pt-6 px-4 bg-[#F8F8F8] overflow-auto pb-[70px]">
+    <div className="h-full pt-6 px-4 bg-[#F8F8F8] overflow-auto pb-[70px] relative">
       <div className="space-y-5 ">
         <img src={logo} alt="" className="h-5 my-2 " />
         <div className="space-y-3 flex flex-col justify-between ">
@@ -254,14 +254,14 @@ export const Main = () => {
             <img src={rightAngle} alt="" className="w-5" />
           </div>
           {/* 챗봇 */}
-          <div
-            onClick={() => {
-              enterChat(token);
-              navigate("/chatbot");
-            }}
-            className="flex justify-end cursor-pointer"
-          >
-            <div className="flex items-center justify-center w-[56px] h-[56px] border border-gray-200 rounded-full">
+          <div className="flex justify-end cursor-pointer fixed bottom-20 right-4">
+            <div
+              onClick={() => {
+                enterChat(token);
+                navigate("/chatbot");
+              }}
+              className="flex bg-gray-0 items-center justify-center w-[56px] h-[56px] border border-gray-200 rounded-full shadow-lg"
+            >
               <img src={chatIcon} />
             </div>
           </div>

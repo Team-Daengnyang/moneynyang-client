@@ -300,3 +300,18 @@ export const withdrawGoal = async (token: string, targetId: number) => {
     console.log("완료 목표 출금하기 에러 : ", error);
   }
 };
+
+export const recommendGoal = async (token: string) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/api/v1/targets/recommend`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+    console.log("추천 목표 : ", response.data);
+    return response.data;
+  } catch (error) {
+    console.log("목표 추천 에러 : ", error);
+  }
+};

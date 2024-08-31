@@ -44,3 +44,18 @@ export const getMonthDiary = async (token: string, date: string) => {
     console.log("", error);
   }
 };
+
+export const getUserStats = async (token: string) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/api/v1/cashwalks/stats`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+    console.log("유저 스탯 조회 : ", response.data.data);
+    return response.data.data;
+  } catch (error) {
+    console.log("유저 스탯 조회 에러 : ", error);
+  }
+};

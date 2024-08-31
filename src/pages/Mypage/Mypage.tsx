@@ -8,6 +8,7 @@ export const Mypage = () => {
   const navigate = useNavigate();
   const { setToken } = useUserStore((state) => ({
     setToken: state.setToken,
+    userInfo: state.userInfo,
   }));
   const clearUserIdStorage = useUserStore.persist.clearStorage;
 

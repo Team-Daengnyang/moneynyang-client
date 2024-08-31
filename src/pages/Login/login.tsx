@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import loginlogo from "../../assets/Login/loginLogo.png";
 // import loginimg from "../../assets/Login/loginImg.png";
-import LoginLottie from "../../utils/loginLottie";
+import LoginLottie from "../../utils/LoginLottie";
 
 export const Login = () => {
   const navigate = useNavigate();

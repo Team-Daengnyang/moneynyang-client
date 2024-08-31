@@ -1,7 +1,7 @@
 import { TopBar } from "../../components/Topbar";
 import moneyBag from "../../assets/images/money bag.png";
 import chevronRight from "../../assets/icons/chevronRight.png";
-import sampleDog from "../../assets/images/sampleDog.jpg";
+
 import paw from "../../assets/icons/gray paw.png";
 import GoalCard from "../../components/Card/GoalCard";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +16,8 @@ const InvestPet = () => {
     petInfo: state.petInfo,
     userInfo: state.userInfo,
   }));
+
+  console.log(petInfo);
 
   const { data: SavingGoalList } = useQuery("goalsList", () =>
     getSavingsGoalList(token)
@@ -67,7 +69,7 @@ const InvestPet = () => {
           </div>
         </div>
         <img
-          src={sampleDog}
+          src={petInfo.petImage}
           className="w-[78px] h-[78px] rounded-full object-cover"
         />
       </div>

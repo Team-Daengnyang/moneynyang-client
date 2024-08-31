@@ -1,11 +1,15 @@
 import { TopBar } from "../../components/Topbar";
-import sampleDog from "../../assets/images/sampleDog.jpg";
 import pawCalendar from "../../assets/images/pawCalendar.png";
 import chevronRight from "../../assets/icons/chevronRight.png";
 import { useNavigate } from "react-router-dom";
+import useUserStore from "../../store/UseUserStore";
 
 const CashWalk = () => {
   const navigate = useNavigate();
+  const { petInfo } = useUserStore((state) => ({
+    petInfo: state.petInfo,
+  }));
+
   return (
     <div className="h-full pt-6 px-4 bg-gray-0 ">
       <TopBar pre={"/"} skip={""} title={"산책 캐시워크"} />
@@ -21,7 +25,7 @@ const CashWalk = () => {
 
         <div className=" left-4 bottom-4 flex items-center min-w-full absolute">
           <img
-            src={sampleDog}
+            src={petInfo.petImage}
             alt=""
             className="w-[108px] h-[108px] rounded-full object-cover mr-[119px]"
           />

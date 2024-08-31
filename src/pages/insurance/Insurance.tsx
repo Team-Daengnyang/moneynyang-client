@@ -1,16 +1,15 @@
 import { useState } from "react";
 import { TopBar } from "../../components/Topbar";
-import sampleDog from "../../assets/images/sampleDog.jpg";
 import idea from "../../assets/icons/Idea.png";
 import InsuranceCard from "../../components/Card/InsuranceCard";
-import hanhwa from "../../assets/images/hanhwa.png";
 import useUserStore from "../../store/UseUserStore";
 import { useQuery } from "react-query";
 import { getInsuranceDatas } from "../../api/insuranceAPI";
 
 const Insurance = () => {
   const [isLeft, setIsLeft] = useState(true);
-  const { token } = useUserStore((state) => ({
+  const { petInfo, token } = useUserStore((state) => ({
+    petInfo: state.petInfo,
     token: state.token,
   }));
 
@@ -40,13 +39,13 @@ const Insurance = () => {
       {/* 아롱이 */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-[20px] font-semibold">아롱이</h1>
+          <h1 className="text-[20px] font-semibold">{petInfo.petName}</h1>
           <span className="text-[14px] text-gray-400 ">
-            여아 | 말티즈 | 19.12.04
+            {petInfo.petGender} | {petInfo.specie} | {petInfo.petBirth}
           </span>
         </div>
         <img
-          src={sampleDog}
+          src={petInfo.petImage}
           className="w-[78px] h-[78px] rounded-full object-cover"
         />
       </div>
@@ -109,12 +108,12 @@ const Insurance = () => {
       {/* 리스트 */}
       <div className="flex-col overflow-y-auto">
         <ul>
-          <InsuranceCard
+          {/* <InsuranceCard
             companyImage={hanhwa}
             title="한화손해보험"
             price={"52000"}
             insuranceId={1}
-          />
+          /> */}
           {insuranceList.map((data: IInsuranceCard, i: number) => (
             <InsuranceCard
               key={i}

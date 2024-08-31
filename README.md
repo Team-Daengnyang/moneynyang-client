@@ -9,6 +9,21 @@
 
 > **개발 버전** : [https://moneynyang.site/](https://moneynyang.site/)
 
+## 필수 요구 사항
+
+- Node.js (v14 이상)
+- npm 또는 yarn
+
+## 시작하기
+
+### 1. 저장소 클론
+
+먼저, 이 저장소를 클론합니다:
+
+```bash
+git clone https://github.com/username/repository-name.git
+```
+
 ## Stacks 🐈
 
 ### Environment

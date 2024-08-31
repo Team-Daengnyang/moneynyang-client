@@ -4,22 +4,22 @@ import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { Chart } from "./Chart";
 
-interface dataDetail {
-  mostUsed: string;
-  pet: number;
-  petRate: number;
-  food: number;
-  foodRate: number;
-  shopping: number;
-  shoppingRate: number;
-  transportation: number;
-  transportationRate: number;
-  others: number;
-  othersRate: number;
-  total: number;
-  petPayCount: number;
-  beforeExist: boolean;
-}
+// interface dataDetail {
+//   mostUsed: string;
+//   pet: number;
+//   petRate: number;
+//   food: number;
+//   foodRate: number;
+//   shopping: number;
+//   shoppingRate: number;
+//   transportation: number;
+//   transportationRate: number;
+//   others: number;
+//   othersRate: number;
+//   total: number;
+//   petPayCount: number;
+//   beforeExist: boolean;
+// }
 
 export const AccountData = () => {
   // const navigate = useNavigate();

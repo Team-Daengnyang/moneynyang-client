@@ -260,6 +260,27 @@ export const updateAccount = async (request: updateRequest, token: string) => {
   }
 };
 
+export const updateColor = async (newColor: string, token: string) => {
+  try {
+    const response = await axios.patch(
+      `${BASE_URL}/api/v1/accounts/update-color`,
+      {
+        newColor,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(response);
+    return response.data.data;
+  } catch (error) {
+    console.log("색상 업데이트 에러 : ", error);
+    throw error;
+  }
+};
+
 //완료된 저축 목표 출금하기(금융)
 export const withdrawGoal = async (token: string, targetId: number) => {
   try {

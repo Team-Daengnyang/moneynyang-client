@@ -123,7 +123,7 @@ const GoalCard = ({
                   },
                 });
               }}
-              className="bg-blue-100 flex items-center justify-center py-2 px-4 rounded-[99px] text-gray-0 text-[14px] h-[36px] w-[100px]"
+              className="bg-blue-100 flex items-center justify-center py-2 px-4 rounded-[99px] text-gray-0 text-[14px] h-[36px] w-[110px]"
             >
               입금하기
             </button>
@@ -132,7 +132,7 @@ const GoalCard = ({
               onClick={async () => {
                 mutation2.mutate();
               }}
-              className="bg-blue-100 flex items-center justify-center py-2 px-4 rounded-[99px] text-gray-0 text-[14px] h-[36px] w-[100px]"
+              className="bg-blue-100 flex items-center justify-center py-2 px-4 rounded-[99px] text-gray-0 text-[14px] h-[36px] w-[110px]"
             >
               출금하기
             </button>

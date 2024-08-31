@@ -148,7 +148,8 @@ export const Tutorial = () => {
       <div className="absolute flex justify-center items-center top-0 left-0 w-full h-full bg-black bg-opacity-80 z-10">
         <img src={blueStick} className="absolute top-[316px] z-40" />
         <h1 className="text-gray-0 text-[14px] absolute auto top-[394px]">
-          화면 터치 시 메인 화면으로 이동합니다
+          자동 생성되는 테스트 계좌로 <br />
+          회원 가입 시 100만원이 입금되어 있습니다.
         </h1>
 
         <h1 className="text-gray-0 text-[14px] absolute auto bottom-[120px]">

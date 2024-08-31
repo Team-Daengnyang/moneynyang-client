@@ -53,8 +53,8 @@ export const getUserStats = async (token: string) => {
         "Content-Type": "application/json",
       },
     });
-    console.log("유저 스탯 조회 : ", response.data);
-    return response.data;
+    console.log("유저 스탯 조회 : ", response.data.data);
+    return response.data.data;
   } catch (error) {
     console.log("유저 스탯 조회 에러 : ", error);
   }

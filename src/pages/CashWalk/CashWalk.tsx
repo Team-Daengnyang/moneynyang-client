@@ -39,7 +39,7 @@ const CashWalk = () => {
           </h1>
           <h1 className="text-[18px] font-medium">{petInfo.petName}의 일지</h1>
           <span className="text-[36px] font-medium mr-1">
-            {data.totalDiaries}
+            {data?.totalDiaries}
           </span>
           <span className="text-[18px] font-semibold text-gray-400">
             개의 기록
@@ -58,7 +58,7 @@ const CashWalk = () => {
             </div>
             <div
               className="bg-blue-100 rounded-lg w-[45px]"
-              style={{ height: `${data.achievementRate * 4}px` }}
+              style={{ height: `${data.achievementRate * 1.5}px` }}
             ></div>
             <h1>작성률</h1>
           </div>

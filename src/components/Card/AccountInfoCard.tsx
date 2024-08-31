@@ -7,6 +7,7 @@ interface accountInfo {
   transactionBalance: number;
   transactionAfterBalance: number;
   transactionSummary: string; // 입금 출금
+  transactionMemo: string;
 }
 
 export const AccountInfoCard = (props: accountInfo) => {
@@ -21,9 +22,15 @@ export const AccountInfoCard = (props: accountInfo) => {
         {formattedDate} <span className="text-gray-400">{formattedTime}</span>
       </p>
       <div className="flex justify-between">
-        <p className="font-medium text-lg">최승빈</p>
+        {props.transactionMemo === "투자계좌" ? (
+          <p className="font-medium text-lg">
+            {props.transactionMemo} {props.transactionSummary}
+          </p>
+        ) : (
+          <p className="font-medium text-lg">{props.transactionMemo}</p>
+        )}
         <div className="text-right space-y-1">
-          {props.transactionSummary === "(수시입출금) : 입금(이체)" ? (
+          {props.transactionSummary === "입금" ? (
             <p className="text-lg text-red-500  font-semibold">
               +{Number(props.transactionBalance).toLocaleString()}원
             </p>
@@ -32,20 +39,6 @@ export const AccountInfoCard = (props: accountInfo) => {
               -{Number(props.transactionBalance).toLocaleString()}원
             </p>
           )}
-
-          {/* <p className="text-lg text-main-color font-semibold">
-            {props.transactionSummary === "(수시입출금) : 입금(이체)"
-              ? "+"
-              : "-"}
-            {Number(props.transactionBalance).toLocaleString()}원
-          </p>
-
-          <p className="text-lg text-red-500 font-semibold">
-            {props.transactionSummary === "(수시입출금) : 입금(이체)"
-              ? "+"
-              : "-"}
-            {Number(props.transactionBalance).toLocaleString()}원
-          </p> */}
           <p className="text-gray-500 font-medium">
             잔액 {Number(props.transactionAfterBalance).toLocaleString()}원
           </p>

@@ -14,8 +14,9 @@ export const decrement = (currentDate: Date) => {
 
 export const getDate = (currentDate: Date) => {
   const year = currentDate.getFullYear();
-  const month = currentDate.toLocaleString("default", { month: "long" });
-  return { year, month };
+  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+  const cleanedMonth = month.replace("월", ""); // "월" 제거
+  return { year, cleanedMonth };
 };
 
 export const getRangeDate = (currentDate: Date) => {

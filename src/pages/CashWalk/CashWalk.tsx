@@ -12,12 +12,15 @@ const CashWalk = () => {
   }));
 
   const [headerText, setHeaderText] = useState("");
+  const [typeText, setTypeText] = useState("");
 
   useEffect(() => {
     if (petInfo.petType == "강아지") {
       setHeaderText("산책일지 기록");
+      setTypeText("산책");
     } else {
       setHeaderText("관찰일지 기록");
+      setTypeText("관찰");
     }
   }, []);
 
@@ -51,9 +54,9 @@ const CashWalk = () => {
           </div>
         </div>
       </div>
-      <h1 className="my-2 text-[12px] font-medium text-gray-400">
+      {/* <h1 className="my-2 text-[12px] font-medium text-gray-400">
         만 걸음을 채워서 100%를 완성해 보세요
-      </h1>
+      </h1> */}
       <div
         onClick={() => {
           navigate("/cashwalk/calendar");
@@ -64,10 +67,10 @@ const CashWalk = () => {
           <img src={pawCalendar} className="w-[42px] mr-2" />
           <div className="flex flex-col">
             <span className="font-semibold text-[16px] text-blue-100">
-              산책 일지 확인하기
+              {typeText} 일지 확인하기
             </span>
             <span className="font-medium text-[14px] text-gray-500">
-              산책을 기록할 수 있어요
+              {typeText}을 기록할 수 있어요
             </span>
           </div>
         </div>

@@ -24,7 +24,7 @@ import 부산 from "../../assets/bankLogo/부산.png";
 import 우리 from "../../assets/bankLogo/우리.png";
 import 전북 from "../../assets/bankLogo/전북.png";
 import 제주 from "../../assets/bankLogo/제주.png";
-import 토스 from "../../assets/bankLogo/토스.webp";
+import 토스 from "../../assets/bankLogo/토스.jpg";
 import 하나 from "../../assets/bankLogo/하나.png";
 import 한국 from "../../assets/bankLogo/한국.jpg";
 import 신한 from "../../assets/bankLogo/shinhan.png";

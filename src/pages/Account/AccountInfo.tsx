@@ -44,6 +44,7 @@ interface accountInfo {
   transactionBalance: number;
   transactionAfterBalance: number;
   transactionSummary: string; // 입금 출금
+  transactionMemo: string;
 }
 
 export const AccountInfo = () => {
@@ -58,7 +59,7 @@ export const AccountInfo = () => {
     accountBalance: "",
     bankName: "",
   });
-  const { year, month } = getDate(currentDate);
+  const { year, cleanedMonth } = getDate(currentDate);
   const [infoList, setInfoList] = useState<accountInfo[]>([]);
 
   const getInfo = async () => {
@@ -177,7 +178,7 @@ export const AccountInfo = () => {
             className="text-gray-400 text-lg"
             onClick={() => setCurrentDate(decrement(currentDate))}
           />
-          <p className="font-medium">{`${year}년 ${month}`}</p>
+          <p className="font-medium">{`${year}년 ${cleanedMonth}월`}</p>
           <FontAwesomeIcon
             icon={faAngleRight}
             className="text-gray-400 text-lg"

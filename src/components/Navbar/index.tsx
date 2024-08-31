@@ -32,7 +32,7 @@ export const Navbar = () => {
         style={{ cursor: "pointer" }}
         onClick={() => navigate("/pay")}
       >
-        <div className="grid place-items-center">
+        <div className="flex flex-col place-items-center place-content-center">
           <div className="absolute bottom-8 rounded-full p-4 bg-gradient-to-b from-[#FFC436] to-[#FFAF36] z-10">
             <img src={card} className="w-6 h-6" />
           </div>

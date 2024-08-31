@@ -18,7 +18,7 @@ const SignupPages = () => {
     }
   });
   return (
-    <div className="w-[360px] h-[780px] relative">
+    <div className="h-[100vh] relative">
       <Routes>
         <Route path="/" element={<Signup />} />
         <Route path="/animal" element={<AnimalInfo />} />

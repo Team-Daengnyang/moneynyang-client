@@ -36,7 +36,12 @@ export const Mypage = () => {
         <hr className="border-4 border-[#F4F4F4]" />
         {/* 메뉴 리스트 */}
         <div>
-          <div className="flex justify-between py-3">
+          <div
+            className="flex justify-between py-3"
+            onClick={() => {
+              navigate("/mypage/account");
+            }}
+          >
             <p className="font-semibold text-sm">계좌 관리</p>
             <img
               src={rightAngle}

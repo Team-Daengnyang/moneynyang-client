@@ -36,7 +36,7 @@ const Insurance = () => {
 
   return (
     <div className="h-full flex flex-col pt-6 px-4 bg-gray-0 ">
-      <TopBar title={"펫 금융상품 알아보기"} skip={""} pre={"/"} />
+      <TopBar pre={""} title={"펫 금융상품 알아보기"} skip={""} />
       {/* 아롱이 */}
       <div className="flex justify-between items-center">
         <div>

@@ -15,15 +15,9 @@ export interface IGoalCard {
   to: string;
   currentMoney: number;
   goalMoney: number;
-  // depositDatas: depositData[];
   targetId: number;
   isDone: boolean;
 }
-
-// type depositData = {
-//   date: string;
-//   amount: number;
-// };
 
 const GoalCard = ({
   title,
@@ -31,7 +25,6 @@ const GoalCard = ({
   to,
   currentMoney,
   goalMoney,
-  // depositDatas,
   targetId,
   isDone,
 }: IGoalCard) => {
@@ -41,29 +34,26 @@ const GoalCard = ({
   const [moveX, setMoveX] = useState(0);
   const token = useUserStore((state) => state.token);
   const queryClient = useQueryClient();
+
   const mutation = useMutation(() => deleteGoal(targetId, token), {
     onSuccess: () => {
       console.log(` ${targetId}번 목표 삭제 성공`);
-      //삭제한 뒤 골리스트 쿼리 무효화하여 데이터 갱신
       queryClient.invalidateQueries("goalsList");
     },
     onError: () => {
       console.log("삭제 중 에러 발생");
     },
-    // retry: 2,
     retryDelay: 1000,
   });
 
   const mutation2 = useMutation(() => withdrawGoal(token, targetId), {
     onSuccess: () => {
       console.log(`성공 목표 출금 완료요~~`);
-      //삭제한 뒤 골리스트 쿼리 무효화하여 데이터 갱신
       queryClient.invalidateQueries("goalsList");
     },
     onError: () => {
       console.log("출금 중 에러 발생");
     },
-    // retry: 2,
     retryDelay: 1000,
   });
 
@@ -72,12 +62,29 @@ const GoalCard = ({
   );
 
   const navigate = useNavigate();
-
   const progressPercent = Math.min((currentMoney / goalMoney) * 100, 100);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setIsClicked(true);
+    setStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (isClicked) {
+      if (e.touches[0].clientX - startX < -30) {
+        setMoveX(-80);
+      } else {
+        setMoveX(0);
+      }
+    }
+  };
+
+  const handleTouchEnd = () => {
+    setIsClicked(false);
+  };
 
   return (
     <div className="relative">
-      {/* 목표 */}
       <div
         onMouseDown={(e) => {
           setIsClicked(true);
@@ -95,13 +102,15 @@ const GoalCard = ({
         onMouseUp={() => {
           setIsClicked(false);
         }}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
         style={{
           transform: `translateX(${moveX}px)`,
           transition: "transform 0.3s ease",
         }}
         className="relative z-10 p-4 bg-gray-50 rounded-lg border-2 border-solid border-gray-200 my-2"
       >
-        {/* 목표치 */}
         <div className="flex justify-between items-center space-x-5">
           <div className="w-full">
             <h1 className="text-[14px] font-semibold">{title}</h1>
@@ -137,22 +146,8 @@ const GoalCard = ({
               출금하기
             </button>
           )}
-
-          {/* <div
-            onClick={() => {
-              navigate("/invest/deposit", {
-                state: {
-                  title: title,
-                  targetId,
-                },
-              });
-            }}
-            className="bg-blue-100 flex items-center justify-center py-2 px-4 rounded-[99px] text-gray-0 text-[14px] w-[100px] border-box "
-          >
-            입금하기
-          </div> */}
         </div>
-        {/* progress bar */}
+
         <div className="w-full h-2 bg-gray-200 my-3 rounded-full relative">
           <div
             className="h-full bg-blue-100 rounded-full absolute left-0"
@@ -160,14 +155,12 @@ const GoalCard = ({
           ></div>
         </div>
         <hr className="my-4" />
-        {/* 저축 내역 보기 */}
         <div>
           <div
             className={`flex flex-col items-center justify-center transition-all duration-300 overflow-hidden ${
               isOpen ? "max-h-[500px]" : "max-h-0"
             }`}
           >
-            {/* 각 입금 내역 */}
             {depositDatas?.data.map((data, i: number) => (
               <div className="mb-4 w-full flex gap-7" key={i}>
                 <span className="font-semibold text-[14px] text-gray-500">
@@ -193,7 +186,7 @@ const GoalCard = ({
           </div>
         </div>
       </div>
-      {/* 삭제 or 완료 */}
+
       {!isDone ? (
         <div
           onClick={() => {
@@ -207,9 +200,6 @@ const GoalCard = ({
         </div>
       ) : (
         <div
-          // onClick={() => {
-          //   mutation.mutate();
-          // }}
           className="absolute right-0 top-0 w-[72px] h-[168px] rounded-md flex items-center justify-center gap-1 flex-col  cursor-pointer z-[1]"
           style={{ backgroundColor: "#005EED" }}
         >
@@ -217,16 +207,6 @@ const GoalCard = ({
           <h1 className="text-gray-0 text-[14px]">달성</h1>
         </div>
       )}
-      {/* <div
-        onClick={() => {
-          mutation.mutate();
-        }}
-        className="absolute right-0 top-0 w-[72px] h-[168px] rounded-md flex items-center justify-center gap-1 flex-col  cursor-pointer z-[1]"
-        style={{ backgroundColor: "#FF6E6E" }}
-      >
-        <img src={trash} className="w-[24px]" />
-        <h1 className="text-gray-0 text-[14px]">삭제</h1>
-      </div> */}
     </div>
   );
 };
